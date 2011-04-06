@@ -1,0 +1,257 @@
+" {{{ anrxc's vimperator configuration with Emacs bindings
+"
+" Bindings
+"   * http://sysphere.org/~anrxc/j/articles/vimperator/index.html
+
+" Todo
+"  * C-n and C-p in "INSERT (menu)" mode
+"    * http://code.google.com/p/vimperator-labs/issues/detail?id=36
+
+" License
+"  * http://creativecommons.org/publicdomain/zero/1.0
+" }}}
+
+
+" {{{ Options
+"
+" User styles as colorschemes in Vimperator 2
+colorscheme zenburn
+
+" Window title
+set titlestring=Firefox
+
+" No toolbars or menus by default
+set toolbars=noaddons,nobookmarks,nomenu,nonavigation,tabs
+
+" Elements of the status line
+set status=input,location,tabcount,position
+
+" Editor, C-i invokes it in text fields
+set editor=emacsclient
+
+" Command line and search patterns history
+set history=10000
+
+" Show pattern matches as you type
+set incsearch
+
+" Hilight previous search pattern matches
+set hlsearch
+
+" Override ignorecase if pattern has uppercase chars
+set smartcase
+
+" Focus content after a page has loaded
+set focuscontent
+
+" Show destination links in 1=status line, 2=command line, 0=none (FF4 baloon)
+set showstatuslinks=0
+
+" Show completions and use AwesomeBar (+search plugins)
+set autocomplete
+set complete=sl
+
+" Ex commands output in a new tab by default (prefs, addons...)
+set newtab=all
+
+" Internal default search engine is ignored, plugins are used
+set ds=yubnub
+" }}}
+
+
+" {{{ Key bindings
+"     - Emacs GTK key-theme and FF already provide bindings for input fields
+" 
+" M-x enters command mode
+noremap <A-x> :
+
+" Emacs navigation in command line and insert mode
+cmap <C-n> <Tab>
+cmap <C-p> <S-Tab>
+cmap <C-f> <Right>
+cmap <C-b> <Left>
+cmap <C-j> <CR>
+noremap <C-j> <CR>
+inoremap <C-j> <CR>
+inoremap <C-n> <Down>
+inoremap <C-p> <Up>
+inoremap <C-f> <Right>
+inoremap <C-b> <Left>
+
+" Use C-f and C-b for tab browsing
+noremap <C-f> <C-n>
+noremap <C-b> <C-p>
+
+" Use C-a and C-e to jump to first/last tab
+"noremap <C-a> g0
+"noremap <C-e> g$
+"
+" Or use them to go to the absolute left/right of the document
+noremap <C-a> 0
+noremap <C-e> $
+
+" Use C-p and C-n for up/down
+noremap <C-p> 2k
+noremap <C-n> 2j
+
+" Use C-v and M-v for jump scrolling
+noremap <C-v> <C-d>
+noremap <A-v> <C-u>
+
+" Goto the top of the document with M-<
+noremap <A-<> gg
+
+" Goto the end of the document with M->
+noremap <A->> G
+
+" Use C-s and C-r for searching (n/N for next/prev as in less)
+noremap <C-s> /
+noremap <C-r> ?
+
+" Copy the current URL to the clipboard with M-w
+noremap <A-w> y
+"
+" Copy selected text to the clipboard with C-w 
+noremap <C-w> Y
+
+" Paste the current clipboard selection to a new buffer with C-y
+noremap <C-y> P
+
+" Use current URL as a start for a new location with C-x C-v
+noremap <C-x><C-v> O
+
+" C-g as cancel (C-q is stop)
+cmap <C-g> <Esc>
+imap <C-g> <Esc>
+noremap <C-g> <Esc>
+
+" Avoid Find dialog when canceling a started command, C-x C-g
+noremap <C-x><C-g> <Esc>
+"
+" Avoid quit on C-q, and it's more suitable for Stop here
+noremap <C-q> :stop<CR>
+
+" Kill the buffer with C-x k
+noremap <C-x>k d
+
+" Undo close tab with C-_ (also with C-Shift-t, as C-t is new tab)
+noremap <C-_> u
+
+" Exit and save the session with C-x C-c
+noremap <C-x><C-c> ZZ
+
+" Buffer lists with C-x b and C-x C-b
+noremap <C-x>b b
+noremap <C-x><C-b> B
+
+" Open a link in a new tab with C-x t
+" Open a link in the current tab with C-x l
+noremap <C-x>t :t<SPACE>
+noremap <C-x>l :o<SPACE>
+
+" Open hints in new tab by default (switch roles of f and F)
+"noremap f F
+"noremap F f
+
+" Switch hints to letter "j", for right hand usage
+noremap j f
+noremap J F
+"
+" Extended hint mode with M-j
+"  ; - focus link, a - save, y - copy link, O - :open query, T - for :tabopen ...
+noremap <A-j> ;
+
+" We can now also use F for Shift+b/f as back/forward
+noremap F L
+noremap B H
+
+" Back with Backspace as well
+map <BS> H
+
+" Use C-h i to start help
+noremap <C-h>i :help<CR>
+
+" Record a key sequence into a macro with C-x (
+noremap <C-x>( q
+
+" Play a macro with C-x e
+noremap <C-x>e @
+
+" Set a mark at the cursor with C-x r m
+noremap <C-x>rm m
+
+" Jump to the mark in the current buffer with C-x r b
+noremap <C-x>rb '
+
+" C-v was pass-next, remap to bind with default keys
+noremap <C-d> <C-v>
+"
+" C-x C-f starts the "Open File" dialog (C-x C-s is Save)
+map <C-x><C-f> <C-d><C-o>
+
+
+" {{{ Personal key bindings
+"
+" M-Up/Dn toggles the toolbar and scrollbars
+map <A-Down> :set toolbars=navigation<CR>
+map <A-Up> :set toolbars=nonavigation<CR>
+
+" Sidebar selection with s, close with S
+map s :sidebar<SPACE>
+map S :sbclose<CR>
+
+" Dialog selection with d
+map d :dialog<SPACE>
+
+" Focus the address bar with C-l
+map <C-l> <C-d><C-l>
+
+" Focus last used input field with C-c i
+map <C-c>i gi
+
+" Add a bookmark with C-c a (dialog)
+map <C-c>a <C-d><C-d>
+
+" Bookmarks search, and search by tag
+map <C-c>q :bmarks<SPACE>
+map <C-c>w :bmarks -tags=
+
+" View source with C-c g, and
+map <C-c>g gf
+" ... in an editor with C-c e
+map <C-c>e gF
+
+" Open picture location with C-c p
+map <C-c>p ;i
+
+" Open context menu with C-c m
+map <C-c>m ;c
+
+" Open home directory with C-c f
+map <C-c>f ~
+
+" Go to home page with C-c h
+map <C-c>h gh
+
+" Go to parent directory with C-c u
+map <C-c>u gu
+
+" Go to the root of the website with C-c C-u
+map <C-c><C-u> gU
+
+" Restart with C-c C-r
+map <C-c><C-r> :restart<CR>
+
+" Tab moving helpers
+map <A-m> :tabmove<SPACE>
+map <A-Left> :tabmove! -1<CR>
+map <A-Right> :tabmove! +1<CR>
+" }}}
+
+
+" {{{ Plugin bindings
+"
+" Noscript
+map <C-c>s :noscript toggletemp<CR>
+map <C-c>S :noscript popup<CR>
+" }}}
