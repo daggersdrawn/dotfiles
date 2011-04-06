@@ -1,6 +1,5 @@
 ! anrxc X application resource database
 
-
 !{{{ XFT
 Xft.dpi:       96
 Xft.antialias: 1
@@ -27,6 +26,7 @@ urxvt*saveLines:         65535
 urxvt*cursorBlink:       false
 !urxvt*cursorUnderline:   true
 urxvt*urgentOnBell:       true
+urxvt*visualBell:        false
 !urxvt*override-redirect:false
 !urxvt*borderLess:       false
 !urxvt*internalBorder:       0
