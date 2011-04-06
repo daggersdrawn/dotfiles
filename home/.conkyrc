@@ -1,0 +1,70 @@
+background yes
+font Monospace:size=8
+xftfont Monospace:size=9
+use_xft yes
+xftalpha 0.5
+update_interval 1.0
+total_run_times 0
+own_window yes
+own_window_type normal
+own_window_transparent yes
+own_window_hints undecorated,sticky,skip_taskbar,skip_pager
+double_buffer yes
+draw_shades yes
+draw_outline yes
+draw_borders no
+draw_graph_borders no
+minimum_size 350
+maximum_width 350
+default_color ffffff
+default_shade_color 000000
+draw_outline no
+alignment top_right
+gap_x 10
+gap_y 70
+no_buffers yes
+cpu_avg_samples 2
+override_utf8_locale no
+uppercase no
+use_spacer none
+
+TEXT
+${image ~/arch-logo.png -p 18,0 -s 45x45}
+${goto 74}${font Poky:pixelsize=20}${font} ${voffset -16}Kernel: $kernel $machine
+${goto 82}Uptime: $uptime_short
+${goto 82}Battery:${voffset 3}${font Poky:pixelsize=22}${font}${color 98FB98}${voffset -8} ${battery_bar 7,80 BAT0}${color}
+
+${goto 33}${font :style=Bold:pixelsize=12}CPU1${voffset -3} ${font Poky:pixelsize=22}${font} ${voffset -6}${goto 100}${font 
+:style=Bold:pixelsize=14}${cpu CPU1}%${font} ${voffset -10}${cpugraph  CPU1 20,130 6eeeff 0004ff -t}
+
+${voffset -9}${goto 33}${font :style=Bold:pixelsize=12}CPU2${voffset -3} ${font Poky:pixelsize=22}${font}   ${voffset -5}${font 
+:style=Bold:pixelsize=14}${cpu CPU1}%${font} ${voffset -15}${cpugraph  CPU1 20,130 6eeeff 0004ff -t}
+
+
+
+${voffset -19} ${font Poky:pixelsize=32}${font}${voffset -22}${goto 30} RAM: $mem v $memmax
+${goto 40}${color A0CCFF}${membar 4,250}${color}
+${goto 30} Swap: $swap v $swapmax
+${goto 30} Load: ${color C7FF8E}$loadavg${color}
+${goto 30} Processes: ${color C7FF8E}$processes${color}
+${goto 30} Running: $running_processes ${color}
+
+${goto 30}${font Poky:pixelsize=40}${font}
+${goto 30}${voffset -40} Root: ${fs_free /} / ${fs_size /}
+${goto 40}${color 83A1FF}${fs_bar 4,150 /}${color}
+${goto 30} Home: ${fs_free /home} / ${fs_size /home}
+${goto 40}${color 83A1FF}${fs_bar 4,150 /home}${color}
+
+
+${if_up wlan0} ${goto 30}${voffset -20} essid:${wireless_essid 
+wlan0}${color 9FFCC0} ${wireless_link_bar 4,60 wlan0}${color}
+
+
+${goto 40}${font Poky:pixelsize=22}${font}${voffset -40}Download: ${downspeed wlan0}
+${goto 40}${voffset -6}${downspeedgraph wlan0 25,150 D9FFDF A5FEB3}
+${goto 40}${voffset -4}Upload: ${upspeed wlan0}
+${goto 40}${voffset -6}${upspeedgraph wlan0 25,150 FEC2A5 FA9C6F}
+${goto 40}${font Poky:pixelsize=22}${font}
+${goto 40}${voffset -26}Total:  down:${totaldown wlan0} 
+${goto 113}up:${totalup wlan0}
+${endif}

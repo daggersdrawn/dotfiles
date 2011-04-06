@@ -23,11 +23,10 @@ gnupglog="${HOME}/.gnupg/gpg-agent.info"
 if (cp /dev/null "${errorlog}"); then
   chmod 600 "${errorlog}"
   exec >"${errorlog}" 2>&1
-  break
 fi
 # }}}
 
-
+# Swap ctrl and caps
 setxkbmap -option ctrl:swapcaps
 
 # {{{ Input settings
