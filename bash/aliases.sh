@@ -135,8 +135,8 @@ alias e='emacs -nw '
 function ec {
     if ! ps aux | egrep 'emacs$' | grep -v grep > /dev/null;
         then emacs &
+        sleep 4
     fi
-    sleep 4
     emacsclient --no-wait "$PWD/$1"
 }
 

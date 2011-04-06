@@ -57,7 +57,7 @@ xsetroot -cursor_name left_ptr
 #fi
 
 # Start the GNU Emacs daemon
-[[ ! -r "/tmp/emacs${UID}/server" ]] && emacs --daemon &
+#[[ ! -r "/tmp/emacs${UID}/server" ]] && emacs --daemon &
 
 # Xwrits reminds you to take wrist breaks and avoid RSI
 xwrits typetime=45 clock breakclock top ready-picture="${HOME}/.xwrits/ready.gif" \
