@@ -26,16 +26,16 @@ if (cp /dev/null "${errorlog}"); then
 fi
 # }}}
 
+# {{{ Input settings
+# 
 # Swap ctrl and caps
 setxkbmap -option ctrl:swapcaps
 
-# {{{ Input settings
-# 
 # Keyboard control, repeat delay and repeat rate
 xset r rate 200 30
 
 # Pointer control, acceleration and threshold
-#xset m 30/10 4
+xset m 30/10 4
 
 # Pointer appearance
 #   - xcb does not support Xcursor yet
