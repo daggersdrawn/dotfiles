@@ -55,9 +55,9 @@ urxvt*cursorColor: #DCDCCC
 urxvt*.colorUL:    #ffffff
 !
 ! Pseudo Transparency
-!urxvt*shading:    50
-!urxvt*transparent:true
-! 
+urxvt*shading:    30
+urxvt*transparent:true
+!
 ! Zenburn color-scheme
 urxvt*background:  #3f3f3f
 urxvt*foreground:  #dcdccc
