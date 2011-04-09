@@ -1,0 +1,7 @@
+#!/bin/bash
+xrandr | grep DVI-I-1 | grep " 1600x1200+0+0 "
+if [ $? -eq 0 ]; then
+    xrandr --output DVI-I-1 --off
+else 
+    xrandr --output DVI-I-1 --auto
+fi

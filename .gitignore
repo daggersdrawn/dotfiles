@@ -1,3 +1,4 @@
 *.pyc
 *.orig
 home/.vimperator/info
+bin/mnt_drobo

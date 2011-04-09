@@ -1,0 +1,2 @@
+#!/bin/bash
+sudo mount -t cifs -o username=rizumu,password=secret //192.168.1.129/drobo /mnt/drobo
