@@ -5,6 +5,7 @@
 # actions:    
 #     pull
 #     push
+#     status
 #
 # antigravtiy syncs configuration for arch, awesome, and emacs.
 
