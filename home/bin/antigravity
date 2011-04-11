@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# usage: antigravity ACTION
+#
+# actions:    
+#     pull
+#     push
+#
+# antigravtiy syncs configuration for arch, awesome, and emacs.
+
+if [ "$1" == "--help" ]; then
+    sed -n -e '/^# usage:/,/^$/ s/^# \?//p' < $0
+    exit
+fi
+
+if [ "$1" == "" ]; then
+   echo -e "antigravity: missing file operand."
+   echo -e "Try \`antigravity --help' for more information."
+   exit
+fi
+
+echo -e "\033[1mantigravity transmission initiating.\033[0m\n"
+
+echo -e "✈ arch ✈" && cd ~/dotfiles/ && git $1
+echo -e "\n✈ awesome ✈" && cd ~/.config/awesome/ && git $1
+echo -e "\n✈ emacs ✈" && cd ~/.emacs.d/ && git $1
+
+echo -e "\n\033[1mantigravitiy transmission complete.\033[0m"
