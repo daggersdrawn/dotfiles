@@ -1,0 +1,2 @@
+#!/bin/bash
+echo "cd /home/rizumu/www/$1/$1/" >> /home/rizumu/.virtualenvs/$1/bin/postactivate
