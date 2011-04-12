@@ -3,7 +3,7 @@
 # {{{ Terminal
 Terminal = eval urxvt
 TermExec = ${Terminal} -e
-AlwaysInTerm = ssh telnet ftp links cplay mc pine alpine man irssi screen ipython
+AlwaysInTerm = ssh telnet ftp links cplay mc pine alpine man irssi screen ipython emacsclient mutt htop
 # }}}
 
 # {{{ Window
