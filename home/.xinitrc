@@ -69,8 +69,11 @@ urxvt -e screen -l -UDRS term &
 # Play a startup sound
 #ogg123 -q "${HOME}/.local/share/gajim/sounds/voices/voice-system-activated.ogg" &
 
-# this starts mpd as normal user
+# starts mpd as normal user
 mpd ~/.mpd/mpd.conf
+
+# xscreensaver
+/usr/bin/xscreensaver -no-splash &
 # }}}
 
 exec awesome

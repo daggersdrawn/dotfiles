@@ -27,7 +27,7 @@ alias cal='cal -3' #show 3 months by default
 alias units='units -t' #terse mode
 alias diff='LC_ALL=C TZ=GMT0 diff -Naur' #normalise diffs for distribution
 alias lynx='lynx -force_html -width=$COLUMNS' #best settings for viewing HTML
-alias l='ls -AF $LS_OPTIONS'       # Compact view, show hidden
+alias l='ls -AF $LS_OPTIONS'        # Compact view, show hidden
 alias la='ls -haliF $LS_OPTIONS'    # l for list style, a for all including hidden, h for human readable file sizes, i for inode to determine hardlinks
 alias ll='ls -lFh $LS_OPTIONS'      # Long view, no hidden
 alias ls='ls -GFp $LS_OPTIONS'      # Compact view, show colors
@@ -58,6 +58,21 @@ alias tu='top -o cpu' #cpu
 # use GREP_COLOR=7 to highlight whitespace on black terminals
 # LANG=C for speed. See also: http://www.pixelbeat.org/scripts/findrepo
 alias grep='GREP_COLOR="1;33;40" LANG=C grep --color=auto'
+
+# Pacman
+alias pacupg='sudo pacman -Syu'        # Synchronize with repositories before upgrading packages that are out of date on the local system.
+alias pacin='sudo pacman -S'           # Install specific package(s) from the repositories
+alias pacins='sudo pacman -U'          # Install specific package not from the repositories but from a file 
+alias pacre='sudo pacman -R'           # Remove the specified package(s), retaining its configuration(s) and required dependencies
+alias pacrem='sudo pacman -Rns'        # Remove the specified package(s), its configuration(s) and unneeded dependencies
+alias pacrep='pacman -Si'              # Display information about a given package in the repositories
+alias pacreps='pacman -Ss'             # Search for package(s) in the repositories
+alias pacloc='pacman -Qi'              # Display information about a given package in the local database
+alias paclocs='pacman -Qs'             # Search for package(s) in the local database
+alias pacupd='sudo pacman -Sy && sudo abs'     # Update and refresh the local package and ABS databases against repositories
+alias pacinsd='sudo pacman -S --asdeps'        # Install given package(s) as dependencies of another package
+alias pacmir='sudo pacman -Syy'                # Force refresh of all package lists after updating /etc/pacman.d/mirrorlist
+
 
 # Python
 alias delpyc='find . \( -name "*.pyc" -o -name "*.pyo" \) -exec rm -v {} \;'
