@@ -19,7 +19,7 @@ servers = (
 );
 
 chatnets = {
-  fnode    = { type = "IRC"; autosendcmd = "/msg nickserv identify xxx ;wait 2000"; max_msgs = "3"; };
+  fnode    = { type = "IRC"; autosendcmd = "/msg nickserv identify xxx ;wait 5000"; max_msgs = "3"; };
   oftc     = { type = "IRC"; max_msgs = "3"; };
   eldarion = { type = "IRC"; max_msgs = "3"; };
 };
