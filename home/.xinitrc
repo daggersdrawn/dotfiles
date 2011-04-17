@@ -31,6 +31,9 @@ fi
 # Swap ctrl and caps
 setxkbmap -option ctrl:swapcaps
 
+# Swap alt and super
+setxkbmap -device 12 -option altwin:swap_lalt_lwin
+
 # Keyboard control, repeat delay and repeat rate
 xset r rate 200 30
 
