@@ -2,13 +2,10 @@
 merge = changes
 username = Thomas Schreiber <tom@insatsu.us>
 editor = emacs
+merge = emacs
 
 [merge-tools]
-p4.priority = 100
-p4.premerge = True
-p4.executable = /Applications/p4merge.app/Contents/MacOS/p4merge
-p4.gui = True
-p4.args = $base $local $other $output
+emacs.args = -q --eval "(ediff-merge-with-ancestor \"$local\" \"$other\" \"$base\" nil \"$output\")"
 
 [extensions]
 color =
@@ -36,5 +33,8 @@ attend = help log glog diff cat heads incoming outgoing annotate
 path=~/.hgextensions/bin/hgk
 
 [extdiff]
-cmd.p4diff = p4merge
-
+cmd.cdiff = colordiff
+opts.cdiff = -uprN
+# add new command called ediff, runs emacs diff
+cmd.ediff = sh
+opts.ediff = -c 'if [ -d $0 ]; then emacsclient --no-wait --eval "(ediff-directories \"$0\" \"$1\" \"\")"; else emacs --eval "(ediff-files \"$0\" \"$1\")"; fi'
