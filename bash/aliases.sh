@@ -87,6 +87,7 @@ alias sl='screen -ls'
 
 # Git
 alias git="hub"
+alias ga='git add'
 alias gb='git branch'
 alias gba='git branch -a'
 alias gc='git commit -v -m'
@@ -99,8 +100,7 @@ alias glog='git log --graph'
 alias gl='git pull'
 alias gp='git push'
 alias gst='git status'
-alias gx='gitx'
-alias grau='git remote add upstream '
+alias grau='git remote add upstream'
 alias glum='git pull upstream master'
 # Setup a tracking branch from [remote] [branch_name]
 function gbt() {
@@ -123,12 +123,13 @@ alias delorig='find . \( -name "*.orig" \) -exec rm -v {} \;'
 alias hgb='hg branch'
 alias hgbs='hg branches'
 alias hgc='hg commit -m'
-alias hgd='hg diff'
+alias hgd='hg cdiff'
 alias hgg='hg glog'
 alias hgl='hg pull'
 alias hglu='hg pull -u'
 alias hgst='hg status'
 alias hgu='hg update'
+alias hgco='hg update'
 alias hgp='hg push'
 alias hgv='hg view'
 
@@ -146,7 +147,7 @@ alias rr='reset; run'
 
 # Emacs
 #alias e='/Applications/Emacs.app/Contents/MacOS/bin/emacsclient --no-wait'
-alias e='emacs -nw '
+alias e='emacs -nw'
 function ec {
     if ! ps aux | egrep 'emacs$' | grep -v grep > /dev/null;
         then emacs &
