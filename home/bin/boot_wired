@@ -1,0 +1,6 @@
+#!/bin/bash
+dogbox_connect
+lcd_internal_toggle
+lcd_internal_toggle
+lcd_external_toggle
+bt_mouse_connect
