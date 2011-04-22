@@ -61,10 +61,6 @@ xsetroot -cursor_name left_ptr
 # Start the GNU Emacs daemon
 #[[ ! -r "/tmp/emacs${UID}/server" ]] && emacs --daemon &
 
-# Xwrits reminds you to take wrist breaks and avoid RSI
-xwrits typetime=45 clock breakclock top ready-picture="${HOME}/.xwrits/ready.gif" \
-  rest-picture="${HOME}/.xwrits/rest.gif" warning-picture="${HOME}/.xwrits/warning.gif" &
-
 # Open a terminal emulator on the first tag
 #   - resume the old screen session or start a new one
 urxvt -e screen -l -UDRS term &
