@@ -1,0 +1,3 @@
+[submodule "home/.pentadactyl/colors"]
+	path = home/.pentadactyl/colors
+	url = git://github.com/grassofhust/zenburn.penta.git
