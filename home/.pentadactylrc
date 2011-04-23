@@ -21,10 +21,10 @@ colorscheme zenburn
 set titlestring=Firefox
 
 " No toolbars or menus by default
-set toolbars=noaddons,nobookmarks,nomenu,nonavigation,tabs
+" set toolbars=noaddons,nobookmarks,nomenu,nonavigation,tabs
 
 " Elements of the status line
-set status=input,location,tabcount,position
+" set status=input,location,tabcount,position
 
 " Editor, C-i invokes it in text fields
 set editor=emacsclient
@@ -33,19 +33,10 @@ set editor=emacsclient
 set history=10000
 
 " Show pattern matches as you type
-set incsearch
+set incfind
 
 " Hilight previous search pattern matches
-set hlsearch
-
-" Override ignorecase if pattern has uppercase chars
-set smartcase
-
-" Focus content after a page has loaded
-set focuscontent
-
-" Show destination links in 1=status line, 2=command line, 0=none (FF4 baloon)
-set showstatuslinks=0
+set hlfind
 
 " Show completions and use AwesomeBar (+search plugins)
 set autocomplete
@@ -193,8 +184,8 @@ map <C-x><C-f> <C-d><C-o>
 " {{{ Personal key bindings
 "
 " M-Up/Dn toggles the toolbar and scrollbars
-map <A-Down> :set toolbars=navigation<CR>
-map <A-Up> :set toolbars=nonavigation<CR>
+map <A-Down> :set guioptions=BmT<CR>
+map <A-Up> :set guioptions-=BmT<CR>
 
 " Sidebar selection with s, close with S
 map s :sidebar<SPACE>

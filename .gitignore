@@ -1,6 +1,6 @@
 *.pyc
 *.orig
-home/.vimperator/info
+home/.pentadactyl/info
 home/bin/mnt_drobo
 home/.ncmpcpp/error.log
 home/.irssi/irclogs
