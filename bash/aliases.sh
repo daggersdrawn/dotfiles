@@ -27,10 +27,11 @@ alias cal='cal -3' #show 3 months by default
 alias units='units -t' #terse mode
 alias diff='LC_ALL=C TZ=GMT0 diff -Naur' #normalise diffs for distribution
 alias lynx='lynx -force_html -width=$COLUMNS' #best settings for viewing HTML
-alias l='ls -AF $LS_OPTIONS'        # Compact view, show hidden
-alias la='ls -haliF $LS_OPTIONS'    # l for list style, a for all including hidden, h for human readable file sizes, i for inode to determine hardlinks
-alias ll='ls -lFh $LS_OPTIONS'      # Long view, no hidden
-alias ls='ls -GFp $LS_OPTIONS'      # Compact view, show colors
+alias bytes='stat -c %s' # Get filesize in bytes
+alias l='ls -AF $LS_OPTIONS' # Compact view, show hidden
+alias la='ls -haliF $LS_OPTIONS' # l for list style, a for all including hidden, h for human readable file sizes, i for inode to determine hardlinks
+alias ll='ls -lFh $LS_OPTIONS' # Long view, no hidden
+alias ls='ls -GFp $LS_OPTIONS' # Compact view, show colors
 
 # task
 alias t="c && task ls"
