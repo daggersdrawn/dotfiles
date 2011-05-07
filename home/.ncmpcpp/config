@@ -97,9 +97,11 @@ song_columns_list_format = "(8)[white]{l} (28)[cyan]{a} (28)[white]{b} (50)[cyan
 #
 ##### various settings #####
 #
+user_interface = "alternative" (classic/alternative)
+#
 playlist_display_mode = "columns" (classic/columns)
 #
-#incremental_seeking = "yes"
+incremental_seeking = "yes"
 #
 #seek_time = "1"
 #
@@ -121,7 +123,7 @@ header_visibility = "no"
 #
 #statusbar_visibility = "yes"
 #
-#fancy_scrolling = "yes"
+fancy_scrolling = "yes"
 #
 #follow_now_playing_lyrics = "no"
 #
