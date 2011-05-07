@@ -153,7 +153,11 @@ function ec {
         then emacs &
         sleep 4
     fi
-    emacsclient --no-wait $1
+    if [ "$1" == "" ]; then
+        emacsclient --no-wait .
+    else
+        emacsclient --no-wait $1
+    fi
 }
 
 # Zile
