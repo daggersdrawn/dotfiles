@@ -71,6 +71,9 @@ urxvt -e screen -l -UDRS term &
 # starts mpd as normal user
 mpd ~/.mpd/mpd.conf
 
+# start dropbox
+dropboxd
+
 # xscreensaver
 /usr/bin/xscreensaver -no-splash &
 # }}}
