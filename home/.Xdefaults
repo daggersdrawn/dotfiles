@@ -42,12 +42,13 @@ urxvt*matcher.button:  1
 urxvt*cutchars:        '"'()*<>[]{|}
 !
 ! Appearance
-urxvt*font: xft:Inconsolata:pixelsize=13:antialias=true:hinting=true:hintstyle=hintslight
-urxvt*boldFont: xft:Inconsolata:pixelsize=13:antialias=true:bold:hinting=true:hintstyle=hintslight
-urxvt*italicFont: xft:Inconsolata:pixelsize=13:antialias=true:italic:autohint=true:hinting=true:hintstyle=hintslight
-urxvt*bolditalicFont: xft:Inconsolata:pixelsize=13:antialias=true:bold:italic:autohint=true:hinting=true:hintstyle=hintslight
+urxvt*font: xft:Monospace:pixelsize=12:antialias=true:hinting=true
+urxvt*boldFont: xft:Monospace:pixelsize=12:antialias=true:bold:hinting=true
+urxvt*italicFont: xft:Monospace:pixelsize=12:antialias=true:italic:autohint=true:hinting=true
+urxvt*bolditalicFont: xft:Monospace:pixelsize=12:antialias=true:bold:italic:autohint=true:hinting=true
 urxvt*inheritPixmap: true
 urxvt*xftAntialias: true
+urxvt*letterSpace: -2
 !
 ! Cursor
 urxvt*cursorColor: #DCDCCC
@@ -55,8 +56,8 @@ urxvt*cursorColor: #DCDCCC
 urxvt*.colorUL:    #ffffff
 !
 ! Pseudo Transparency
-urxvt*shading:    15
-urxvt*transparent:true
+urxvt*shading:    5
+urxvt*transparent:false
 !
 ! Zenburn color-scheme
 urxvt*background:  #3f3f3f
