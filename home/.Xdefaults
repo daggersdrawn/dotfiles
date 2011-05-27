@@ -32,11 +32,14 @@ urxvt*visualBell:        false
 !
 ! Extensions
 urxvt*perl-lib:        /usr/lib/urxvt/perl/
-urxvt*perl-ext-common: default,matcher,searchable-scrollback,clipboard
-urxvt*keysym.M-c:      perl:clipboard:copy
-urxvt*keysym.M-v:      perl:clipboard:paste
-urxvt*keysym.M-C-v:    perl:clipboard:paste_escaped
-urxvt*urlLauncher:     /usr/local/bin/firefox
+urxvt*perl-ext-common: default,matcher,searchable-scrollback,clipboard,url-select,keyboard-select
+urxvt*urlLauncher:     /usr/bin/firefox
+urxvt.keysym.M-u:      perl:url-select:select_next
+urxvt.keysym.M-c:      perl:clipboard:copy
+urxvt.keysym.M-v:      perl:clipboard:paste
+urxvt.keysym.M-C-v:    perl:clipboard:paste_escaped
+urxvt.keysym.M-s:      perl:keyboard-select:search
+urxvt.keysym.M-Escape: perl:keyboard-select:activate
 urxvt*matcher.button:  1
 ! Catch ugly URLs
 urxvt*cutchars:        '"'()*<>[]{|}
@@ -46,47 +49,48 @@ urxvt*font: xft:Monospace:pixelsize=11:antialias=true:hinting=true
 urxvt*boldFont: xft:Monospace:pixelsize=11:antialias=true:bold:hinting=true
 urxvt*italicFont: xft:Monospace:pixelsize=11:antialias=true:italic:autohint=true:hinting=true
 urxvt*bolditalicFont: xft:Monospace:pixelsize=11:antialias=true:bold:italic:autohint=true:hinting=true
-urxvt*inheritPixmap: true
+!urxvt*inheritPixmap: true
 urxvt*xftAntialias: true
 urxvt*letterSpace: -2
 !
 ! Cursor
-urxvt*cursorColor: #DCDCCC
+urxvt*cursorColor:  #DCDCCC
 ! URLs
-urxvt*.colorUL:    #ffffff
+urxvt*colorUL:      #ffffff
+urxvt*underlineURLs:true
 !
 ! Pseudo Transparency
-urxvt*shading:    5
-urxvt*transparent:false
+!urxvt*shading:      5
+!urxvt*transparent:  true
 !
 ! Zenburn color-scheme
-urxvt*background:  #3f3f3f
-urxvt*foreground:  #dcdccc
+urxvt*background:   #3f3f3f
+urxvt*foreground:   #dcdccc
 ! black + red
-!urxvt*color0:     #3f3f3f
-urxvt*color0:      #1E2320
-urxvt*color1:      #705050
+!urxvt*color0:      #3f3f3f
+urxvt*color0:       #1E2320
+urxvt*color1:       #705050
 ! green + yellow
-urxvt*color2:      #60b48a
-urxvt*color3:      #dfaf8f
+urxvt*color2:       #60b48a
+urxvt*color3:       #dfaf8f
 ! blue + purple
-urxvt*color4:      #506070
-urxvt*color5:      #dc8cc3
+urxvt*color4:       #506070
+urxvt*color5:       #dc8cc3
 ! cyan + white
-urxvt*color6:      #8cd0d3
-urxvt*color7:      #dcdccc
+urxvt*color6:       #8cd0d3
+urxvt*color7:       #dcdccc
 ! bright-black + bright-red
-urxvt*color8:      #709080
-urxvt*color9:      #dca3a3
+urxvt*color8:       #709080
+urxvt*color9:       #dca3a3
 ! bright-green + bright-yellow
-urxvt*color10:     #c3bf9f
-urxvt*color11:     #f0dfaf
+urxvt*color10:      #c3bf9f
+urxvt*color11:      #f0dfaf
 ! bright-blue + bright-purple
-urxvt*color12:     #94bff3
-urxvt*color13:     #ec93d3
+urxvt*color12:      #94bff3
+urxvt*color13:      #ec93d3
 ! bright-cyan + bright-white
-urxvt*color14:     #93e0e3
-urxvt*color15:     #ffffff
+urxvt*color14:      #93e0e3
+urxvt*color15:      #ffffff
 !}}}
 
 
