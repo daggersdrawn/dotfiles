@@ -21,7 +21,7 @@ export XTERM="urxvt"
 
 # {{{ Dircolors
 #     - with rxvt-256color support
-eval `dircolors -b "${HOME}/.dir_colors"`
+eval `dircolors -b "${HOME}/dotfiles/bash/dircolors"`
 # }}}
 
 # {{{ Manual pages
