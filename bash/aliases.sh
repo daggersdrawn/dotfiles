@@ -145,6 +145,7 @@ alias pms="python manage.py shell_plus"
 alias edj="subl $HOME/development/python/django"
 . $HOME/dotfiles/bash/django_bash_completion
 alias rr="reset; run"
+alias rt="python manage.py test --settings=settings_test"
 
 # Emacs
 alias e="emacs -nw"
@@ -165,8 +166,6 @@ alias z="zile"
 
 # Unidad
 alias woc="deactivate || true && cd $HOME/development/unidad/comunidad && . ACTIVATE"
-alias depfile="python deploy/depfile.py && woc && pip install -r ../requirements.txt"
-alias rt="python manage.py test --settings=settings_test"
 
 # OSX
 if [ `uname` == "Darwin" ]; then
