@@ -1,11 +1,13 @@
 ! anrxc X application resource database
 
 !{{{ XFT
-Xft.dpi:       96
-Xft.antialias: 1
-Xft.hinting:   1
-Xft.hintstyle: hintfull
-Xft.rgba:      rgb
+Xft.dpi:        96
+Xft.antialias:  1
+Xft.rgba:       rgb
+Xft.hinting:    1
+Xft.autohint:   0
+Xft.hintstyle:  hintslight
+Xft.lcdfilter:  lcddefault
 !}}}
 
 !{{{ CURSOR THEME
@@ -170,7 +172,7 @@ Xman*directoryFontNormal: xft:Inconsolata:pixelsize=13:antialias=true:bold:itali
 !{{{ XPDF
 xpdf*foreground:     black
 xpdf*background:     white
-xpdf*urlCommand:     /usr/local/bin/firefox %s
+xpdf*urlCommand:     /usr/bin/firefox %s
 xpdf*antialias:      yes
 xpdf*enableFreetype: yes
 !}}}
