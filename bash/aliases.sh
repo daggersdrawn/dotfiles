@@ -31,7 +31,7 @@ alias lynx="lynx -force_html -width=$COLUMNS" # best settings for viewing HTML
 alias l="ls -AF $LS_OPTIONS"        # Compact view, show hidden
 alias la="ls -haliF $LS_OPTIONS"    # l for list style, a for all including hidden, h for human readable file sizes, i for inode to determine hardlinks
 alias ll="ls -lFh $LS_OPTIONS"      # Long view, no hidden
-alias ls="ls -GFp $LS_OPTIONS"      # Compact view, show colors
+alias lc="ls -GFp $LS_OPTIONS"      # Compact view, show colors
 
 # task
 alias t="c && task ls"
@@ -78,8 +78,6 @@ alias pacmir="sudo pacman -Syy"            # Force refresh of all package lists 
 # Python
 alias delpyc="find . \( -name '*.pyc' -o -name '*.pyo' \) -exec rm -v {} \;"
 alias p="ipython"
-alias path="python -c 'from distutils.sysconfig import get_python_lib; print get_python_lib()'"
-alias site="cd $(python -c 'from distutils.sysconfig import get_python_lib; print get_python_lib()')"
 alias emailserver="python -m smtpd -n -c DebuggingServer localhost:1025"
 
 # Screen
