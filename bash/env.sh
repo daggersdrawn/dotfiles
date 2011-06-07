@@ -9,9 +9,8 @@ if [ `uname` == "Darwin" ]; then
 fi
 
 #default text editor
-export editor="zile -w"
 export LESS="-R"
-export EDITOR="zile -w"
+export EDITOR="emacs -nw"
 
 # GIT
 if [ -f $HOME/.git-completion.bash ]; then
@@ -70,3 +69,6 @@ if [ $? -eq 1 ] ; then
     PATH=$PATH:/usr/local/sbin
     export PATH
 fi
+
+# Tmux
+[[ -s $HOME/.tmuxinator/scripts/tmuxinator ]] && source $HOME/.tmuxinator/scripts/tmuxinator
