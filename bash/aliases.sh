@@ -170,6 +170,10 @@ alias z="zile"
 # Unidad
 alias woc="deactivate || true && cd $HOME/development/unidad/comunidad && . ACTIVATE"
 
+# Audio
+# works, but not as an alias. lossless > lossless is bad anyway.
+alias mp32ogg="find . -iname '*.mp3' | while read song; do mpg321 ${song} -w - | oggenc -q 9 -o ${song%.mp3}.ogg -; done"
+
 # OSX
 if [ `uname` == "Darwin" ]; then
     alias ec="/Applications/Emacs.app/Contents/MacOS/bin/emacsclient --no-wait $1"

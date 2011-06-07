@@ -63,10 +63,11 @@ fi
 
 # Open a terminal emulator on the first tag
 #   - resume the old screen session or start a new one
-urxvt -e screen -l -UDRS term &
+#urxvt -e screen -l -UDRS term &
+urxvt -T Terminal &
 
 # Play a startup sound
-#ogg123 -q "${HOME}/.local/share/gajim/sounds/voices/voice-system-activated.ogg" &
+ogg123 -q "${HOME}/dotfiles/tones/gudrun_gut-thelandKRZ.ogg" &
 
 # starts mpd as normal user
 mpd ~/.mpd/mpd.conf
