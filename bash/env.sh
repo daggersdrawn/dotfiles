@@ -72,3 +72,4 @@ fi
 
 # Tmux
 [[ -s $HOME/.tmuxinator/scripts/tmuxinator ]] && source $HOME/.tmuxinator/scripts/tmuxinator
+[[ ${TERM} == "screen" ]] && export TERM="rxvt-unicode-256color"
