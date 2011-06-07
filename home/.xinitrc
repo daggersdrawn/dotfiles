@@ -51,22 +51,23 @@ xsetroot -cursor_name left_ptr
 # {{{ Autostart settings
 #
 # Start the GnuPG agent and enable OpenSSH agent emulation
-#if (pgrep -u "${USER}" gpg-agent); then
-#  eval `cat ${gnupglog}`
-#  eval `cut -d= -f1 ${gnupglog} | xargs echo export`
-#else
-#  eval `gpg-agent --enable-ssh-support --daemon`
-#fi
+if (pgrep -u "${USER}" gpg-agent); then
+  eval `cat ${gnupglog}`
+  eval `cut -d= -f1 ${gnupglog} | xargs echo export`
+else
+  eval `gpg-agent --enable-ssh-support --daemon`
+fi
 
 # Start the GNU Emacs daemon
-#[[ ! -r "/tmp/emacs${UID}/server" ]] && emacs --daemon &
+[[ ! -r "/tmp/emacs${UID}/server" ]] && emacs -u rizumu --daemon --eval "(server-start)" &&
 
 # Open a terminal emulator on the first tag
 #   - resume the old screen session or start a new one
-urxvt -e screen -l -UDRS term &
+#urxvt -e screen -l -UDRS term &
+urxvt -T Terminal &
 
 # Play a startup sound
-#ogg123 -q "${HOME}/.local/share/gajim/sounds/voices/voice-system-activated.ogg" &
+ogg123 -q "${HOME}/dotfiles/tones/gudrun_gut-thelandKRZ.ogg" &
 
 # starts mpd as normal user
 mpd ~/.mpd/mpd.conf

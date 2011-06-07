@@ -146,24 +146,49 @@ alias rr="reset; run"
 alias rt="python manage.py test --settings=settings_test"
 
 # Emacs
-alias e="emacs -nw"
-function ec {
-    if ! ps aux | egrep "emacs$" | grep -v grep > /dev/null;
-        then emacs &
-        sleep 4
+function e {
+    if [ "$1" == "" ]; then
+        emacsclient --tty  .
+    else
+        emacsclient --tty $1
     fi
+} # open in current terminal.
+
+function ec {
     if [ "$1" == "" ]; then
         emacsclient --no-wait .
     else
         emacsclient --no-wait $1
     fi
-}
+} # open in the daemon in the current frame, TODO: must be open already.
+
+function en {
+    if [ "$1" == "" ]; then
+        emacsclient --no-wait --create-frame .
+    else
+        emacsclient --no-wait --create-frame $1
+    fi
+} # open in the dameon in a new frame.
 
 # Zile
 alias z="zile"
 
 # Unidad
-alias woc="deactivate || true && cd $HOME/development/unidad/comunidad && . ACTIVATE"
+function workon-unidad {
+    deactivate || true
+    export PROJECT_CURRENT="$1"
+    cd $HOME/development/unidad/comunidad
+    source ACTIVATE
+}
+
+alias workon-marca="workon-unidad marca"
+alias workon-elmundo="workon-unidad elmundo"
+alias workon-expansion="workon-unidad expansion"
+alias workon-telva="workon-unidad telva"
+
+# Audio
+# works, but not as an alias. lossless > lossless is bad anyway.
+alias mp32ogg="find . -iname '*.mp3' | while read song; do mpg321 ${song} -w - | oggenc -q 9 -o ${song%.mp3}.ogg -; done"
 
 # OSX
 if [ `uname` == "Darwin" ]; then

@@ -1,3 +1,4 @@
 #!/bin/bash
 sudo /etc/rc.d/bluetooth start
 blueman-applet &
+
