@@ -149,17 +149,8 @@ alias rt="python manage.py test --settings=settings_test"
 
 # Emacs
 alias e="emacs -nw"
-function ec {
-    if ! ps aux | egrep "emacs$" | grep -v grep > /dev/null;
-        then emacs &
-        sleep 4
-    fi
-    if [ "$1" == "" ]; then
-        emacsclient --no-wait .
-    else
-        emacsclient --no-wait $1
-    fi
-}
+alias ec="emacsclient --no-wait" # open in existing frame
+alias ecn="emacsclient --no-wait --create-frame" # open in a new frame
 
 # Zile
 alias z="zile"
