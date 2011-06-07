@@ -59,7 +59,7 @@ else
 fi
 
 # Start the GNU Emacs daemon
-[[ ! -r "/tmp/emacs${UID}/server" ]] && emacs -u rizumu --daemon --eval "(setq default-frame-alist \ '((font-backend . \"xft\") (font . \"[FONT]-[SIZE]\")))" -l ~/.emacs &&
+[[ ! -r "/tmp/emacs${UID}/server" ]] && emacs -u rizumu --daemon --eval "(server-start)" &&
 
 # Open a terminal emulator on the first tag
 #   - resume the old screen session or start a new one
