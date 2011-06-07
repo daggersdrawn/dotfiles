@@ -78,7 +78,7 @@ mpd ~/.mpd/mpd.conf
 # start dropbox
 dropboxd &
 
-exec awesome
+exec ck-launch-session awesome
 # exec openbox
 # exec gnome-session
 # exec startkde
