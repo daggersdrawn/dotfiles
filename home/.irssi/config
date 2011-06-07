@@ -12,8 +12,8 @@
 #  * cap_ssl.pl
 
 servers = (
-  { address = "chat.freenode.net"; chatnet = "fnode"; port = "6667";  autoconnect = "yes"; },
-  #  use_ssl = "yes"; ssl_verify = "yes"; ssl_capath = "/etc/ssl/certs/"; },
+  { address = "chat.freenode.net"; chatnet = "fnode"; port = "6697";  autoconnect = "yes";
+    use_ssl = "yes"; ssl_verify = "yes"; ssl_cacert = "/etc/ssl/certs/GandiStandardSSLCA.pem"; },
   #{ address = "irc.oftc.net";     chatnet = "oftc";  port = "6667";  autoconnect = "yes"; },
   #  use_ssl = "yes"; ssl_verify = "yes"; ssl_capath = "/etc/ssl/certs"; },
   #{ address = "irc.eldarion.com"; chatnet = "eldarion"; port = "6667"; autoconnect = "yes"; }
