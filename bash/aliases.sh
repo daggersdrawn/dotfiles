@@ -150,11 +150,19 @@ alias rt="python manage.py test --settings=settings_test"
 # Emacs
 function e {
     if [ "$1" == "" ]; then
+        emacsclient --tty  .
+    else
+        emacsclient --tty $1
+    fi
+} # open in current terminal.
+
+function ec {
+    if [ "$1" == "" ]; then
         emacsclient --no-wait .
     else
         emacsclient --no-wait $1
     fi
-} # open in existing frame, TODO: must be open already.
+} # open in the daemon in the current frame, TODO: must be open already.
 
 function en {
     if [ "$1" == "" ]; then
@@ -162,13 +170,23 @@ function en {
     else
         emacsclient --no-wait --create-frame $1
     fi
-} # open in a new frame
+} # open in the dameon in a new frame.
 
 # Zile
 alias z="zile"
 
 # Unidad
-alias woc="deactivate || true && cd $HOME/development/unidad/comunidad && . ACTIVATE"
+function workon-unidad {
+    deactivate || true
+    export PROJECT_CURRENT="$1"
+    cd $HOME/development/unidad/comunidad
+    source ACTIVATE
+}
+
+alias workon-marca="workon-unidad marca"
+alias workon-elmundo="workon-unidad elmundo"
+alias workon-expansion="workon-unidad expansion"
+alias workon-telva="workon-unidad telva"
 
 # Audio
 # works, but not as an alias. lossless > lossless is bad anyway.
