@@ -51,15 +51,15 @@ xsetroot -cursor_name left_ptr
 # {{{ Autostart settings
 #
 # Start the GnuPG agent and enable OpenSSH agent emulation
-#if (pgrep -u "${USER}" gpg-agent); then
-#  eval `cat ${gnupglog}`
-#  eval `cut -d= -f1 ${gnupglog} | xargs echo export`
-#else
-#  eval `gpg-agent --enable-ssh-support --daemon`
-#fi
+if (pgrep -u "${USER}" gpg-agent); then
+  eval `cat ${gnupglog}`
+  eval `cut -d= -f1 ${gnupglog} | xargs echo export`
+else
+  eval `gpg-agent --enable-ssh-support --daemon`
+fi
 
 # Start the GNU Emacs daemon
-#[[ ! -r "/tmp/emacs${UID}/server" ]] && emacs --daemon &
+[[ ! -r "/tmp/emacs${UID}/server" ]] && emacs -u rizumu --daemon --eval "(setq default-frame-alist \ '((font-backend . \"xft\") (font . \"[FONT]-[SIZE]\")))" -l ~/.emacs &&
 
 # Open a terminal emulator on the first tag
 #   - resume the old screen session or start a new one
