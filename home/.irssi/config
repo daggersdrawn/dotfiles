@@ -9,37 +9,36 @@
 #  * namesaway.pl      quitmsg.pl     usercount.pl
 #  * hilightwin.pl     screen_away.pl crapbuster.pl
 #  * adv_windowlist.pl nm.pl          trackbar.pl
-#  * cap_ssl.pl
+#  * cap_ssl.pl        nickcolor.pl   nicklist.pl
+#  * scriptassist.pl   irsnot.pl      autoaway.pl
 
 servers = (
-  { address = "chat.freenode.net"; chatnet = "fnode"; port = "6697";  autoconnect = "yes";
+  { address = "irc.freenode.net"; chatnet = "fnode"; port = "7000";  autoconnect = "yes";
     use_ssl = "yes"; ssl_verify = "yes"; ssl_cacert = "/etc/ssl/certs/GandiStandardSSLCA.pem"; },
-  #{ address = "irc.oftc.net";     chatnet = "oftc";  port = "6667";  autoconnect = "yes"; },
+  { address = "irc.oftc.net";     chatnet = "oftc";  port = "6667";  autoconnect = "yes"; },
   #  use_ssl = "yes"; ssl_verify = "yes"; ssl_capath = "/etc/ssl/certs"; },
-  #{ address = "irc.eldarion.com"; chatnet = "eldarion"; port = "6667"; autoconnect = "yes"; }
+  { address = "irc.eldarion.com"; chatnet = "eldarion"; port = "6667"; autoconnect = "yes"; }
   #  use_ssl = "no"; ssl_verify = "no"; }
 );
 
 chatnets = {
   fnode    = { type = "IRC";  max_msgs = "3"; };
-  #oftc     = { type = "IRC"; max_msgs = "3"; };
-  #eldarion = { type = "IRC"; max_msgs = "3"; };
+  oftc     = { type = "IRC"; max_msgs = "3"; };
+  eldarion = { type = "IRC"; max_msgs = "3"; };
 };
 
 channels = (
-  { name = "#dogville"; chatnet = "fnode"; autojoin = "yes"; },
-  { name = "#python"; chatnet = "fnode"; autojoin = "yes"; },
-#  { name = "#awesome"; chatnet = "oftc";  autojoin = "yes"; },
-#  { name = "#archlinux"; chatnet = "fnode"; autojoin = "yes"; },
-#  { name = "#django"; chatnet = "fnode"; autojoin = "yes"; },
-#  { name = "#django-dev"; chatnet = "fnode"; autojoin = "yes"; },
-#  { name = "#emacs"; chatnet = "fnode"; autojoin = "yes"; },
-#  { name = "#pinax"; chatnet = "fnode"; autojoin = "yes"; },
-#  { name = "#pinax-dev"; chatnet = "fnode"; autojoin = "yes"; },
-#  { name = "#python"; chatnet = "fnode"; autojoin = "yes"; },
-#  { name = "#cubefarm"; chatnet = "eldarion"; autojoin = "yes"; },
-#  { name = "#jahzeen"; chatnet = "eldarion"; autojoin = "yes"; },
-#  { name = "#vv"; chatnet = "eldarion"; autojoin = "yes"; }
+  { name = "#archlinux";  chatnet = "fnode";    autojoin = "yes"; },
+  { name = "#emacs";      chatnet = "fnode";    autojoin = "yes"; },
+  { name = "#awesome";    chatnet = "oftc";     autojoin = "yes"; },
+  { name = "#python";     chatnet = "fnode";    autojoin = "yes"; },
+  { name = "#django";     chatnet = "fnode";    autojoin = "yes"; },
+  { name = "#django-dev"; chatnet = "fnode";    autojoin = "yes"; },
+  { name = "#pinax";      chatnet = "fnode";    autojoin = "yes"; },
+  { name = "#pinax-dev";  chatnet = "fnode";    autojoin = "yes"; },
+  { name = "#cubefarm";   chatnet = "eldarion"; autojoin = "yes"; },
+  { name = "#jahzeen";    chatnet = "eldarion"; autojoin = "yes"; },
+  { name = "#vv";         chatnet = "eldarion"; autojoin = "yes"; }
 );
 
 aliases = {
@@ -71,13 +70,17 @@ aliases = {
   rtfm = "msg $C $0: http://www.catb.org/~esr/jargon/html/R/RTFM.html";
   google = "msg $C $0: http://www.google.com";
   hackers = "msg $C $0: http://www.hackersmovie.com/";
+  uptime = "eval exec - expr `date +%s` - \\$F | awk '{print \"Irssi uptime: \"int(\\\\\\$1/3600/24)\"d \"int(\\\\\\$1/3600%24)\"h \"int(\\\\\\$1/60%60)\"m \"int(\\\\\\$1%60)\"s\" }'";
+  calc = "exec - if which bc &>/dev/null\\; then echo '$*' | bc | awk '{print \"$*=\"$$1}'\\; else echo bc was not found\\; fi";
 };
 
 keyboard = (
   { key = "^F"; id = "forward_character";  data = ""; },
   { key = "^B"; id = "backward_character"; data = ""; },
   { key = "^P"; id = "backward_history";   data = ""; },
-  { key = "^N"; id = "forward_history";    data = ""; }
+  { key = "^N"; id = "forward_history";    data = ""; },
+  { key = "meta-prior"; id = "command";    data = "nicklist scroll -10"; },
+  { key = "meta-next";  id = "command";    data = "nicklist scroll +10"; },
 );
 
 completions = {
@@ -266,8 +269,8 @@ windows = {
       {
         type = "CHANNEL";
         chat_type = "IRC";
-        name = "#rizumu";
-        tag = "fnode";
+        name = "#cubefarm";
+        tag = "eldarion";
       }
     );
   };
@@ -276,102 +279,102 @@ windows = {
       {
         type = "CHANNEL";
         chat_type = "IRC";
-        name = "#python";
+        name = "#gondor";
+        tag = "eldarion";
+      }
+    );
+  };
+  4 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "#vv";
+        tag = "eldarion";
+      }
+    );
+  };
+  5 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "#jahzeen";
+        tag = "eldarion";
+      }
+    );
+  };
+  6 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "#pinax-dev";
         tag = "fnode";
       }
     );
   };
-  # 2 = {
-  #   items = (
-  #     {
-  #       type = "CHANNEL";
-  #       chat_type = "IRC";
-  #       name = "#cubefarm";
-  #       tag = "eldarion";
-  #     }
-  #   );
-  # };
-  # 3 = {
-  #   items = (
-  #     {
-  #       type = "CHANNEL";
-  #       chat_type = "IRC";
-  #       name = "#pinax-dev";
-  #       tag = "fnode";
-  #     }
-  #   );
-  # };
-  # 4 = {
-  #   items = (
-  #     {
-  #       type = "CHANNEL";
-  #       chat_type = "IRC";
-  #       name = "#pinax";
-  #       tag = "fnode";
-  #     }
-  #   );
-  # };
-  # 5 = {
-  #   items = (
-  #     {
-  #       type = "CHANNEL";
-  #       chat_type = "IRC";
-  #       name = "#django-dev";
-  #       tag = "fnode";
-  #     }
-  #   );
-  # };
-  # 6 = {
-  #   items = (
-  #     {
-  #       type = "CHANNEL";
-  #       chat_type = "IRC";
-  #       name = "#django";
-  #       tag = "fnode";
-  #     }
-  #   );
-  # };
-  # 7 = {
-  #   items = (
-  #     {
-  #       type = "CHANNEL";
-  #       chat_type = "IRC";
-  #       name = "#vv";
-  #       tag = "eldarion";
-  #     }
-  #   );
-  # };
-  # 8 = {
-  #   items = (
-  #     {
-  #       type = "CHANNEL";
-  #       chat_type = "IRC";
-  #       name = "#jahzeen";
-  #       tag = "eldarion";
-  #     }
-  #   );
-  # };
+  7 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "#pinax";
+        tag = "fnode";
+      }
+    );
+  };
+  8 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "#django";
+        tag = "fnode";
+      }
+    );
+  };
   9 = { name = "hilight"; sticky = "yes"; };
-  # 10 = {
-  #   items = (
-  #     {
-  #       type = "CHANNEL";
-  #       chat_type = "IRC";
-  #       name = "#archlinux";
-  #       tag = "fnode";
-  #     }
-  #   );
-  # };
-  # 11 = {
-  #   items = (
-  #     {
-  #       type = "CHANNEL";
-  #       chat_type = "IRC";
-  #       name = "#emacs";
-  #       tag = "fnode";
-  #     }
-  #   );
-  # };
+  12 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "#django-dev";
+        tag = "fnode";
+      }
+    );
+  };
+  11 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "#archlinux";
+        tag = "fnode";
+      }
+    );
+  };
+  12 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "#emacs";
+        tag = "fnode";
+      }
+    );
+  };
+  13 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "#awesome";
+        tag = "oftc";
+      }
+    );
+  };
 };
 
 mainwindows = {
