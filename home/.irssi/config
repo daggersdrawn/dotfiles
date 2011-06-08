@@ -22,15 +22,15 @@ servers = (
 );
 
 chatnets = {
-  fnode    = { type = "IRC";  max_msgs = "3"; };
+  fnode    = { type = "IRC"; max_msgs = "3"; };
   oftc     = { type = "IRC"; max_msgs = "3"; };
   eldarion = { type = "IRC"; max_msgs = "3"; };
 };
 
 channels = (
+  { name = "#awesome";    chatnet = "oftc";     autojoin = "yes"; },
   { name = "#archlinux";  chatnet = "fnode";    autojoin = "yes"; },
   { name = "#emacs";      chatnet = "fnode";    autojoin = "yes"; },
-  { name = "#awesome";    chatnet = "oftc";     autojoin = "yes"; },
   { name = "#python";     chatnet = "fnode";    autojoin = "yes"; },
   { name = "#django";     chatnet = "fnode";    autojoin = "yes"; },
   { name = "#django-dev"; chatnet = "fnode";    autojoin = "yes"; },
@@ -335,7 +335,7 @@ windows = {
     );
   };
   9 = { name = "hilight"; sticky = "yes"; };
-  12 = {
+  10 = {
     items = (
       {
         type = "CHANNEL";
@@ -378,6 +378,6 @@ windows = {
 };
 
 mainwindows = {
-  1 = { first_line = "7"; lines = "22"; };
-  2 = { first_line = "1"; lines = "5"; };
+  1 = { first_line = "2"; lines = "22"; };
+  2 = { first_line = "9"; lines = "5"; };
 };

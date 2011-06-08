@@ -4,7 +4,7 @@ nick * 10000
 
 # and for messages received through a channel
 # this shows the default which disables notifications for channels
-#chan * 0
+# chan * 0
 
 # override the default channel timeout for #chilon to 5000
 chan #chilon 10000
