@@ -80,9 +80,9 @@ mpd ~/.mpd/mpd.conf
 dropboxd &
 
 exec ck-launch-session awesome
-# exec openbox
-# exec gnome-session
-# exec startkde
-# exec startxfce4
-# exec qtile
-# ...or the Window Manager of your choice
+# exec ck-launch-session xmonad
+# exec ck-launch-session openbox
+# exec ck-launch-session gnome-session
+# exec ck-launch-session startkde
+# exec ck-launch-session startxfce4
+# exec ck-launch-session qtile
