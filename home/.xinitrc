@@ -65,11 +65,6 @@ fi
 # Start the GNU Emacs daemon
 [[ ! -r "/tmp/emacs${UID}/server" ]] && emacs -u rizumu --daemon --eval "(server-start)" &&
 
-# Open a terminal emulator on the first tag
-#   - resume the old screen session or start a new one
-#urxvt -e screen -l -UDRS term &
-urxvt -T Terminal &
-
 # Play a startup sound
 ogg123 -q "${HOME}/dotfiles/tones/gudrun_gut-thelandKRZ.ogg" &
 
@@ -82,19 +77,21 @@ mpd ~/.mpd/mpd.conf
 # start dropbox
 dropboxd &
 
-# start urxvt (rxvt-unicode) in daemon-client mode
-urxvtcd
+# Open urxvt (rxvt-unicode) in daemon-client mode on the first tag
+#   - resume the old screen session or start a new one
+#urxvt -e screen -l -UDRS term &
+urxvtcd -title term &
 
 # launch the external 60 second clock, and launch the workspace status bar
-FG='#a8a3f7'
-BG='#3f3c6d'
+FG="#a8a3f7"
+BG="#3f3c6d"
 
-while true ; do date ; sleep 60 ; done | dzen2 -e '' -x 400 -w $off -ta r -fg $FG -bg $BG -p &
+while true ; do date ; sleep 60 ; done | dzen2 -e "" -x 400 -w $off -ta r -fg $FG -bg $BG -p &
 
 # }}}
 
-# exec ck-launch-session awesome
-exec ck-launch-session xmonad
+exec ck-launch-session awesome
+# exec ck-launch-session xmonad
 # exec ck-launch-session openbox
 # exec ck-launch-session gnome-session
 # exec ck-launch-session startkde
