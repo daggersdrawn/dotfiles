@@ -27,7 +27,7 @@ fi
 # }}}
 
 # {{{ Input settings
-# 
+#
 # Swap ctrl and caps
 setxkbmap -option ctrl:swapcaps
 
@@ -43,6 +43,10 @@ xset m 30/10 4
 # Pointer appearance
 #   - xcb does not support Xcursor yet
 xsetroot -cursor_name left_ptr
+
+# Use custom fonts with dzen
+xset +fp /usr/share/fonts/local
+xset fp rehash
 
 # Disable the touchpad while typing
 #syndaemon -k -i 2 -d &
@@ -74,13 +78,23 @@ mpd ~/.mpd/mpd.conf
 
 # xscreensaver
 /usr/bin/xscreensaver -no-splash &
-# }}}
 
 # start dropbox
 dropboxd &
 
-exec ck-launch-session awesome
-# exec ck-launch-session xmonad
+# start urxvt (rxvt-unicode) in daemon-client mode
+urxvtcd
+
+# launch the external 60 second clock, and launch the workspace status bar
+FG='#a8a3f7'
+BG='#3f3c6d'
+
+while true ; do date ; sleep 60 ; done | dzen2 -e '' -x 400 -w $off -ta r -fg $FG -bg $BG -p &
+
+# }}}
+
+# exec ck-launch-session awesome
+exec ck-launch-session xmonad
 # exec ck-launch-session openbox
 # exec ck-launch-session gnome-session
 # exec ck-launch-session startkde
