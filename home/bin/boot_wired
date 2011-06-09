@@ -1,6 +1,6 @@
 #!/bin/bash
 bt_mouse_connect
-lcd_internal_toggle
-lcd_internal_toggle
-lcd_external_toggle
+#lcd_internal_toggle
+#lcd_internal_toggle
+#lcd_external_toggle
 dogbox_connect
