@@ -63,37 +63,45 @@ else
 fi
 
 # Start the GNU Emacs daemon
-[[ ! -r "/tmp/emacs${UID}/server" ]] && emacs -u rizumu --daemon --eval "(server-start)" &&
+[[ ! -r "/tmp/emacs${UID}/server" ]] && emacs -u rizumu --daemon --eval "(server-start)"
 
 # Play a startup sound
-ogg123 -q "${HOME}/dotfiles/tones/gudrun_gut-thelandKRZ.ogg" &
+ogg123 -q "${HOME}/dotfiles/tones/gudrun_gut-thelandKRZ.ogg"
 
-# starts mpd as normal user
+# Start mpd as normal user
 mpd ~/.mpd/mpd.conf
 
-# xscreensaver
+# Start xscreensaver
 /usr/bin/xscreensaver -no-splash &
 
-# start dropbox
+# Start dropbox
 dropboxd &
+
+# Start redshift
+gtk-redshift -l 40.4167:-3.7003 -t 6000:4500 -m vidmode &
 
 # Open urxvt (rxvt-unicode) in daemon-client mode on the first tag
 #   - resume the old screen session or start a new one
 #urxvt -e screen -l -UDRS term &
-urxvtcd -title term &
-
-# launch the external 60 second clock, and launch the workspace status bar
-FG="#a8a3f7"
-BG="#3f3c6d"
-
-while true ; do date ; sleep 60 ; done | dzen2 -e "" -x 400 -w $off -ta r -fg $FG -bg $BG -p &
+urxvtcd -title term
 
 # }}}
 
-exec ck-launch-session awesome
-# exec ck-launch-session xmonad
-# exec ck-launch-session openbox
-# exec ck-launch-session gnome-session
-# exec ck-launch-session startkde
-# exec ck-launch-session startxfce4
-# exec ck-launch-session qtile
+# Choose the session at login time by pressing F1
+DEFAULT_SESSION=awesome
+
+case $1 in
+qtile)
+	exec ck-launch-session qtile
+	;;
+xfce4)
+	exec ck-launch-session startxfce4
+	;;
+xmonad)
+	exec ck-launch-session xmonad
+	;;
+*)
+	exec ck-launch-session $DEFAULT_SESSION
+	;;
+esac
+
