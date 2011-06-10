@@ -88,7 +88,7 @@ urxvtcd -title term
 # }}}
 
 # Choose the session at login time by pressing F1
-DEFAULT_SESSION=awesome
+DEFAULT_SESSION=xmonad
 
 case $1 in
 qtile)
