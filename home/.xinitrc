@@ -63,10 +63,10 @@ else
 fi
 
 # Start the GNU Emacs daemon
-[[ ! -r "/tmp/emacs${UID}/server" ]] && emacs -u rizumu --daemon --eval "(server-start)"
+[[ ! -r "/tmp/emacs${UID}/server" ]] && emacs -u rizumu --daemon --eval "(server-start)" &
 
 # Play a startup sound
-ogg123 -q "${HOME}/dotfiles/tones/gudrun_gut-thelandKRZ.ogg"
+ogg123 -q "${HOME}/dotfiles/tones/gudrun_gut-thelandKRZ.ogg" &
 
 # Start mpd as normal user
 mpd ~/.mpd/mpd.conf
@@ -83,7 +83,7 @@ gtk-redshift -l 40.4167:-3.7003 -t 6000:4500 -m vidmode &
 # Open urxvt (rxvt-unicode) in daemon-client mode on the first tag
 #   - resume the old screen session or start a new one
 #urxvt -e screen -l -UDRS term &
-urxvtcd -title term
+urxvtcd -title term &
 
 # }}}
 
