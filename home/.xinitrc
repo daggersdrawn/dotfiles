@@ -34,6 +34,9 @@ setxkbmap -option ctrl:swapcaps
 # Swap alt and super
 setxkbmap -device 12 -option altwin:swap_lalt_lwin
 
+# Numlock on
+numlockx &
+
 # Keyboard control, repeat delay and repeat rate
 xset r rate 200 30
 
@@ -44,7 +47,7 @@ xset m 30/10 4
 #   - xcb does not support Xcursor yet
 xsetroot -cursor_name left_ptr
 
-# Use custom fonts with dzen
+# Use custom fonts on dzen toolbar
 xset +fp /usr/share/fonts/local
 xset fp rehash
 
@@ -62,8 +65,15 @@ else
   eval `gpg-agent --enable-ssh-support --daemon`
 fi
 
-# Start the GNU Emacs daemon
-[[ ! -r "/tmp/emacs${UID}/server" ]] && emacs -u rizumu --daemon --eval "(server-start)" &
+# Set background
+#/usr/bin/nitrogen --restore &
+feh --bg-scale /home/rizumu/dotfiles/backgrounds/taos_mesa-gorge_storm.jpg &
+
+# Start redshift
+gtk-redshift -l 40.4167:-3.7003 -t 6000:4500 -m vidmode &
+
+# Start xscreensaver
+/usr/bin/xscreensaver -no-splash &
 
 # Play a startup sound
 ogg123 -q "${HOME}/dotfiles/tones/gudrun_gut-thelandKRZ.ogg" &
@@ -71,14 +81,11 @@ ogg123 -q "${HOME}/dotfiles/tones/gudrun_gut-thelandKRZ.ogg" &
 # Start mpd as normal user
 mpd ~/.mpd/mpd.conf
 
-# Start xscreensaver
-/usr/bin/xscreensaver -no-splash &
-
 # Start dropbox
 dropboxd &
 
-# Start redshift
-gtk-redshift -l 40.4167:-3.7003 -t 6000:4500 -m vidmode &
+# Start the GNU Emacs daemon
+[[ ! -r "/tmp/emacs${UID}/server" ]] && emacs -u rizumu --daemon --eval "(server-start)" &
 
 # Open urxvt (rxvt-unicode) in daemon-client mode on the first tag
 #   - resume the old screen session or start a new one
