@@ -25,7 +25,7 @@ function take {
 }
 alias cal="cal -3" # show 3 months by default
 alias units="units -t" # terse mode
-alias diff="LC_ALL=C TZ=GMT0 diff -Naur" # normalise diffs for distribution
+alias diff="LC_ALL=C TZ=GMT0 colordiff -Naur" # normalise diffs for distribution and use color
 alias lynx="lynx -force_html -width=$COLUMNS" # best settings for viewing HTML
 
 alias l="ls -AF $LS_OPTIONS"        # Compact view, show hidden
@@ -45,6 +45,7 @@ function rep() {
 
 # I hate noise
 set bell-style visible
+alias bp="echo -e '\a'" # send a notification, ie. pacman -Syu && bp
 
 # Tell less not to beep and also display colours
 export LESS="-QR"
@@ -63,7 +64,7 @@ alias grep="GREP_COLOR='1;33;40' LANG=C grep --color=auto"
 # Pacman
 alias pacupg="sudo pacman -Syu" # Synchronize with repositories before upgrading packages that are out of date on the local system.
 alias pacin="sudo pacman -S"    # Install specific package(s) from the repositories
-alias pacins="sudo pacman -U"   # Install specific package not from the repositories but from a file 
+alias pacins="sudo pacman -U"   # Install specific package not from the repositories but from a file
 alias pacre="sudo pacman -R"    # Remove the specified package(s), retaining its configuration(s) and required dependencies
 alias pacrem="sudo pacman -Rns" # Remove the specified package(s), its configuration(s) and unneeded dependencies
 alias pacrep="pacman -Si"       # Display information about a given package in the repositories
