@@ -47,10 +47,10 @@ urxvt*matcher.button:  1
 urxvt*cutchars:        '"'()*<>[]{|}
 !
 ! Appearance
-urxvt*font: xft:Monospace:pixelsize=11:antialias=true:hinting=true
-urxvt*boldFont: xft:Monospace:pixelsize=11:antialias=true:bold:hinting=true
-urxvt*italicFont: xft:Monospace:pixelsize=11:antialias=true:italic:autohint=true:hinting=true
-urxvt*bolditalicFont: xft:Monospace:pixelsize=11:antialias=true:bold:italic:autohint=true:hinting=true
+urxvt*font: xft:Inconsolata:pixelsize=12:antialias=true:hinting=true
+urxvt*boldFont: xft:Inconsolata:pixelsize=12:antialias=true:bold:hinting=true
+urxvt*italicFont: xft:Inconsolata:pixelsize=12:antialias=true:italic:autohint=true:hinting=true
+urxvt*bolditalicFont: xft:Inconsolata:pixelsize=12:antialias=true:bold:italic:autohint=true:hinting=true
 !urxvt*inheritPixmap: true
 urxvt*xftAntialias: true
 urxvt*letterSpace: -2
