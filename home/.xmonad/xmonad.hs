@@ -57,6 +57,7 @@ icons = "/home/rizumu/.icons/"
 --}}}
 
 main = do
+   --myXmobar <- spawnPipe "xmobar"
    myStatusBarPipe <- spawnPipe myStatusBar
    --conkyBar <- spawnPipe myConkyBar
    xmonad $ myUrgencyHook $ defaultConfig
@@ -116,7 +117,7 @@ myUrgencyHintBgColor = "#ff6565"
 myDzenGenOpts = "-fg '" ++ myFgColor ++ "' -bg '" ++ myBgColor ++ "' -h '18'" ++ " -e 'onstart=lower' -fn '" ++ myFont ++ "'"
 
 -- Status Bar
-myStatusBar = "dzen2 -w 1920 -ta l " ++ myDzenGenOpts
+myStatusBar = "dzen2 -w 3040 -ta l " ++ myDzenGenOpts
 
 -- Conky Bar
 myConkyBar = "conky -c ~/.conky_bar | dzen2 -x 0 -y 1500 -w 1920 -ta c " ++ myDzenGenOpts
