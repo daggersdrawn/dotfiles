@@ -136,30 +136,29 @@ myWorkspaces = [" sh ", " emacs ", " www ", " mail ", " irc ", " im ", " ongaku 
 
 -- Urgency hint configuration
 myUrgencyHook = withUrgencyHook dzenUrgencyHook
-    {
-      args = [
-         "-x", "0", "-y", "1180", "-h", "20", "-w", "1920",
-         "-ta", "c",
-         "-fg", "" ++ myUrgencyHintFgColor ++ "",
-         "-bg", "" ++ myUrgencyHintBgColor ++ "",
-         "-fn", "" ++ myFont ++ ""
-         ]
-    }
+  { args =
+      [ "-x", "0", "-y", "1180", "-h", "20", "-w", "1920"
+      , "-ta", "c"
+      , "-fg", "" ++ myUrgencyHintFgColor ++ ""
+      , "-bg", "" ++ myUrgencyHintBgColor ++ ""
+      , "-fn", "" ++ myFont ++ ""
+      ]
+  }
 
 --{{{ Hook for managing windows
 myManageHook = composeAll
-   [ resource  =? "Do"               --> doIgnore,              -- Ignore GnomeDo
-     className =? "Pidgin"           --> doShift " im ",      -- Shift Pidgin to im desktop
-     className =? "Skype"            --> doShift " im ",      -- Shift Pidgin to im desktop
-     className =? "Chrome"           --> doShift " mail ",    -- Shift Chromium to www
-     className =? "Firefox"          --> doShift " www ",     -- Shift Firefox to www
-     className =? "Emacs"            --> doShift " emacs ",   -- Shift emacs to ed workspace
-     className =? "irssi"            --> doShift " irc ",     -- Shift emacs to ed workspace
-     className =? "ncmpcpp"          --> doShift " ongaku ",  -- Shift ncmcpp to ongaku workspace
-     className =? "Htop"             --> doShift " stats ",   -- Shift htop to stats workspace
-     className =? "Wicd-client.py"   --> doFloat,               -- Float Wicd window
-     isFullscreen 		     --> (doF W.focusDown <+> doFullFloat)
-   ]
+  [ resource  =? "Do"               --> doIgnore              -- Ignore GnomeDo
+  , className =? "Pidgin"           --> doShift " im "        -- Shift Pidgin to im desktop
+  , className =? "Skype"            --> doShift " im "        -- Shift Pidgin to im desktop
+  , className =? "Chrome"           --> doShift " mail "      -- Shift Chromium to www
+  , className =? "Firefox"          --> doShift " www "       -- Shift Firefox to www
+  , className =? "Emacs"            --> doShift " emacs "     -- Shift emacs to ed workspace
+  , className =? "irssi"            --> doShift " irc "       -- Shift emacs to ed workspace
+  , className =? "ncmpcpp"          --> doShift " ongaku "    -- Shift ncmcpp to ongaku workspace
+  , className =? "Htop"             --> doShift " stats "     -- Shift htop to stats workspace
+  , className =? "Wicd-client.py"   --> doFloat               -- Float Wicd window
+  , isFullscreen                    --> (doF W.focusDown <+> doFullFloat)
+  ]
 --}}}
 
 -- Union default and new key bindings
@@ -167,31 +166,31 @@ myKeys x  = M.union (M.fromList (newKeys x)) (keys defaultConfig x)
 
 --{{{ Keybindings
 --    Add new and/or redefine key bindings
-newKeys conf@(XConfig {XMonad.modMask = modm}) = [
-  ((modm, xK_p), spawn "dmenu_run -nb '#222222' -nf '#aaaaaa' -sb '#93d44f' -sf '#222222'"),  --Uses a colourscheme with dmenu
-  ((modm, xK_w), spawn "firefox"),
-  ((modm, xK_s), spawn "firefox manage.sugarstats.com/stats/today"),
-  -- ((modm, xK_c), spawn "chromium --app='https://calendar.google.com'"),
-  ((modm, xK_f), spawn "urxvt -e mc"),
-  ((modm, xK_r), spawn "urxvt --title irssi -e screen irssi"),
-  ((modm, xK_o), spawn "urxvt --title ncmpcpp -e ncmpcpp"),
-  ((modm, xK_m), spawn "chromium --app='https://mail.google.com'"),
-  -- ((modm, xK_n), spawn "chromium --app='https://simple-note.appspot.com'"),
-  -- ((modm, xK_g), spawn "chromium --app='https://app.nirvanahq.com'"),
-  ((0, xK_Print), spawn "scrot"),
-  -- ((modm, xK_v), spawn "VirtualBox"),
-  ((0, xF86XK_AudioMute), spawn "amixer -q set PCM toggle"),
-  ((0, xF86XK_AudioRaiseVolume), spawn "amixer -q set PCM 2+"),
-  ((0, xF86XK_AudioLowerVolume), spawn "amixer -q set PCM 2-"),
-  ((0, xF86XK_AudioPlay), spawn "exaile -t"),
-  ((0, xF86XK_AudioStop), spawn "exaile -s"),
-  ((0, xF86XK_AudioNext), spawn "exaile -n"),
-  ((0, xF86XK_AudioPrev), spawn "exaile -p"),
-  ((modm, xK_y), sendMessage ToggleStruts),
-  ((modm, xK_u), sendMessage MirrorShrink),
-  ((modm, xK_i), sendMessage MirrorExpand)
-  -- ((modm, xK_z), spawn "chromium --app='http://www.evernote.com/Home.action'")
-   ]
+newKeys conf@(XConfig {XMonad.modMask = modm}) =
+  [ ((modm, xK_p), spawn "dmenu_run -nb '#222222' -nf '#aaaaaa' -sb '#93d44f' -sf '#222222'")  --Uses a colourscheme with dmenu
+  , ((modm, xK_w), spawn "firefox")
+  , ((modm, xK_s), spawn "firefox manage.sugarstats.com/stats/today")
+  -- , ((modm, xK_c), spawn "chromium --app='https://calendar.google.com'")
+  , ((modm, xK_f), spawn "urxvt -e mc")
+  , ((modm, xK_r), spawn "urxvt --title irssi -e screen irssi")
+  , ((modm, xK_o), spawn "urxvt --title ncmpcpp -e ncmpcpp")
+  , ((modm, xK_m), spawn "chromium --app='https://mail.google.com'")
+  -- , ((modm, xK_n), spawn "chromium --app='https://simple-note.appspot.com'")
+  -- , ((modm, xK_g), spawn "chromium --app='https://app.nirvanahq.com'")
+  , ((0, xK_Print), spawn "scrot")
+  -- , ((modm, xK_v), spawn "VirtualBox")
+  , ((0, xF86XK_AudioMute), spawn "amixer -q set PCM toggle")
+  , ((0, xF86XK_AudioRaiseVolume), spawn "amixer -q set PCM 2+")
+  , ((0, xF86XK_AudioLowerVolume), spawn "amixer -q set PCM 2-")
+  , ((0, xF86XK_AudioPlay), spawn "exaile -t")
+  , ((0, xF86XK_AudioStop), spawn "exaile -s")
+  , ((0, xF86XK_AudioNext), spawn "exaile -n")
+  , ((0, xF86XK_AudioPrev), spawn "exaile -p")
+  , ((modm, xK_y), sendMessage ToggleStruts)
+  , ((modm, xK_u), sendMessage MirrorShrink)
+  , ((modm, xK_i), sendMessage MirrorExpand)
+  -- , ((modm, xK_z), spawn "chromium --app='http://www.evernote.com/Home.action'")
+  ]
 --}}}
 
 --{{{ Mousebindings
@@ -209,17 +208,17 @@ myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
 --}}}
 
 ---{{{ Dzen Config
-myDzenPP h = defaultPP {
-  ppOutput = hPutStrLn h,
-  ppSep = (wrapFg myHighlightedBgColor "|"),
-  ppWsSep = "",
-  ppCurrent = wrapFgBg myCurrentWsFgColor myCurrentWsBgColor,
-  ppVisible = wrapFgBg myVisibleWsFgColor myVisibleWsBgColor,
-  ppHidden = wrapFg myHiddenWsFgColor,
-  ppHiddenNoWindows = wrapFg myHiddenEmptyWsFgColor,
-  ppUrgent = wrapBg myUrgentWsBgColor,
-  ppTitle = (\x -> "  " ++ wrapFg myTitleFgColor x),
-  ppLayout  = dzenColor myFgColor"" .
+myDzenPP h = defaultPP
+  { ppOutput = hPutStrLn h
+  , ppSep = (wrapFg myHighlightedBgColor "|")
+  , ppWsSep = ""
+  , ppCurrent = wrapFgBg myCurrentWsFgColor myCurrentWsBgColor
+  , ppVisible = wrapFgBg myVisibleWsFgColor myVisibleWsBgColor
+  , ppHidden = wrapFg myHiddenWsFgColor
+  , ppHiddenNoWindows = wrapFg myHiddenEmptyWsFgColor
+  , ppUrgent = wrapBg myUrgentWsBgColor
+  , ppTitle = (\x -> "  " ++ wrapFg myTitleFgColor x)
+  , ppLayout  = dzenColor myFgColor"" .
                 (\x -> case x of
                     "ResizableTall" -> wrapIcon "dzen_bitmaps/tall.xbm"
                     "Mirror ResizableTall" -> wrapIcon "dzen_bitmaps/mtall.xbm"
