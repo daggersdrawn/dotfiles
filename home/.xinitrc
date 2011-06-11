@@ -11,9 +11,14 @@ if [ -d /etc/X11/xinit/xinitrc.d ]; then
   unset f
 fi
 
+
 # {{{ Environment settings
+#
 errorlog="${HOME}/.xerrors"
 gnupglog="${HOME}/.gnupg/gpg-agent.info"
+tone="${HOME}/dotfiles/tones/gudrun_gut-thelandKRZ.ogg"
+eserver="/tmp/emacs${UID}/server"
+background="${HOME}/dotfiles/backgrounds/taos_mesa-gorge_storm.jpg"
 # }}}
 
 
@@ -26,65 +31,36 @@ if (cp /dev/null "${errorlog}"); then
 fi
 # }}}
 
+
 # {{{ Input settings
 #
-# Swap ctrl and caps
-setxkbmap -option ctrl:swapcaps
-
-# Swap alt and super
-setxkbmap -device 12 -option altwin:swap_lalt_lwin
-
-# Numlock on TODO: only on full keyboard, not laptop keyboard
-# numlockx &
-
-# Keyboard control, repeat delay and repeat rate
-xset r rate 200 30
-
-# Pointer control, acceleration and threshold
-xset m 30/10 4
-
-# Pointer appearance
-#   - xcb does not support Xcursor yet
-xsetroot -cursor_name left_ptr
-# Hide cursor when not in use
-unclutter &
-
-# Use custom fonts on dzen toolbar
-xset +fp /usr/share/fonts/local
-xset fp rehash
-
-# Disable the touchpad while typing
-#syndaemon -k -i 2 -d &
+setxkbmap -option ctrl:swapcaps                    # Swap ctrl and caps
+setxkbmap -device 12 -option altwin:swap_lalt_lwin # Swap alt and super
+xset r rate 200 30                                 # Keyboard control, repeat delay and repeat rate
+# numlockx &                                         # Numlock on TODO: only on full keyboard, not laptop keyboard
+xsetroot -cursor_name left_ptr                     # Pointer apperance: xcb does not support Xcursor yet
+xset m 30/10 4                                     # Pointer control, acceleration and threshold
+unclutter &                                        # Hide cursor when not in use
+# syndaemon -k -i 2 -d &                             # Disable the touchpad while typing
+xset +fp /usr/share/fonts/local                    # Use custom fonts on dzen toolbar
+xset fp rehash                                     # Use custom fonts on dzen toolbar
 # }}}
+
 
 # {{{ Autostart settings
 #
-# Set background
-#/usr/bin/nitrogen --restore &
-feh --bg-scale /home/rizumu/dotfiles/backgrounds/taos_mesa-gorge_storm.jpg &
-
-# Set up an icon tray
+feh --bg-scale "${background}" &                                              # Set background
+#/usr/bin/nitrogen --restore &                                                # Restore last background
 trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true \
-  --width 10  --height 12 --transparent true --alpha 0 --tint 0x2F2F2F &
-
-# Start redshift
-gtk-redshift -l 40.4167:-3.7003 -t 6000:4500 -m vidmode &
-
-# Start xscreensaver
-/usr/bin/xscreensaver -no-splash &
-
-# Play a startup sound
-ogg123 -q "${HOME}/dotfiles/tones/gudrun_gut-thelandKRZ.ogg" &
-
-# Start mpd as normal user
-mpd ~/.mpd/mpd.conf
-
-# Start dropbox
-dropboxd &
-
-# Start the GNU Emacs daemon
-[[ ! -r "/tmp/emacs${UID}/server" ]] && emacs -u rizumu --daemon --eval "(server-start)" &
-
+  --width 10  --height 12 --transparent true --alpha 0 --tint 0x2F2F2F &      # Add an icon tray
+gtk-redshift -l 40.4167:-3.7003 -t 6000:4500 -m vidmode &                     # Start redshift
+/usr/bin/xscreensaver -no-splash &                                            # Start xscreensaver
+ogg123 -q "${tone}" &                                                         # Play a startup sound
+mpd ~/.mpd/mpd.conf                                                           # Start mpd daemon
+dropboxd &                                                                    # Start dropbx daemon
+[[ ! -r "${eserver}" ]] && emacs -u rizumu --daemon --eval "(server-start)" & # Start the GNU Emacs daemon
+# urxvt -e screen -l -UDRS term &                                               # resume last screen session or start newa
+urxvtcd -title term -q -f -o &                                                # Start urxvt daemon
 # Start the GnuPG agent and enable OpenSSH agent emulation
 if (pgrep -u "${USER}" gpg-agent); then
   eval `cat ${gnupglog}`
@@ -92,29 +68,20 @@ if (pgrep -u "${USER}" gpg-agent); then
 else
   eval `gpg-agent --enable-ssh-support --daemon`
 fi
-
-# Open urxvt (rxvt-unicode) in daemon-client mode on the first tag
-#   - resume the old screen session or start a new one
-#urxvt -e screen -l -UDRS term &
-urxvtcd -title term &
-
 # }}}
 
-# Choose the session at login time by pressing F1
+
+# {{{ Choose the session at login time by pressing F1
+#
 DEFAULT_SESSION=xmonad
-
 case $1 in
-qtile)
-  exec ck-launch-session qtile
-  ;;
-xfce4)
-  exec ck-launch-session startxfce4
-  ;;
-xmonad)
-  exec ck-launch-session xmonad
-  ;;
-*)
-  exec ck-launch-session $DEFAULT_SESSION
-  ;;
+  qtile)
+    exec ck-launch-session qtile ;;
+  xfce4)
+    exec ck-launch-session startxfce4 ;;
+  xmonad)
+    exec ck-launch-session xmonad ;;
+  *)
+    exec ck-launch-session $DEFAULT_SESSION ;;
 esac
-
+# }}}
