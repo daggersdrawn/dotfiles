@@ -1,2 +1,0 @@
-#!/bin/bash
-sudo wpa_supplicant -B -i wlan0 -c /etc/wpa_supplicant.conf && sudo dhcpcd wlan0 && mnt_drobo
