@@ -46,6 +46,8 @@ xset m 30/10 4
 # Pointer appearance
 #   - xcb does not support Xcursor yet
 xsetroot -cursor_name left_ptr
+# Hide cursor when not in use
+unclutter &
 
 # Use custom fonts on dzen toolbar
 xset +fp /usr/share/fonts/local
