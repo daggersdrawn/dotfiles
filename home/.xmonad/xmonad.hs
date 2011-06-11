@@ -38,11 +38,10 @@ import XMonad.Prompt
 import XMonad.Prompt.Man
 import XMonad.Prompt.Shell
 
-import XMonad.StackSet as W
-
 import XMonad.Util.EZConfig
 import XMonad.Util.Run
 
+import qualified XMonad.StackSet as W
 import qualified Data.Map as M
 --}}}
 
@@ -70,6 +69,7 @@ main = do
       , logHook = dynamicLogWithPP $ myDzenPP myStatusBarPipe
       , modMask = mod4Mask
       , keys = myKeys
+      , mouseBindings = myMouseBindings
       , XMonad.Core.workspaces = myWorkspaces
       , startupHook = setWMName "LG3D"
       , focusFollowsMouse = True
@@ -132,18 +132,7 @@ myLayoutHook = avoidStruts $ onWorkspace " 4 im " imLayout $ standardLayouts
                      delta = 0.03
                      ratio = 0.5
 -- Workspaces
-myWorkspaces =
-   [
-      " sh ",
-      " emacs ",
-      " www ",
-      " mail ",
-      " irc ",
-      " im ",
-      " ongaku ",
-      " stats ",
-      " . "
-   ]
+myWorkspaces = [" sh ", " emacs ", " www ", " mail ", " irc ", " im ", " ongaku ", " stats ", " . "]
 
 -- Urgency hint configuration
 myUrgencyHook = withUrgencyHook dzenUrgencyHook
@@ -203,6 +192,20 @@ newKeys conf@(XConfig {XMonad.modMask = modm}) = [
   ((modm, xK_i), sendMessage MirrorExpand)
   -- ((modm, xK_z), spawn "chromium --app='http://www.evernote.com/Home.action'")
    ]
+--}}}
+
+--{{{ Mousebindings
+myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
+    -- mod-button1, Set the window to floating mode and move by dragging
+    [ ((modm, button1), (\w -> focus w >> mouseMoveWindow w
+                                       >> windows W.shiftMaster))
+    -- mod-button2, Raise the window to the top of the stack
+    , ((modm, button2), (\w -> focus w >> windows W.shiftMaster))
+    -- mod-button3, Set the window to floating mode and resize by dragging
+    , ((modm, button3), (\w -> focus w >> mouseResizeWindow w
+                                       >> windows W.shiftMaster))
+    -- you may also bind events to the mouse scroll wheel (button4 and button5)
+    ]
 --}}}
 
 ---{{{ Dzen Config
