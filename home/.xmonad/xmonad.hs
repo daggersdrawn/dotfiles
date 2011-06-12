@@ -1,30 +1,32 @@
 --
--- rizumu's xmonad config
+-- rizumu's xmonad-config
+-- git://github.com/rizumu/rizumu-xmonad.git
 --
--- Taken from github.com/davidbeckingsale/xmonad-config
--- Started out as avandael's xmonad.hs
--- Also uses stuff from pbrisbin.com:8080/
---
+-- Adapted from:
+-- git://github.com/davidbeckingsale/xmonad-config.git
+-- git://github.com/pbrisbin/xmonad-config.git
 
 --{{{ Imports
-import Data.List
-
-import Graphics.X11.ExtraTypes.XF86
-import Graphics.X11.Xlib
-
-import System.IO
-
 import XMonad
 
-import XMonad.Actions.GridSelect
+-- <http://pbrisbin.com/xmonad/docs/Utils.html>
+import Utils
+import Dzen (DzenConf(..), TextAlign(..), defaultDzenXft,
+                spawnDzen, spawnToDzen, defaultDzen)
+import Data.List (isInfixOf, isPrefixOf)
+
+import ScratchPadKeys (scratchPadList, manageScratchPads, scratchPadKeys)
+import System.IO (hPutStrLn)
+import XMonad.Hooks.DynamicLog (dynamicLogWithPP, PP(..), dzenColor, wrap, shorten, dzenStrip, defaultPP, pad)
+import XMonad.Hooks.ManageHelpers (doFullFloat, doCenterFloat, isFullscreen)
+import XMonad.Hooks.UrgencyHook (withUrgencyHookC, withUrgencyHook, dzenUrgencyHook)
+import XMonad.Util.EZConfig -- (additionalKeysP)
 
 import XMonad.Core
 
-import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
-import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.SetWMName
-import XMonad.Hooks.UrgencyHook
+import XMonad.Util.Run (spawnPipe)
 
 import XMonad.Layout
 import XMonad.Layout.Grid
@@ -33,13 +35,6 @@ import XMonad.Layout.NoBorders
 import XMonad.Layout.PerWorkspace
 import XMonad.Layout.ResizableTile
 import XMonad.Layout.StackTile
-
-import XMonad.Prompt
-import XMonad.Prompt.Man
-import XMonad.Prompt.Shell
-
-import XMonad.Util.EZConfig
-import XMonad.Util.Run
 
 import qualified XMonad.StackSet as W
 import qualified Data.Map as M
@@ -56,24 +51,23 @@ icons = "/home/rizumu/.icons/"
 --}}}
 
 main = do
-   --myXmobar <- spawnPipe "xmobar"
-   myStatusBarPipe <- spawnPipe myStatusBar
-   --conkyBar <- spawnPipe myConkyBar
-   xmonad $ myUrgencyHook $ defaultConfig
-      { terminal = "urxvtcd"
-      , normalBorderColor = myInactiveBorderColor
-      , focusedBorderColor = myActiveBorderColor
-      , borderWidth = myBorderWidth
-      , manageHook = manageDocks <+> myManageHook <+> manageHook defaultConfig
-      , layoutHook = smartBorders $ avoidStruts $ myLayoutHook
-      , logHook = dynamicLogWithPP $ myDzenPP myStatusBarPipe
-      , modMask = mod4Mask
-      , keys = myKeys
-      , mouseBindings = myMouseBindings
-      , XMonad.Core.workspaces = myWorkspaces
-      , startupHook = setWMName "LG3D"
-      , focusFollowsMouse = True
-     }
+    --myXmobar <- spawnPipe "xmobar"
+    myStatusBarPipe <- spawnPipe myStatusBar
+    --conkyBar <- spawnPipe myConkyBar
+    xmonad $ defaultConfig
+        { terminal = "urxvtcd"
+        , normalBorderColor = myInactiveBorderColor
+        , focusedBorderColor = myActiveBorderColor
+        , borderWidth = myBorderWidth
+        , manageHook = manageDocks <+> myManageHook <+> manageHook defaultConfig
+        , layoutHook = smartBorders $ avoidStruts $ myLayoutHook
+        , logHook = dynamicLogWithPP $ myDzenPP myStatusBarPipe
+        , modMask = mod4Mask
+        , mouseBindings = myMouseBindings
+        , XMonad.Core.workspaces = myWorkspaces
+        , startupHook = setWMName "LG3D"
+        , focusFollowsMouse = True
+        } `additionalKeysP` myKeys
 
 --{{{ Theme
 
@@ -135,62 +129,58 @@ myLayoutHook = avoidStruts $ onWorkspace " 4 im " imLayout $ standardLayouts
 myWorkspaces = [" sh ", " emacs ", " www ", " mail ", " irc ", " im ", " ongaku ", " stats ", " . "]
 
 -- Urgency hint configuration
-myUrgencyHook = withUrgencyHook dzenUrgencyHook
-  { args =
-      [ "-x", "0", "-y", "1180", "-h", "20", "-w", "1920"
-      , "-ta", "c"
-      , "-fg", "" ++ myUrgencyHintFgColor ++ ""
-      , "-bg", "" ++ myUrgencyHintBgColor ++ ""
-      , "-fn", "" ++ myFont ++ ""
-      ]
-  }
+-- myUrgencyHook = withUrgencyHook dzenUrgencyHook
+--   { args =
+--       [ "-x", "0", "-y", "1180", "-h", "20", "-w", "1920"
+--       , "-ta", "c"
+--       , "-fg", "" ++ myUrgencyHintFgColor ++ ""
+--       , "-bg", "" ++ myUrgencyHintBgColor ++ ""
+--       , "-fn", "" ++ myFont ++ ""
+--       ]
+--   }
 
 --{{{ Hook for managing windows
 myManageHook = composeAll
-  [ resource  =? "Do"               --> doIgnore              -- Ignore GnomeDo
-  , className =? "Pidgin"           --> doShift " im "        -- Shift Pidgin to im desktop
-  , className =? "Skype"            --> doShift " im "        -- Shift Pidgin to im desktop
-  , className =? "Chrome"           --> doShift " mail "      -- Shift Chromium to www
-  , className =? "Firefox"          --> doShift " www "       -- Shift Firefox to www
-  , className =? "Emacs"            --> doShift " emacs "     -- Shift emacs to ed workspace
-  , className =? "irssi"            --> doShift " irc "       -- Shift emacs to ed workspace
-  , className =? "ncmpcpp"          --> doShift " ongaku "    -- Shift ncmcpp to ongaku workspace
-  , className =? "Htop"             --> doShift " stats "     -- Shift htop to stats workspace
-  , className =? "Wicd-client.py"   --> doFloat               -- Float Wicd window
-  , isFullscreen                    --> (doF W.focusDown <+> doFullFloat)
-  ]
+    [ resource  =? "Do"               --> doIgnore              -- Ignore GnomeDo
+    , className =? "Pidgin"           --> doShift " im "        -- Shift Pidgin to im desktop
+    , className =? "Skype"            --> doShift " im "        -- Shift Pidgin to im desktop
+    , className =? "Chrome"           --> doShift " mail "      -- Shift Chromium to www
+    , className =? "Firefox"          --> doShift " www "       -- Shift Firefox to www
+    , className =? "Emacs"            --> doShift " emacs "     -- Shift emacs to ed workspace
+    , className =? "irssi"            --> doShift " irc "       -- Shift emacs to ed workspace
+    , className =? "ncmpcpp"          --> doShift " ongaku "    -- Shift ncmcpp to ongaku workspace
+    , className =? "Htop"             --> doShift " stats "     -- Shift htop to stats workspace
+    , className =? "Wicd-client.py"   --> doFloat               -- Float Wicd window
+    , isFullscreen                    --> (doF W.focusDown <+> doFullFloat)
+    ]
 --}}}
 
--- Union default and new key bindings
-myKeys x  = M.union (M.fromList (newKeys x)) (keys defaultConfig x)
-
 --{{{ Keybindings
---    Add new and/or redefine key bindings
-newKeys conf@(XConfig {XMonad.modMask = modm}) =
-  [ ((modm, xK_p), spawn "dmenu_run -nb '#222222' -nf '#aaaaaa' -sb '#93d44f' -sf '#222222'")  --Uses a colourscheme with dmenu
-  , ((modm, xK_w), spawn "firefox")
-  , ((modm, xK_s), spawn "firefox manage.sugarstats.com/stats/today")
-  -- , ((modm, xK_c), spawn "chromium --app='https://calendar.google.com'")
-  , ((modm, xK_f), spawn "urxvt -e mc")
-  , ((modm, xK_r), spawn "urxvt --title irssi -e screen irssi")
-  , ((modm, xK_o), spawn "urxvt --title ncmpcpp -e ncmpcpp")
-  , ((modm, xK_m), spawn "chromium --app='https://mail.google.com'")
-  -- , ((modm, xK_n), spawn "chromium --app='https://simple-note.appspot.com'")
-  -- , ((modm, xK_g), spawn "chromium --app='https://app.nirvanahq.com'")
-  , ((0, xK_Print), spawn "scrot")
-  -- , ((modm, xK_v), spawn "VirtualBox")
-  , ((0, xF86XK_AudioMute), spawn "amixer -q set PCM toggle")
-  , ((0, xF86XK_AudioRaiseVolume), spawn "amixer -q set PCM 2+")
-  , ((0, xF86XK_AudioLowerVolume), spawn "amixer -q set PCM 2-")
-  , ((0, xF86XK_AudioPlay), spawn "exaile -t")
-  , ((0, xF86XK_AudioStop), spawn "exaile -s")
-  , ((0, xF86XK_AudioNext), spawn "exaile -n")
-  , ((0, xF86XK_AudioPrev), spawn "exaile -p")
-  , ((modm, xK_y), sendMessage ToggleStruts)
-  , ((modm, xK_u), sendMessage MirrorShrink)
-  , ((modm, xK_i), sendMessage MirrorExpand)
-  -- , ((modm, xK_z), spawn "chromium --app='http://www.evernote.com/Home.action'")
-  ]
+myKeys :: [(String, X())]
+myKeys =
+    [ ("M4-o", spawn "dmenu_run -nb '#222222' -nf '#aaaaaa' -sb '#93d44f' -sf '#222222'")  --Uses a colourscheme with dmenu
+    , ("M4-w", spawn "firefox")
+    -- , ("M4-c", spawn "chromium --app='https://calendar.google.com'")
+    , ("M4-f", spawn "urxvt -e mc")
+    , ("M4-r", spawn "urxvt --title irssi -e screen irssi")
+    , ("M4-o", spawn "urxvt --title ncmpcpp -e ncmpcpp")
+    , ("M4-m", spawn "chromium --app='https://mail.google.com'")
+    -- , ((modm, xK_n), spawn "chromium --app='https://simple-note.appspot.com'")
+    -- , ((modm, xK_g), spawn "chromium --app='https://app.nirvanahq.com'")
+    , ("xK_Print", spawn "scrot")
+    -- , ((modm, xK_v), spawn "VirtualBox")
+    , ("xF86XK_AudioMute", spawn "amixer -q set PCM toggle")
+    , ("xF86XK_AudioRaiseVolume", spawn "amixer -q set PCM 2+")
+    , ("xF86XK_AudioLowerVolume", spawn "amixer -q set PCM 2-")
+    , ("xF86XK_AudioPlay", spawn "exaile -t")
+    , ("xF86XK_AudioStop", spawn "exaile -s")
+    , ("xF86XK_AudioNext", spawn "exaile -n")
+    , ("xF86XK_AudioPrev", spawn "exaile -p")
+    , ("M4y", sendMessage ToggleStruts)
+    , ("M4u", sendMessage MirrorShrink)
+    , ("M4i", sendMessage MirrorExpand)
+    -- , ((modm, xK_z), spawn "chromium --app='http://www.evernote.com/Home.action'")
+    ]
 --}}}
 
 --{{{ Mousebindings
@@ -209,26 +199,26 @@ myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
 
 ---{{{ Dzen Config
 myDzenPP h = defaultPP
-  { ppOutput = hPutStrLn h
-  , ppSep = (wrapFg myHighlightedBgColor "|")
-  , ppWsSep = ""
-  , ppCurrent = wrapFgBg myCurrentWsFgColor myCurrentWsBgColor
-  , ppVisible = wrapFgBg myVisibleWsFgColor myVisibleWsBgColor
-  , ppHidden = wrapFg myHiddenWsFgColor
-  , ppHiddenNoWindows = wrapFg myHiddenEmptyWsFgColor
-  , ppUrgent = wrapBg myUrgentWsBgColor
-  , ppTitle = (\x -> "  " ++ wrapFg myTitleFgColor x)
-  , ppLayout  = dzenColor myFgColor"" .
+    { ppOutput = hPutStrLn h
+    , ppSep = (wrapFg myHighlightedBgColor "|")
+    , ppWsSep = ""
+    , ppCurrent = wrapFgBg myCurrentWsFgColor myCurrentWsBgColor
+    , ppVisible = wrapFgBg myVisibleWsFgColor myVisibleWsBgColor
+    , ppHidden = wrapFg myHiddenWsFgColor
+    , ppHiddenNoWindows = wrapFg myHiddenEmptyWsFgColor
+    , ppUrgent = wrapBg myUrgentWsBgColor
+    , ppTitle = (\x -> "  " ++ wrapFg myTitleFgColor x)
+    , ppLayout = dzenColor myFgColor"" .
                 (\x -> case x of
                     "ResizableTall" -> wrapIcon "dzen_bitmaps/tall.xbm"
                     "Mirror ResizableTall" -> wrapIcon "dzen_bitmaps/mtall.xbm"
                     "Full" -> wrapIcon "dzen_bitmaps/full.xbm"
                 ) . stripIM
-  }
-  where
-    wrapFgBg fgColor bgColor content= wrap ("^fg(" ++ fgColor ++ ")^bg(" ++ bgColor ++ ")") "^fg()^bg()" content
-    wrapFg color content = wrap ("^fg(" ++ color ++ ")") "^fg()" content
-    wrapBg color content = wrap ("^bg(" ++ color ++ ")") "^bg()" content
+    }
+    where
+        wrapFgBg fgColor bgColor content= wrap ("^fg(" ++ fgColor ++ ")^bg(" ++ bgColor ++ ")") "^fg()^bg()" content
+        wrapFg color content = wrap ("^fg(" ++ color ++ ")") "^fg()" content
+        wrapBg color content = wrap ("^bg(" ++ color ++ ")") "^bg()" content
 --}}}
 
 --{{{ GridSelect
