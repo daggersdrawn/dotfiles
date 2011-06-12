@@ -1,8 +1,3 @@
-if [ `uname` == "Linux" ]; then
-  export LS_OPTIONS="--color=auto"
-  eval `dircolors $HOME/dotfiles/bash/dircolors`
-fi
-
 # Alias Editing
 alias ea="ec $HOME/dotfiles/" # because i edit my bash_profile a lot with new things
 alias reload=". $HOME/.profile" # same as previous, after editing you have to source it for the new stuff to work
@@ -28,10 +23,11 @@ alias units="units -t" # terse mode
 alias diff="LC_ALL=C TZ=GMT0 colordiff -Naur" # normalise diffs for distribution and use color
 alias lynx="lynx -force_html -width=$COLUMNS" # best settings for viewing HTML
 
-alias l="ls -AF $LS_OPTIONS"        # Compact view, show hidden
-alias la="ls -haliF $LS_OPTIONS"    # l for list style, a for all including hidden, h for human readable file sizes, i for inode to determine hardlinks
-alias ll="ls -lFh $LS_OPTIONS"      # Long view, no hidden
-alias lc="ls -GFp $LS_OPTIONS"      # Compact view, show colors
+alias ls="ls -h --group-directories-first --color=auto"
+alias l="ls -AF"        # Compact view, show hidden
+alias la="ls -aliF"    # l for list style, a for all including hidden, h for human readable file sizes, i for inode to determine hardlinks
+alias ll="ls -lFh"      # Long view, no hidden
+alias lc="ls -GFp"      # Compact view, show colors
 
 # task
 alias t="c && task ls"
@@ -46,10 +42,6 @@ function rep() {
 # I hate noise
 set bell-style visible
 alias bp="echo -e '\a'" # send a notification, ie. pacman -Syu && bp
-
-# Tell less not to beep and also display colours
-export LESS="-QR"
-alias vless="vim -u $VIMRUNTIME/macros/less.vim"
 
 # Processes
 alias tm="top -o vsize" #memory
@@ -171,12 +163,27 @@ function en {
     fi
 } # open in the dameon in a new frame.
 
+# colortail
+alias tailirc='/usr/bin/colortail -q -k /etc/colortail/conf.irc'
+alias colortail='colortail -q -k /etc/colortail/conf.messages'
+
 # Zile
 alias z="zile"
 
+# only if we have a disc drive
+if [[ -b '/dev/sr0' ]]; then
+alias eject='eject -T /dev/sr0'
+  alias mountdvd='sudo mount -t iso9660 -o ro /dev/sr0 /media/dvd/'
+fi
+
+# only if we have xmonad
+[[ -f "$HOME/.xmonad/xmonad.hs" ]] && alias checkmonad="(cd ~/.xmonad && ghci -ilib xmonad.hs)"
+
 # Unidad
 function workon-unidad {
-    deactivate || true
+    if command -v deactivate &>/dev/null; then
+        deactivate || true
+    fi
     export PROJECT_CURRENT="$1"
     cd $HOME/development/unidad/comunidad
     source ACTIVATE
@@ -191,12 +198,109 @@ alias workon-telva="workon-unidad telva"
 # works, but not as an alias. lossless > lossless is bad anyway.
 alias mp32ogg="find . -iname '*.mp3' | while read song; do mpg321 ${song} -w - | oggenc -q 9 -o ${song%.mp3}.ogg -; done"
 
-# OSX
-if [ `uname` == "Darwin" ]; then
-    alias ec="/Applications/Emacs.app/Contents/MacOS/bin/emacsclient --no-wait $1"
-    alias rquicksilver="sudo umount -Af && killall Quicksilver && open /Applications/Quicksilver.app"
-    alias killdash="defaults write com.apple.dashboard mcx-disabled -boolean YES; killall Dock;"
-    alias startdash="defaults write com.apple.dashboard mcx-disabled -boolean NO; killall Dock;"
-    alias o="open ."
-    alias o.="open ."
-fi
+# combine pdfs into one using ghostscript
+combinepdf() {
+  _have gs || return 1
+  [[ $# -ge 2 ]] || return 1
+
+  local out="$1"; shift
+
+gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -sOutputFile="$out" "$@"
+}
+
+# make a thumb
+thumbit() {
+  _have mogrify || return 1
+
+  for pic in "$@"; do
+case "$pic" in
+      *.jpg) thumb="${pic/.jpg/-thumb.jpg}" ;;
+      *.jpeg) thumb="${pic/.jpeg/-thumb.jpeg}" ;;
+      *.png) thumb="${pic/.png/-thumb.png}" ;;
+      *.bmp) thumb="${pic/.bmp/-thumb.bmp}" ;;
+    esac
+
+    [[ -z "$thumb" ]] && return 1
+
+    cp "$pic" "$thumb" && mogrify -resize 10% "$thumb"
+  done
+}
+
+# rip a dvd with handbrake
+hbrip() {
+  _have HandBrakeCLI || return 1
+  [[ -n "$1" ]] || return 1
+
+  local name="$1" out drop="$HOME/Movies"; shift
+  [[ -d "$drop" ]] || mkdir -p "$drop"
+
+  out="$drop/$name.mp4"
+
+  echo "rip /dev/sr0 --> $out"
+  HandBrakeCLI -Z iPad "$@" -i /dev/sr0 -o "$out" 2>/dev/null
+  echo
+}
+
+# convert media to ipad format with handbrake
+hbconvert() {
+  _have HandBrakeCLI || return 1
+  [[ -n "$1" ]] || return 1
+
+  local in="$1" out drop="$HOME/Movies/converted"; shift
+  [[ -d "$drop" ]] || mkdir -p "$drop"
+
+  out="$drop/$(basename "${in%.*}").mp4"
+
+  echo "convert $in --> $out"
+  HandBrakeCLI -Z iPad "$@" -i "$in" -o "$out" 2>/dev/null
+  echo
+}
+
+# simple spellchecker, uses /usr/share/dict/words
+spellcheck() {
+  [[ -f /usr/share/dict/words ]] || return 1
+
+  for word in "$@"; do
+if grep -Fqx "$word" /usr/share/dict/words; then
+echo -e "\e[1;32m$word\e[0m" # green
+    else
+echo -e "\e[1;31m$word\e[0m" # red
+    fi
+done
+}
+
+# go to google for anything
+google() {
+  [[ -z "$BROWSER" ]] && return 1
+
+  local term="${*:-$(xclip -o)}"
+
+  $BROWSER "http://www.google.com/search?q=${term// /+}" &>/dev/null &
+}
+
+# go to google for a definition
+define() {
+  _have lynx || return 1
+
+  local lang charset tmp
+
+  lang="${LANG%%_*}"
+  charset="${LANG##*.}"
+  tmp='/tmp/define'
+  
+  lynx -accept_all_cookies \
+       -dump \
+       -hiddenlinks=ignore \
+       -nonumbers \
+       -assume_charset="$charset" \
+       -display_charset="$charset" \
+       "http://www.google.com/search?hl=$lang&q=define%3A+$1&btnG=Google+Search" | grep -m 5 -C 2 -A 5 -w "*" > "$tmp"
+
+  if [[ ! -s "$tmp" ]]; then
+echo -e "No definition found.\n"
+  else
+echo -e "$(grep -v Search "$tmp" | sed "s/$1/\\\e[1;32m&\\\e[0m/g")\n"
+  fi
+
+rm -f "$tmp"
+}
