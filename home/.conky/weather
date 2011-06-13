@@ -1,0 +1,14 @@
+# conkyrc file for dzen
+###
+
+background no
+out_to_console yes
+out_to_x no
+override_utf8_locale yes
+update_interval 1
+total_run_times 0
+mpd_host 127.0.0.1
+mpd_port 6600
+
+TEXT
+${scroll 82 3 ${rss http://newsrss.bbc.co.uk/weather/forecast/43/Next3DaysRSS.xml 10 feed_title} | ${rss http://newsrss.bbc.co.uk/weather/forecast/43/Next3DaysRSS.xml 10 item_title 0} | ${rss http://newsrss.bbc.co.uk/weather/forecast/43/Next3DaysRSS.xml 10 item_desc 0} | ${rss http://newsrss.bbc.co.uk/weather/forecast/43/Next3DaysRSS.xml 10 item_title 1} | ${rss http://newsrss.bbc.co.uk/weather/forecast/43/Next3DaysRSS.xml 10 item_desc 1}}

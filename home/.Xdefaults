@@ -18,81 +18,81 @@ Xcursor.size:  22
 !{{{ URXVT
 !
 ! General
-urxvt*termName:           rxvt-unicode-256color
-urxvt*loginShell:         true
-urxvt*scrollBar:         false
-urxvt*secondaryScroll:    true
-urxvt*saveLines:         65535
-urxvt*cursorBlink:       false
-!urxvt*cursorUnderline:   true
-urxvt*urgentOnBell:       true
-urxvt*visualBell:        false
-!urxvt*override-redirect:false
-!urxvt*borderLess:       false
-!urxvt*internalBorder:       0
-!urxvt*externalBorder:       0
+URxvt*termName:           rxvt-unicode-256color
+URxvt*loginShell:         true
+URxvt*scrollBar:         false
+URxvt*secondaryScroll:    true
+URxvt*saveLines:         65535
+URxvt*cursorBlink:       false
+!URxvt*cursorUnderline:   true
+URxvt*urgentOnBell:       true
+URxvt*visualBell:        false
+!URxvt*override-redirect:false
+!URxvt*borderLess:       false
+!URxvt*internalBorder:       0
+!URxvt*externalBorder:       0
 !
 ! Extensions
-urxvt*perl-lib:        /usr/lib/urxvt/perl/
-urxvt*perl-ext-common: default,matcher,searchable-scrollback,clipboard,url-select,keyboard-select
-urxvt*urlLauncher:     /usr/bin/firefox
-urxvt.keysym.M-u:      perl:url-select:select_next
-urxvt.keysym.M-c:      perl:clipboard:copy
-urxvt.keysym.M-v:      perl:clipboard:paste
-urxvt.keysym.M-C-v:    perl:clipboard:paste_escaped
-urxvt.keysym.M-s:      perl:keyboard-select:search
-urxvt.keysym.M-Escape: perl:keyboard-select:activate
-urxvt*matcher.button:  1
+URxvt*perl-lib:        /usr/lib/urxvt/perl/
+URxvt*perl-ext-common: default,matcher,searchable-scrollback,clipboard,url-select,keyboard-select
+URxvt*urlLauncher:     /usr/bin/firefox
+URxvt.keysym.M-u:      perl:url-select:select_next
+URxvt.keysym.M-c:      perl:clipboard:copy
+URxvt.keysym.M-v:      perl:clipboard:paste
+URxvt.keysym.M-C-v:    perl:clipboard:paste_escaped
+URxvt.keysym.M-s:      perl:keyboard-select:search
+URxvt.keysym.M-Escape: perl:keyboard-select:activate
+URxvt*matcher.button:  1
 ! Catch ugly URLs
-urxvt*cutchars:        '"'()*<>[]{|}
+URxvt*cutchars:        '"'()*<>[]{|}
 !
 ! Appearance
-urxvt*font: xft:Inconsolata:pixelsize=12:antialias=true:hinting=true
-urxvt*boldFont: xft:Inconsolata:pixelsize=12:antialias=true:bold:hinting=true
-urxvt*italicFont: xft:Inconsolata:pixelsize=12:antialias=true:italic:autohint=true:hinting=true
-urxvt*bolditalicFont: xft:Inconsolata:pixelsize=12:antialias=true:bold:italic:autohint=true:hinting=true
-!urxvt*inheritPixmap: true
-urxvt*xftAntialias: true
-urxvt*letterSpace: -2
+URxvt*font: xft:Inconsolata:pixelsize=12:antialias=true:hinting=true
+URxvt*boldFont: xft:Inconsolata:pixelsize=12:antialias=true:bold:hinting=true
+URxvt*italicFont: xft:Inconsolata:pixelsize=12:antialias=true:italic:autohint=true:hinting=true
+URxvt*bolditalicFont: xft:Inconsolata:pixelsize=12:antialias=true:bold:italic:autohint=true:hinting=true
+!URxvt*inheritPixmap: true
+URxvt*xftAntialias: true
+URxvt*letterSpace: -2
 !
 ! Cursor
-urxvt*cursorColor:  #DCDCCC
+URxvt*cursorColor:  #DCDCCC
 ! URLs
-urxvt*colorUL:      #ffffff
-urxvt*underlineURLs:true
+URxvt*colorUL:      #ffffff
+URxvt*underlineURLs:true
 !
 ! Pseudo Transparency
-!urxvt*shading:      5
-!urxvt*transparent:  true
+!URxvt*shading:      5
+!URxvt*transparent:  true
 !
 ! Zenburn color-scheme
-urxvt*background:   #3f3f3f
-urxvt*foreground:   #dcdccc
+URxvt*background:   #3f3f3f
+URxvt*foreground:   #dcdccc
 ! black + red
-!urxvt*color0:      #3f3f3f
-urxvt*color0:       #1E2320
-urxvt*color1:       #705050
+!URxvt*color0:      #3f3f3f
+URxvt*color0:       #1E2320
+URxvt*color1:       #705050
 ! green + yellow
-urxvt*color2:       #60b48a
-urxvt*color3:       #dfaf8f
+URxvt*color2:       #60b48a
+URxvt*color3:       #dfaf8f
 ! blue + purple
-urxvt*color4:       #506070
-urxvt*color5:       #dc8cc3
+URxvt*color4:       #506070
+URxvt*color5:       #dc8cc3
 ! cyan + white
-urxvt*color6:       #8cd0d3
-urxvt*color7:       #dcdccc
+URxvt*color6:       #8cd0d3
+URxvt*color7:       #dcdccc
 ! bright-black + bright-red
-urxvt*color8:       #709080
-urxvt*color9:       #dca3a3
+URxvt*color8:       #709080
+URxvt*color9:       #dca3a3
 ! bright-green + bright-yellow
-urxvt*color10:      #c3bf9f
-urxvt*color11:      #f0dfaf
+URxvt*color10:      #c3bf9f
+URxvt*color11:      #f0dfaf
 ! bright-blue + bright-purple
-urxvt*color12:      #94bff3
-urxvt*color13:      #ec93d3
+URxvt*color12:      #94bff3
+URxvt*color13:      #ec93d3
 ! bright-cyan + bright-white
-urxvt*color14:      #93e0e3
-urxvt*color15:      #ffffff
+URxvt*color14:      #93e0e3
+URxvt*color15:      #ffffff
 !}}}
 
 

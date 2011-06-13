@@ -209,7 +209,7 @@ function workon-unidad {
     if command -v deactivate &>/dev/null; then
         deactivate || true
     fi
-    export PROJECT_CURRENT="$1"
+    export PROJECT_CURRENT="project_$1"
     cd $HOME/development/unidad/comunidad
     source ACTIVATE
 }
@@ -312,7 +312,7 @@ define() {
   lang="${LANG%%_*}"
   charset="${LANG##*.}"
   tmp='/tmp/define'
-  
+
   lynx -accept_all_cookies \
        -dump \
        -hiddenlinks=ignore \

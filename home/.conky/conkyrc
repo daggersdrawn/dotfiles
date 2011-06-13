@@ -8,7 +8,7 @@
 alignment bl
 background yes
 color1 909090
-default_color 606060
+default_color FFD7A7
 draw_outline no
 draw_shades no
 double_buffer yes
