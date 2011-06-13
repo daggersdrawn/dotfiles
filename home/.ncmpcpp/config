@@ -125,6 +125,10 @@ header_visibility = "no"
 #
 fancy_scrolling = "yes"
 #
+display_bitrate = "yes"
+#
+ask_before_clearing_main_playlist = "yes"
+#
 #follow_now_playing_lyrics = "no"
 #
 #ncmpc_like_songs_adding = "no" (enabled - add/remove, disabled - always add)

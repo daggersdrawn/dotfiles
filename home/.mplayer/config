@@ -1,0 +1,15 @@
+# Write your default config options here!
+
+[default]
+ao=oss
+ass-force-style="FontName=Inconsolata"
+ass=yes
+fs=yes
+heartbeat-cmd="xscreensaver-command -deactivate >/dev/null &"
+ontop=yes
+sub-fuzziness=1
+vo=vdpau,
+
+[vo.vdpau]
+profile-desc="profile for VDPAU video output"
+vc=ffmpeg12vdpau,ffwmv3vdpau,ffvc1vdpau,ffh264vdpau, #ffodivxvdpau,

@@ -1,3 +1,6 @@
+# is $1 installed?
+_have() { which "$1" &>/dev/null; }
+
 # Alias Editing
 alias ea="ec $HOME/dotfiles/" # because i edit my bash_profile a lot with new things
 alias reload=". $HOME/.profile" # same as previous, after editing you have to source it for the new stuff to work
@@ -24,10 +27,13 @@ alias diff="LC_ALL=C TZ=GMT0 colordiff -Naur" # normalise diffs for distribution
 alias lynx="lynx -force_html -width=$COLUMNS" # best settings for viewing HTML
 
 alias ls="ls -h --group-directories-first --color=auto"
-alias l="ls -AF"        # Compact view, show hidden
-alias la="ls -aliF"    # l for list style, a for all including hidden, h for human readable file sizes, i for inode to determine hardlinks
-alias ll="ls -lFh"      # Long view, no hidden
-alias lc="ls -GFp"      # Compact view, show colors
+
+# standard
+alias l="ls -AF"
+alias la='ls -aliF'
+alias ll='ls -lFh'
+alias myip='curl --silent http://tnx.nl/ip'
+alias path='echo -e "${PATH//:/\n}"'
 
 # task
 alias t="c && task ls"
@@ -166,6 +172,25 @@ function en {
 # colortail
 alias tailirc='/usr/bin/colortail -q -k /etc/colortail/conf.irc'
 alias colortail='colortail -q -k /etc/colortail/conf.messages'
+
+
+if _have colortail; then
+  alias tailirc='/usr/bin/colortail -q -k /etc/colortail/conf.irc'
+  alias colortail='colortail -q -k /etc/colortail/conf.messages'
+fi
+
+if _have mpc; then
+  alias addall="mpc --no-status clear && mpc listall | mpc --no-status add && mpc play"
+  alias n="mpc next"
+  alias p="mpc prev"
+fi
+
+# ossvol
+if _have ossvol; then
+  alias u="ossvol -i 3"
+  alias d="ossvol -d 3"
+  alias m="ossvol -t"
+fi
 
 # Zile
 alias z="zile"
