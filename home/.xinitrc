@@ -52,7 +52,7 @@ xset fp rehash                                     # Use custom fonts on dzen to
 feh --bg-scale "${background}" &                                              # Set background
 #/usr/bin/nitrogen --restore &                                                # Restore last background
 trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true \
-  --width 10  --height 12 --transparent true --alpha 0 --tint 0x2F2F2F &      # Add an icon tray
+  --width 10  --height 18 --transparent true --alpha 0 --tint 0x2F2F2F &      # Add an icon tray
 gtk-redshift -l 40.4167:-3.7003 -t 6000:4500 -m vidmode &                     # Start redshift
 /usr/bin/xscreensaver -no-splash &                                            # Start xscreensaver
 ogg123 -q "${tone}" &                                                         # Play a startup sound
