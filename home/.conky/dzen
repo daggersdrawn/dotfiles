@@ -7,7 +7,7 @@ out_to_x no
 override_utf8_locale yes
 update_interval 1
 total_run_times 0
-mpd_host 192.168.0.5
+mpd_host 127.0.0.1
 mpd_port 6600
 
 TEXT
