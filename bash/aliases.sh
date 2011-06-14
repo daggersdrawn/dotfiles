@@ -6,17 +6,16 @@ alias ea="ec $HOME/dotfiles/" # because i edit my bash_profile a lot with new th
 alias reload=". $HOME/.profile" # same as previous, after editing you have to source it for the new stuff to work
 
 # Global
-alias ..="cd .."        # Go up one directory
-alias ...="cd ../.."    # Go up two directories
-alias ....="cd ../../.."    # Go up three directories
-alias c="clear"         #to clear your terminal
+alias ..="cd .."         # Go up one directory
+alias ...="cd ../.."     # Go up two directories
+alias ....="cd ../../.." # Go up three directories
 alias delds="find . \( -name '.DS_Store' \) -exec rm -v {} \;"
-alias df="df -h"        # Disk free, in gigabytes, not bytes
-alias du="du -h -c"     # Calculate total disk usage for a folder
+alias df="df -h"         # Disk free, in gigabytes, not bytes
+alias du="du -h -c"      # Calculate total disk usage for a folder
 alias grep="grep --color=auto" # Always highlight grep search term
-alias h="history"       # shortcut for history
+alias h="history"        # shortcut for history
 alias hc="history | awk '{a[$2]++}END{for (i in a){print a [i] \' \' i}}' | sort -rn | head" # show most commonly used command
-alias ping="ping -c 5"  # Pings with 5 packets, not unlimited
+alias ping="ping -c 5"   # Pings with 5 packets, not unlimited. Instead of ping try: mtr google.com
 function take {
     mkdir $1
     cd $1
@@ -30,9 +29,9 @@ alias ls="ls -h --group-directories-first --color=auto"
 
 # standard
 alias l="ls -AF"
-alias la='ls -aliF'
-alias ll='ls -lFh'
-alias myip='curl --silent http://tnx.nl/ip'
+alias la="ls -aliF"
+alias ll="ls -lFh"
+alias myip="curl --silent http://tnx.nl/ip"
 alias path='echo -e "${PATH//:/\n}"'
 
 # task
@@ -49,15 +48,16 @@ function rep() {
 set bell-style visible
 alias bp="echo -e '\a'" # send a notification, ie. pacman -Syu && bp
 
-# Processes
-alias tm="top -o vsize" #memory
-alias tu="top -o cpu" #cpu
-
-# Bash
+# Grep
 # GREP_COLOR=bright yellow on black bg.
 # use GREP_COLOR=7 to highlight whitespace on black terminals
 # LANG=C for speed. See also: http://www.pixelbeat.org/scripts/findrepo
+alias ps?="ps ax | grep"
 alias grep="GREP_COLOR='1;33;40' LANG=C grep --color=auto"
+
+# Processes
+alias tm="top -o vsize" #memory
+alias tu="top -o cpu" #cpu
 
 # Pacman
 alias pacupg="sudo pacman -Syu" # Synchronize with repositories before upgrading packages that are out of date on the local system.
