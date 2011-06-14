@@ -49,7 +49,7 @@ dmenu="dmenu ${DMENU_OPTIONS:--i}"
 
 declare -A choices
 
-choices['play/pause']='--no-status toggle'
+choices['play/pause']='mpc --no-status toggle'
 choices['previous']='mpc --no-status prev'
 choices['next']='mpc --no-status next'
 choices['stop']='mpc --no-status stop'
