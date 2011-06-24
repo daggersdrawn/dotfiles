@@ -2,12 +2,12 @@
 
 # usage: antigravity ACTION
 #
-# actions:    
+# actions:
 #     pull
 #     push
 #     status
 #
-# antigravtiy syncs configuration for arch, awesome, and emacs.
+# antigravtiy syncs configuration for arch, awesome, emacs, and xmonad.
 
 if [ "$1" == "--help" ]; then
     sed -n -e '/^# usage:/,/^$/ s/^# \?//p' < $0
@@ -25,5 +25,6 @@ echo -e "\033[1mantigravity transmission initiating.\033[0m\n"
 echo -e "✈ arch ✈" && cd ~/dotfiles/ && git $1
 echo -e "\n✈ awesome ✈" && cd ~/.config/awesome/ && git $1
 echo -e "\n✈ emacs ✈" && cd ~/.emacs.d/ && git $1
+echo -e "\n✈ xmonad ✈" && cd ~/.xmonad/ && git $1
 
 echo -e "\n\033[1mantigravitiy transmission complete.\033[0m"
