@@ -5,6 +5,12 @@ _have() { which "$1" &>/dev/null; }
 alias ea="ec $HOME/dotfiles/" # because i edit my bash_profile a lot with new things
 alias reload=". $HOME/.profile" # same as previous, after editing you have to source it for the new stuff to work
 
+# System
+alias reboot="dbus-send --system --print-reply --dest='org.freedesktop.ConsoleKit' /org/freedesktop/ConsoleKit/Manager org.freedesktop.ConsoleKit.Manager.Restart"
+alias shutdown="dbus-send --system --print-reply --dest='org.freedesktop.ConsoleKit' /org/freedesktop/ConsoleKit/Manager org.freedesktop.ConsoleKit.Manager.Stop"
+alias suspend="dbus-send --system --print-reply --dest='org.freedesktop.UPower' /org/freedesktop/UPower org.freedesktop.UPower.Suspend"
+alias hibernate="dbus-send --system --print-reply --dest='org.freedesktop.UPower' /org/freedesktop/UPower org.freedesktop.UPower.Hibernate"
+
 # Global
 alias ..="cd .."         # Go up one directory
 alias ...="cd ../.."     # Go up two directories
@@ -24,12 +30,12 @@ alias cal="cal -3" # show 3 months by default
 alias units="units -t" # terse mode
 alias diff="LC_ALL=C TZ=GMT0 colordiff -Naur" # normalise diffs for distribution and use color
 alias lynx="lynx -force_html -width=$COLUMNS" # best settings for viewing HTML
-
-alias ls="ls -h --group-directories-first --color=auto"
+alias tog="mpc toggle" # pause/unpause mpd
 
 # standard
 alias l="ls -AF"
 alias la="ls -aliF"
+alias ls="ls -h --group-directories-first --color=auto"
 alias ll="ls -lFh"
 alias myip="curl --silent http://tnx.nl/ip"
 alias path='echo -e "${PATH//:/\n}"'
@@ -84,7 +90,7 @@ alias s="screen"
 alias sl="screen -ls"
 
 # Git
-alias git="hub"
+alias git="git-achievements"
 alias ga="git add"
 alias gb="git branch"
 alias gba="git branch -a"

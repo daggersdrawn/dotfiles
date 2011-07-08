@@ -171,3 +171,8 @@ fi
 # tmux
 [[ -s $HOME/.tmuxinator/scripts/tmuxinator ]] && source $HOME/.tmuxinator/scripts/tmuxinator
 [[ ${TERM} == "screen" ]] && export TERM="rxvt-unicode-256color"
+
+# git achievements
+if [ -d $HOME/development/git/git-achievements ]; then
+  export PATH="$PATH:$HOME/development/git/git-achievements"
+fi

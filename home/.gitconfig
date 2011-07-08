@@ -13,3 +13,5 @@
     keepBackup = false
 [color]
     ui = true
+[achievement]
+	upload = true
