@@ -52,7 +52,7 @@ set ds=yubnub
 
 " {{{ Key bindings
 "     - Emacs GTK key-theme and FF already provide bindings for input fields
-" 
+"
 " M-x enters command mode
 noremap <A-x> :
 
@@ -102,7 +102,7 @@ noremap <C-r> ?
 " Copy the current URL to the clipboard with M-w
 noremap <A-w> y
 "
-" Copy selected text to the clipboard with C-w 
+" Copy selected text to the clipboard with C-w
 noremap <C-w> Y
 
 " Paste the current clipboard selection to a new buffer with C-y
@@ -184,8 +184,8 @@ map <C-x><C-f> <C-d><C-o>
 " {{{ Personal key bindings
 "
 " M-Up/Dn toggles the toolbar and scrollbars
-map <A-Down> :set guioptions=BmT<CR>
-map <A-Up> :set guioptions-=BmT<CR>
+map <A-Down> :set guioptions=BmTs<CR>
+map <A-Up> :set guioptions-=BmTs<CR>
 
 " Sidebar selection with s, close with S
 map s :sidebar<SPACE>
