@@ -75,6 +75,7 @@ alias pacrep="pacman -Si"       # Display information about a given package in t
 alias pacreps="pacman -Ss"      # Search for package(s) in the repositories
 alias pacloc="pacman -Qi"       # Display information about a given package in the local database
 alias paclocs="pacman -Qs"      # Search for package(s) in the local database
+alias pacorph="pacman -Qtd"     # List all orphaned packages
 alias pacupd="sudo pacman -Sy && sudo abs" # Update and refresh the local package and ABS databases against repositories
 alias pacinsd="sudo pacman -S --asdeps"    # Install given package(s) as dependencies of another package
 alias pacmir="sudo pacman -Syy"            # Force refresh of all package lists after updating /etc/pacman.d/mirrorlist
