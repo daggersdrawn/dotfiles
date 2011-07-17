@@ -10,6 +10,7 @@ alias reboot="dbus-send --system --print-reply --dest='org.freedesktop.ConsoleKi
 alias shutdown="dbus-send --system --print-reply --dest='org.freedesktop.ConsoleKit' /org/freedesktop/ConsoleKit/Manager org.freedesktop.ConsoleKit.Manager.Stop"
 alias suspend="dbus-send --system --print-reply --dest='org.freedesktop.UPower' /org/freedesktop/UPower org.freedesktop.UPower.Suspend"
 alias hibernate="dbus-send --system --print-reply --dest='org.freedesktop.UPower' /org/freedesktop/UPower org.freedesktop.UPower.Hibernate"
+alias dsleep="xset dpms force off"
 
 # Global
 alias ..="cd .."         # Go up one directory
@@ -80,10 +81,9 @@ alias pacupd="sudo pacman -Sy && sudo abs" # Update and refresh the local packag
 alias pacinsd="sudo pacman -S --asdeps"    # Install given package(s) as dependencies of another package
 alias pacmir="sudo pacman -Syy"            # Force refresh of all package lists after updating /etc/pacman.d/mirrorlist
 
-
 # Python
 alias delpyc="find . \( -name '*.pyc' -o -name '*.pyo' \) -exec rm -v {} \;"
-alias p="ipython"
+alias py="ipython"
 alias emailserver="python -m smtpd -n -c DebuggingServer localhost:1025"
 
 # Screen
