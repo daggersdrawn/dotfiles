@@ -122,6 +122,14 @@ function gmd() {
     git push
     git checkout dev
 }
+function grb() {
+    git checkout $1 &&
+    git branch $2 origin/$1 &&
+    git push origin $2 &&
+    git push origin :$1 &&
+    git checkout dev &&
+    git branch -D $1
+}
 
 # Hg
 alias delorig="find . \( -name '*.orig' \) -exec rm -v {} \;"
