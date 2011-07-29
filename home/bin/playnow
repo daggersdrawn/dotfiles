@@ -9,7 +9,7 @@
 #
 ###
 
-temp='temp'
+temp='tmp'
 
 # assumes well-formed value in /etc/mpd.conf
 read mdir < <(awk -F '"' -v home="$HOME" '/^music_directory/ { gsub(/~/, home); print $2 }' $HOME/.mpd/mpd.conf)
