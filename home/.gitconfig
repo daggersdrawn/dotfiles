@@ -2,15 +2,11 @@
     name = Thomas Schreiber
     email = tom@insatsu.us
 [core]
-    excludesfile = /Users/mal4ik/.gitignore
-[merge]
-    keepBackup = false;
-    tool = p4merge
-[mergetool "p4merge"]
-    cmd = p4merge "$BASE" "$LOCAL" "$REMOTE" "$MERGED"
-    keepTemporaries = false
-    trustExitCode = false
-    keepBackup = false
+    excludesfile = ~/.gitignore
+[alias]
+        ediff = difftool -t ediff
+[difftool "ediff"]
+	cmd = /home/rizumu/bin/ediff \"$LOCAL\" \"$REMOTE\"
 [color]
     ui = true
 [achievement]
