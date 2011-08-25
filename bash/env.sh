@@ -133,10 +133,10 @@ fi # homebrew
 # standard
 export HISTSIZE=1000000
 export HISTFILESIZE=1000000
-export HISTTIMEFORMAT='%Y/%m/%d %H:%M '
-export HISTIGNORE='&:ls:ll:la:cd:exit:clear:history'
-export LANG=en_US.UTF-8
-export LC_ALL=en_US.utf8
+export HISTTIMEFORMAT="%Y/%m/%d %H:%M "
+export HISTIGNORE="&:ls:ll:la:cd:exit:clear:history"
+export LANG="en_US.UTF-8"
+export LC_ALL="en_US.utf8"
 export HISTSIZE=10000
 export HISTFILESIZE=10000
 
