@@ -2,7 +2,7 @@
 XML.ignoreWhitespace = false;
 XML.prettyPrinting = false;
 var INFO =
-<plugin name="flashblock" version="1.0.10"
+<plugin name="flashblock" version="1.0.11"
         href="http://dactyl.sf.net/pentadactyl/plugins#flashblock-plugin"
         summary="Flash Blocker"
         xmlns={NS}>
@@ -80,11 +80,11 @@ var INFO =
 if ("noscriptOverlay" in window)
     noscriptOverlay.safeAllow("dactyl:", true, false);
 
-options.add(["flashblock", "fb"],
+group.options.add(["flashblock", "fb"],
     "Enable blocking of flash animations",
     "boolean", true,
     { setter: reload });
-options.add(["fbwhitelist", "fbw"],
+group.options.add(["fbwhitelist", "fbw"],
     "Sites which may run flash animations without prompting",
     "sitelist", "",
     {
@@ -102,7 +102,7 @@ options.add(["fbwhitelist", "fbw"],
 group.commands.add(["flashtoggle", "flt"],
     "Toggle playing of flash animations on the current page",
     function () {
-        if (util.evaluateXPath("//pseudoembed", buffer.focusedFrame.document).snapshotLength)
+        if (DOM("pseudoembed", buffer.focusedFrame.document).length)
             commands.get("flashplay").action();
         else
             commands.get("flashstop").action();
@@ -134,7 +134,7 @@ function reload(values) {
 
 function removeHost(host) {
     let len = whitelist.value.length;
-    let uri = util.makeURI(host);
+    let uri = util.createURI(host);
     whitelist.value = whitelist.value.filter(function (f) !f(uri));
     return whitelist.value.length != len;
 }
