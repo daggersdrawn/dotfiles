@@ -176,3 +176,12 @@ fi
 if [ -d $HOME/development/git/git-achievements ]; then
   export PATH="$PATH:$HOME/development/git/git-achievements"
 fi
+
+# perl
+if $_islinux; then
+  export PERL_LOCAL_LIB_ROOT="/home/rizumu/perl5";
+  export PERL_MB_OPT="--install_base /home/rizumu/perl5";
+  export PERL_MM_OPT="INSTALL_BASE=/home/rizumu/perl5";
+  export PERL5LIB="/home/rizumu/perl5/lib/perl5/x86_64-linux-thread-multi:/home/rizumu/perl5/lib/perl5";
+  export PATH="/home/rizumu/perl5/bin:$PATH";
+fi
