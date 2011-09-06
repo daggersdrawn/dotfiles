@@ -3,7 +3,6 @@
 .*.swp
 ._*
 *.orig
-settings_local.py
 *_db
 .DS_Store
 *tmpproj
