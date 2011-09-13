@@ -135,10 +135,10 @@ export HISTSIZE=1000000
 export HISTFILESIZE=1000000
 export HISTTIMEFORMAT="%Y/%m/%d %H:%M "
 export HISTIGNORE="&:ls:ll:la:cd:exit:clear:history"
-export LANG="en_US.UTF-8"
-export LC_ALL="en_US.utf8"
-export HISTSIZE=10000
-export HISTFILESIZE=10000
+# Setting for the new UTF-8 terminal support in Leopard
+export LANG=en_US.UTF-8
+export LC_CTYPE=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
 
 # vim
 if [ -f /usr/share/vim/vim70 ]; then
@@ -175,4 +175,13 @@ fi
 # git achievements
 if [ -d $HOME/development/git/git-achievements ]; then
   export PATH="$PATH:$HOME/development/git/git-achievements"
+fi
+
+# perl
+if $_islinux; then
+  export PERL_LOCAL_LIB_ROOT="/home/rizumu/perl5";
+  export PERL_MB_OPT="--install_base /home/rizumu/perl5";
+  export PERL_MM_OPT="INSTALL_BASE=/home/rizumu/perl5";
+  export PERL5LIB="/home/rizumu/perl5/lib/perl5/x86_64-linux-thread-multi:/home/rizumu/perl5/lib/perl5";
+  export PATH="/home/rizumu/perl5/bin:$PATH";
 fi
