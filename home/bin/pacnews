@@ -16,7 +16,7 @@ message() {
 
   all *.pacnew files found will be presented to you one by one; you'll
   have the option of viewing/editing your current config file side by side
-  with the pacnew file through vimdiff, then you can remove the pacnew
+  with the pacnew file through emacsclient, then you can remove the pacnew
   file, replace you're existing config file with the .pacnew file, or do
   nothing.
 
@@ -58,8 +58,8 @@ replace_file() {
 dir="${1:-/etc}"
 [[ -d "$dir" ]] || message
 
-# need vimdiff
-which vimdiff &>/dev/null || errorout 'vimdiff not installed.'
+# need emacsclient
+which emacsclient &>/dev/null || errorout 'emacsclient not installed.'
 
 # must be root to act
 [[ $(id -u) -ne 0 ]] && errorout 'only root can do that.'
@@ -75,7 +75,7 @@ for file in "${files[@]}"; do
   current="${file/.pacnew/}"
 
   if prompt "$file found, view differences"; then
-    vimdiff "$current" "$file"
+    emacs -nw --eval '(ediff "$current" "$file")'
     if prompt "remove $file"; then
       remove_file "$file"
     elif prompt "replace $current with $file"; then

@@ -102,25 +102,31 @@ alias gd="git diff"
 alias gdm="git diff master n"
 alias gg="git log -p -2 --pretty=format:'%h - %an, %ar : %s' --shortstat"
 alias glog="git log --graph"
+alias glogo="git log --pretty=oneline --graph --all"
 alias gl="git pull"
 alias gp="git push"
 alias gst="git status"
-alias grau="git remote add upstream"
-alias glum="git pull upstream master"
-# Setup a tracking branch from [remote] [branch_name]
+alias grm="git commit -F .git/MERGE_MSG"  # git resolve merge
 function gbt() {
+    # Setup a tracking branch from [remote] [branch_name]
     git branch --track $2 $1/$2
     git checkout $2
 }
-function grf() {
-    rm $1
-    git checkout $1
-}
 function gmd() {
+    # git merge develop
     git checkout master
     git merge dev
     git push
     git checkout dev
+}
+function grb() {
+    # git remove remote branch
+    git checkout $1 &&
+    git branch $2 origin/$1 &&
+    git push origin $2 &&
+    git push origin :$1 &&
+    git checkout dev &&
+    git branch -D $1
 }
 
 # Hg

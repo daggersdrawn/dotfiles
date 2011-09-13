@@ -46,14 +46,15 @@ URxvt*matcher.button:  1
 ! Catch ugly URLs
 URxvt*cutchars:        '"'()*<>[]{|}
 !
-! Appearance
-URxvt*font: xft:Inconsolata:pixelsize=12:antialias=true:hinting=true
-URxvt*boldFont: xft:Inconsolata:pixelsize=12:antialias=true:bold:hinting=true
-URxvt*italicFont: xft:Inconsolata:pixelsize=12:antialias=true:italic:autohint=true:hinting=true
-URxvt*bolditalicFont: xft:Inconsolata:pixelsize=12:antialias=true:bold:italic:autohint=true:hinting=true
-!URxvt*inheritPixmap: true
-URxvt*xftAntialias: true
-URxvt*letterSpace: -2
+! Fonts
+! run "fc-list" for a list of available fonts
+URxvt.font: xft:Inconsolata:pixelsize=12:antialias=true:hinting=true
+URxvt.boldFont: xft:Inconsolata:pixelsize=12:antialias=true:bold:hinting=true
+URxvt.italicFont: xft:Inconsolata:pixelsize=12:antialias=true:italic:autohint=true:hinting=true
+URxvt.bolditalicFont: xft:Inconsolata:pixelsize=12:antialias=true:bold:italic:autohint=true:hinting=true
+!URxvt.inheritPixmap: true
+URxvt.xftAntialias: true
+URxvt.letterSpace: -1
 !
 ! Cursor
 URxvt*cursorColor:  #DCDCCC

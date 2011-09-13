@@ -1,5 +1,5 @@
 /*
- * Copyright Â©2010 Kris Maglione <maglione.k at Gmail>
+ * Copyright ©2010 Kris Maglione <maglione.k at Gmail>
  * Distributable under the terms of the MIT license.
  *
  * Documentation is at the tail of this file.
@@ -19,7 +19,7 @@ function getSites() {
     const ns     = services.noscript;
     const global = options["script"];
     const groups = { allowed: ns.jsPolicySites, temp: ns.tempSites, untrusted: ns.untrustedSites };
-    const show   = set(options["noscript-list"]);
+    const show   = Set(options["noscript-list"]);
     const sites  = window.noscriptOverlay.getSites();
 
     const blockUntrusted = global && ns.alwaysBlockUntrustedContent;
@@ -74,7 +74,7 @@ function getSites() {
     }
 
     let seen = {};
-    return res.filter(function (h) !set.add(seen, h));
+    return res.filter(function (h) !Set.add(seen, h));
 }
 function getObjects() {
     let sites = noscriptOverlay.getSites();
@@ -94,10 +94,10 @@ function getObjects() {
             specific.push(filter);
     }
     let seen = {};
-    return specific.concat(general).filter(function (site) !set.add(seen, site));
+    return specific.concat(general).filter(function (site) !Set.add(seen, site));
 }
 
-var onUnload = util.overlayObject(gBrowser, {
+var onUnload = overlay.overlayObject(gBrowser, {
     // Extend NoScript's bookmarklet handling hack to the command-line
     // Modified from NoScript's own wrapper.
     loadURIWithFlags: function loadURIWithFlags(url) {
@@ -162,26 +162,24 @@ completion.noscriptObjects = function (context) {
     context.generate = getObjects;
     context.keys = {
         text: util.identity,
-        description: function (key) set.has(whitelist, key) ? "Allowed" : "Forbidden"
+        description: function (key) Set.has(whitelist, key) ? "Allowed" : "Forbidden"
     };
     splitContext(context, getObjects, [
-        ["forbidden", "Forbidden objects", function (item) !set.has(whitelist, item.item)],
-        ["allowed",   "Allowed objects",   function (item) set.has(whitelist, item.item)]]);
+        ["forbidden", "Forbidden objects", function (item) !Set.has(whitelist, item.item)],
+        ["allowed",   "Allowed objects",   function (item) Set.has(whitelist, item.item)]]);
 };
 completion.noscriptSites = function (context) {
-    context.pushProcessor(0, function (item, text, next)
-        next.call(this, item, <span highlight={item.group}>{text}</span>));
     context.compare = CompletionContext.Sort.unsorted;
     context.generate = getSites;
     context.keys = {
         text: util.identity,
-        description: function (site) groupDesc[this.group] +
-            (this.groups.untrusted && this.group != "NoScriptUntrusted" ? " (untrusted)" : ""),
+        description: function (site) groupDesc[this.highlight] +
+            (this.groups.untrusted && this.highlight != "NoScriptUntrusted" ? " (untrusted)" : ""),
 
-        group: function (site) this.groups.temp      ? "NoScriptTemp" :
-                               this.groups.jsPolicy  ? "NoScriptAllowed" :
-                               this.groups.untrusted ? "NoScriptUntrusted" :
-                                                       "NoScriptBlocked",
+        highlight: function (site) this.groups.temp      ? "NoScriptTemp" :
+                                   this.groups.jsPolicy  ? "NoScriptAllowed" :
+                                   this.groups.untrusted ? "NoScriptUntrusted" :
+                                                           "NoScriptBlocked",
         groups: function (site) ({ site: site, __proto__: groupProto })
     };
     splitContext(context, [
@@ -198,18 +196,18 @@ let prefs = {
     forbid: [
         ["bookmarklet", "forbidBookmarklets", "Forbid bookmarklets"],
         ["collapse",    "collapseObject",     "Collapse forbidden objects"],
-        ["flash",       "forbidFlash",        "Block AdobeÂ® FlashÂ® animations"],
+        ["flash",       "forbidFlash",        "Block Adobe® Flash® animations"],
         ["fonts",       "forbidFonts",        "Forbid remote font loading"],
         ["frame",       "forbidFrames",       "Block foreign <frame> elements"],
         ["iframe",      "forbidIFrames",      "Block foreign <iframe> elements"],
-        ["java",        "forbidJava",         "Block Javaâ„¢ applets"],
+        ["java",        "forbidJava",         "Block Java™ applets"],
         ["media",       "forbidMedia",        "Block <audio> and <video> elements"],
         ["placeholder", "showPlaceholder",    "Replace forbidden objects with a placeholder"],
         ["plugins",     "forbidPlugins",      "Forbid other plugins"],
         ["refresh",     "forbidMetaRefresh",  "Block <meta> page directions"],
-        ["silverlight", "forbidSilverlight",  "Block MicrosoftÂ® Silverlightâ„¢ objects"],
+        ["silverlight", "forbidSilverlight",  "Block Microsoft® Silverlight™ objects"],
         ["trusted",     "contentBlocker",     "Block media and plugins even on trusted sites"],
-        ["webbug",      "blockNSWB",          "Block â€œweb bugâ€ tracking images"],
+        ["webbug",      "blockNSWB",          "Block “web bug” tracking images"],
         ["xslt",        "forbidXSLT",         "Forbid XSLT stylesheets"]
     ],
     list: [
@@ -222,7 +220,7 @@ for (let [k, v] in Iterator(prefs))
     prefs[k] = array(v).map(function (v) [v[0], Pref.fromArray(v.map(UTF8))]).toObject();
 
 function getPref(pref)      modules.prefs.get(PrefBase + pref);
-function setPref(pref, val) modules.prefs.get(PrefBase + pref, val);
+function setPref(pref, val) modules.prefs.set(PrefBase + pref, val);
 
 prefs.complete = function prefsComplete(group) function (context) {
     context.keys = { text: "text", description: "description" };
@@ -246,16 +244,16 @@ function groupParams(group) ( {
     initialValue: true,
     persist: false
 });
-options.add(["noscript-forbid", "nsf"],
+group.options.add(["noscript-forbid", "nsf"],
     "The set of permissions forbidden to untrusted sites",
     "stringlist", "",
     groupParams("forbid"));
-options.add(["noscript-list", "nsl"],
+group.options.add(["noscript-list", "nsl"],
     "The set of domains to show in the menu and completion list",
     "stringlist", "",
     groupParams("list"));
 
-options.add(["script"],
+group.options.add(["script"],
     "Whether NoScript is enabled",
     "boolean", false,
     {
@@ -271,9 +269,9 @@ options.add(["script"],
         description: "The list of sites allowed to execute scripts",
         action: function (add, sites) sites.length && noscriptOverlay.safeAllow(sites, add, false, -1),
         completer: function (context) completion.noscriptSites(context),
-        has: function (val) set.has(services.noscript.jsPolicySites.sitesMap, val) &&
-            !set.has(services.noscript.tempSites.sitesMap, val),
-        get set() set.subtract(
+        has: function (val) Set.has(services.noscript.jsPolicySites.sitesMap, val) &&
+            !Set.has(services.noscript.tempSites.sitesMap, val),
+        get set() Set.subtract(
             services.noscript.jsPolicySites.sitesMap,
             services.noscript.tempSites.sitesMap)
     }, {
@@ -291,7 +289,7 @@ options.add(["script"],
     }, {
         names: ["noscript-objects", "nso"],
         description: "The list of allowed objects",
-        get set() set(array.flatten(
+        get set() Set(array.flatten(
             [Array.concat(v).map(function (v) v + "@" + this, k)
              for ([k, v] in Iterator(services.noscript.objectWhitelist))])),
         action: function (add, patterns) {
@@ -322,7 +320,7 @@ options.add(["script"],
         completer: function (context) completion.noscriptObjects(context)
     }
 ].forEach(function (params)
-    options.add(params.names, params.description,
+    group.options.add(params.names, params.description,
         "stringlist", "",
         {
             completer: function (context) {
@@ -331,15 +329,15 @@ options.add(["script"],
                     params.completer(context)
             },
             domains: params.domains || function (values) values,
-            has: params.has || function (val) set.has(params.set, val),
+            has: params.has || function (val) Set.has(params.set, val),
             initialValue: true,
             getter: params.getter || function () Object.keys(params.set),
             setter: function (values) {
-                let newset  = set(values);
+                let newset  = Set(values);
                 let current = params.set;
                 let value   = this.value;
-                params.action(true,  values.filter(function (site) !set.has(current, site)))
-                params.action(false, value.filter(function (site) !set.has(newset, site)));
+                params.action(true,  values.filter(function (site) !Set.has(current, site)))
+                params.action(false, value.filter(function (site) !Set.has(newset, site)));
                 return this.value;
             },
             persist: false,
@@ -350,7 +348,7 @@ options.add(["script"],
 XML.ignoreWhitespace = false;
 XML.prettyPrinting   = false;
 var INFO =
-<plugin name="noscript" version="0.6"
+<plugin name="noscript" version="0.7"
         href="http://dactyl.sf.net/pentadactyl/plugins#noscript-plugin"
         summary="NoScript integration"
         xmlns={NS}>
