@@ -7,8 +7,8 @@ home/.ncmpcpp/error.log
 home/.irssi/irclogs
 home/.irssi/sasl.auth
 home/.irssi/saved_colors
-home/.xmonad/xmonad-x86_64-linux
-home/.xmonad/xmonad.errors
-home/.xmonad/xmonad.hi
-home/.xmonad/xmonad.o
 home/.icons/ROX
+home/.gnupg/private-keys-v1.d/
+home/.gnupg/pubring.gpg
+home/.gnupg/secring.gpg
+home/.gnupg/sshcontrol
