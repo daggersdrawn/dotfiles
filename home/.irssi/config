@@ -35,6 +35,7 @@ channels = (
   { name = "#pinax";      chatnet = "fnode";    autojoin = "yes"; },
   { name = "#pinax-dev";  chatnet = "fnode";    autojoin = "yes"; },
   { name = "#cubefarm";   chatnet = "eldarion"; autojoin = "yes"; },
+  { name = "#gondor";     chatnet = "eldarion"; autojoin = "yes"; },
   { name = "#jahzeen";    chatnet = "eldarion"; autojoin = "yes"; },
   { name = "#vv";         chatnet = "eldarion"; autojoin = "yes"; }
 );

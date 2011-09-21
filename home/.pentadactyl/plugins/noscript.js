@@ -139,7 +139,7 @@ highlight.loadCSS(<css>
 
 let groupProto = {};
 ["temp", "jsPolicy", "untrusted"].forEach(function (group)
-    memoize(groupProto, group, function () services.get("noscript")[group + "Sites"].matches(this.site)));
+    memoize(groupProto, group, function () services.noscript[group + "Sites"].matches(this.site)));
 let groupDesc = {
     NoScriptTemp:       "Temporarily allowed",
     NoScriptAllowed:    "Allowed permanently",
