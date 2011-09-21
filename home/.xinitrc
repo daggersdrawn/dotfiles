@@ -61,12 +61,15 @@ dropboxd &                                                                    # 
 [[ ! -r "${eserver}" ]] && emacs -u rizumu --daemon --eval "(server-start)" & # Start the GNU Emacs daemon
 # urxvt -e screen -l -UDRS term &                                               # resume last screen session or start newa
 urxvtcd -title term -q -f -o &                                                # Start urxvt daemon
+
 # Start the GnuPG agent and enable OpenSSH agent emulation
-if (pgrep -u "${USER}" gpg-agent); then
-  eval `cat ${gnupglog}`
-  eval `cut -d= -f1 ${gnupglog} | xargs echo export`
+gnupginf="${HOME}/.gnupg/gpg-agent.info"
+
+if pgrep -u "${USER}" gpg-agent >/dev/null 2>&1; then
+    eval `cat $gnupginf`
+    eval `cut -d= -f1 $gnupginf | xargs echo export`
 else
-  eval `gpg-agent --enable-ssh-support --daemon`
+    eval `gpg-agent --enable-ssh-support --daemon`
 fi
 # }}}
 
