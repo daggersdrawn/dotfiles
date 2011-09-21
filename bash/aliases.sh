@@ -232,6 +232,9 @@ alias workon-elmundo="workon-unidad elmundo"
 alias workon-expansion="workon-unidad expansion"
 alias workon-telva="workon-unidad telva"
 
+# irssi on remote machine
+alias irc="ssh -t irc screen -raAd"
+
 # Audio
 # works, but not as an alias. lossless > lossless is bad anyway.
 alias mp32ogg="find . -iname '*.mp3' | while read song; do mpg321 ${song} -w - | oggenc -q 9 -o ${song%.mp3}.ogg -; done"
