@@ -4,7 +4,7 @@ vbell off                         # no bell
 autodetach on                     # detach on hangup, ever, ever turn this off.
 startup_message off               # don't display the copyright page
 defutf8 on                        # utf-8 encoding
-defscrollback 1000000             # change default scrollback value for new windows
+defscrollback 5000                # change default scrollback value for new windows
 nonblock on                       # don't block everything, waiting for an unresponsive window
 bufferfile $HOME/.screenex        # the file to use for "readbuf" ('<') and  "writebuf" ('>'):
 shell -$SHELL                     # make the shell in every window a login shell
