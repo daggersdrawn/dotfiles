@@ -12,3 +12,4 @@ home/.gnupg/private-keys-v1.d/
 home/.gnupg/pubring.gpg
 home/.gnupg/secring.gpg
 home/.gnupg/sshcontrol
+home/.gnupg/trustdb.gpg
