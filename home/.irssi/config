@@ -11,15 +11,23 @@
 #  * adv_windowlist.pl nm.pl          trackbar.pl
 #  * cap_ssl.pl        nickcolor.pl   nicklist.pl
 #  * scriptassist.pl   irsnot.pl      autoaway.pl
+#
+# Until a better solution is found to autoconnect to
+# bitlbee, set an environemnt variable:
+#     export BITLBEE_PASSWORD="pw"
 
 servers = (
-  { address = "irc.freenode.net"; chatnet = "fnode"; port = "7000";  autoconnect = "yes";
+  { address = "localhost"; chatnet = "bitlbee"; port = "6667"; autoconnect = "yes";
+    use_ssl = "no"; ssl_verify = "no"; autoconnect = "yes"; },
+  { address = "irc.freenode.net"; chatnet = "fnode"; port = "7000"; autoconnect = "yes";
     use_ssl = "yes"; ssl_verify = "yes"; ssl_cacert = "/etc/ssl/certs/GandiStandardSSLCA.pem"; },
   { address = "irc.eldarion.com"; chatnet = "eldarion"; port = "6667"; autoconnect = "yes"; }
-  #  use_ssl = "no"; ssl_verify = "no"; }
+#    use_ssl = "no"; ssl_verify = "no"; }
 );
 
 chatnets = {
+  bitlbee  = { type = "IRC"; max_msgs = "3";
+               autosendcmd = "/^msg -bitlbee &bitlbee identify BITLBEE_PASSWORD; wait -bitlbee 2000"; };
   fnode    = { type = "IRC"; max_msgs = "3"; };
   oftc     = { type = "IRC"; max_msgs = "3"; };
   eldarion = { type = "IRC"; max_msgs = "3"; };
@@ -251,7 +259,13 @@ logs = { };
 ignores = (
   {
     level = "JOINS PARTS QUITS";
-    channels = ( "#django", "#django-dev", "#archlinux", "#emacs" );
+    channels = ( "#django", "#django-dev", "#archlinux", "#emacs", "&bitlbee",
+                 "#cubefarm", "#gondor" );
+  },
+  {
+    level = "MODES";
+    channels = ( "&bitlbee" );
+    network  = "bitlbee";
   }
 );
 
@@ -265,12 +279,12 @@ windows = {
   };
   2 = {
     items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
-        name = "#cubefarm";
-        tag = "eldarion";
-      }
+        {
+          name      = "&bitlbee";
+          tag       = "bitlbee";
+          type      = "CHANNEL";
+          chat_type = "IRC";
+        }
     );
   };
   3 = {
@@ -278,7 +292,7 @@ windows = {
       {
         type = "CHANNEL";
         chat_type = "IRC";
-        name = "#gondor";
+        name = "#cubefarm";
         tag = "eldarion";
       }
     );
@@ -288,7 +302,7 @@ windows = {
       {
         type = "CHANNEL";
         chat_type = "IRC";
-        name = "#vv";
+        name = "#gondor";
         tag = "eldarion";
       }
     );
@@ -308,8 +322,8 @@ windows = {
       {
         type = "CHANNEL";
         chat_type = "IRC";
-        name = "#pinax-dev";
-        tag = "fnode";
+        name = "#vv";
+        tag = "eldarion";
       }
     );
   };
@@ -318,7 +332,7 @@ windows = {
       {
         type = "CHANNEL";
         chat_type = "IRC";
-        name = "#pinax";
+        name = "#django";
         tag = "fnode";
       }
     );
@@ -328,7 +342,7 @@ windows = {
       {
         type = "CHANNEL";
         chat_type = "IRC";
-        name = "#django";
+        name = "#pinax";
         tag = "fnode";
       }
     );
@@ -339,7 +353,7 @@ windows = {
       {
         type = "CHANNEL";
         chat_type = "IRC";
-        name = "#django-dev";
+        name = "#python";
         tag = "fnode";
       }
     );
@@ -349,7 +363,7 @@ windows = {
       {
         type = "CHANNEL";
         chat_type = "IRC";
-        name = "#archlinux";
+        name = "#django-dev";
         tag = "fnode";
       }
     );
@@ -359,7 +373,7 @@ windows = {
       {
         type = "CHANNEL";
         chat_type = "IRC";
-        name = "#emacs";
+        name = "#archlinux";
         tag = "fnode";
       }
     );
@@ -369,7 +383,17 @@ windows = {
       {
         type = "CHANNEL";
         chat_type = "IRC";
-        name = "#xmond";
+        name = "#emacs";
+        tag = "fnode";
+      }
+    );
+  };
+  14 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "#xmonad";
         tag = "fnode";
       }
     );
