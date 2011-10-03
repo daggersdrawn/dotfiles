@@ -112,13 +112,6 @@ function gbt() {
     git branch --track $2 $1/$2
     git checkout $2
 }
-function gmd() {
-    # git merge develop
-    git checkout master
-    git merge dev
-    git push
-    git checkout dev
-}
 function grb() {
     # git remove remote branch
     git checkout $1 &&
