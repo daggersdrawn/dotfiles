@@ -80,11 +80,11 @@ var INFO =
 if ("noscriptOverlay" in window)
     noscriptOverlay.safeAllow("dactyl:", true, false);
 
-group.options.add(["flashblock", "fb"],
+options.add(["flashblock", "fb"],
     "Enable blocking of flash animations",
     "boolean", true,
     { setter: reload });
-group.options.add(["fbwhitelist", "fbw"],
+options.add(["fbwhitelist", "fbw"],
     "Sites which may run flash animations without prompting",
     "sitelist", "",
     {
@@ -102,7 +102,7 @@ group.options.add(["fbwhitelist", "fbw"],
 group.commands.add(["flashtoggle", "flt"],
     "Toggle playing of flash animations on the current page",
     function () {
-        if (DOM("pseudoembed", buffer.focusedFrame.document).length)
+        if (util.evaluateXPath("//pseudoembed", buffer.focusedFrame.document).snapshotLength)
             commands.get("flashplay").action();
         else
             commands.get("flashstop").action();

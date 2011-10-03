@@ -97,7 +97,7 @@ function getObjects() {
     return specific.concat(general).filter(function (site) !Set.add(seen, site));
 }
 
-var onUnload = overlay.overlayObject(gBrowser, {
+var onUnload = util.overlayObject(gBrowser, {
     // Extend NoScript's bookmarklet handling hack to the command-line
     // Modified from NoScript's own wrapper.
     loadURIWithFlags: function loadURIWithFlags(url) {
@@ -139,7 +139,7 @@ highlight.loadCSS(<css>
 
 let groupProto = {};
 ["temp", "jsPolicy", "untrusted"].forEach(function (group)
-    memoize(groupProto, group, function () services.noscript[group + "Sites"].matches(this.site)));
+    memoize(groupProto, group, function () services.get("noscript")[group + "Sites"].matches(this.site)));
 let groupDesc = {
     NoScriptTemp:       "Temporarily allowed",
     NoScriptAllowed:    "Allowed permanently",
@@ -244,16 +244,16 @@ function groupParams(group) ( {
     initialValue: true,
     persist: false
 });
-group.options.add(["noscript-forbid", "nsf"],
+options.add(["noscript-forbid", "nsf"],
     "The set of permissions forbidden to untrusted sites",
     "stringlist", "",
     groupParams("forbid"));
-group.options.add(["noscript-list", "nsl"],
+options.add(["noscript-list", "nsl"],
     "The set of domains to show in the menu and completion list",
     "stringlist", "",
     groupParams("list"));
 
-group.options.add(["script"],
+options.add(["script"],
     "Whether NoScript is enabled",
     "boolean", false,
     {
@@ -320,7 +320,7 @@ group.options.add(["script"],
         completer: function (context) completion.noscriptObjects(context)
     }
 ].forEach(function (params)
-    group.options.add(params.names, params.description,
+    options.add(params.names, params.description,
         "stringlist", "",
         {
             completer: function (context) {
