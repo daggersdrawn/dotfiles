@@ -135,11 +135,17 @@ if [ -f /usr/local/share/python/virtualenvwrapper.sh ]; then
   . /usr/local/share/python/virtualenvwrapper.sh
 fi # homebrew
 
-# standard
-export HISTSIZE=1000000
-export HISTFILESIZE=1000000
+# history
+unset HISTFILESIZE
+export HISTSIZE=10000
+export HISTFILESIZE=10000
 export HISTTIMEFORMAT="%Y/%m/%d %H:%M "
 export HISTIGNORE="&:ls:ll:la:cd:exit:clear:history"
+export HISTCONTROL=ignoredups
+PROMPT_COMMAND="history -a"
+export HISTSIZE PROMPT_COMMAND
+shopt -s histappend
+
 # Setting for the new UTF-8 terminal support in Leopard
 export LANG=en_US.UTF-8
 export LC_CTYPE=en_US.UTF-8

@@ -101,8 +101,9 @@ alias gco="git checkout"
 alias gd="git diff"
 alias gdm="git diff master n"
 alias gg="git log -p -2 --pretty=format:'%h - %an, %ar : %s' --shortstat"
-alias glog="git log --graph"
-alias glogo="git log --pretty=oneline --graph --all"
+alias gloga="git log --graph"
+alias glogb="git log --pretty=oneline --graph --all"
+alias glogc="git log --decorate --stat --graph --pretty=format:'%C(yellow)%h%Creset (%ar - %Cred%an%Creset), %s%n'"
 alias gl="git pull"
 alias gp="git push"
 alias gst="git status"
@@ -178,7 +179,6 @@ function en {
 # colortail
 alias tailirc='/usr/bin/colortail -q -k /etc/colortail/conf.irc'
 alias colortail='colortail -q -k /etc/colortail/conf.messages'
-
 
 if _have colortail; then
   alias tailirc='/usr/bin/colortail -q -k /etc/colortail/conf.irc'
