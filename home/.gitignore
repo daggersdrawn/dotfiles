@@ -1,12 +1,15 @@
 *.pyc
 *~
 .*.swp
+*.tmp
 ._*
 *.orig
 *_db
-.DS_Store
-*tmpproj
 *_db
 *.db
+.DS_Store
+*tmpproj
 .svn
 .hg
+\#*#
+.\#*#

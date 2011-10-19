@@ -91,6 +91,9 @@ alias s="screen"
 alias sl="screen -ls"
 
 # Git
+function git_current_branch() {
+  git symbolic-ref HEAD 2> /dev/null | sed -e 's/refs\/heads\///'
+}
 alias git="git-achievements"
 alias ga="git add"
 alias gb="git branch"
@@ -104,9 +107,13 @@ alias gg="git log -p -2 --pretty=format:'%h - %an, %ar : %s' --shortstat"
 alias gloga="git log --graph"
 alias glogb="git log --pretty=oneline --graph --all"
 alias glogc="git log --decorate --stat --graph --pretty=format:'%C(yellow)%h%Creset (%ar - %Cred%an%Creset), %s%n'"
-alias gl="git pull"
+alias grb="git rebase -p"
+alias gl="git fetch origin && grb origin/$(git_current_branch)"
+alias gup="gl"
 alias gp="git push"
+alias gpthis="git push origin HEAD:$(git_current_branch)"
 alias gst="git status"
+alias gm="git merge --no-ff"
 alias grm="git commit -F .git/MERGE_MSG"  # git resolve merge
 function gbt() {
     # Setup a tracking branch from [remote] [branch_name]

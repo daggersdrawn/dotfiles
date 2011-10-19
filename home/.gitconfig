@@ -2,9 +2,10 @@
     name = Thomas Schreiber
     email = tom@insatsu.us
 [core]
+    editor = emacsclient --tty
     excludesfile = ~/.gitignore
 [alias]
-        ediff = difftool -t ediff
+    ediff = difftool -t ediff
 [difftool "ediff"]
 	cmd = /home/rizumu/bin/ediff \"$LOCAL\" \"$REMOTE\"
 [color]
