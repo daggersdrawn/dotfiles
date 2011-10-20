@@ -91,9 +91,7 @@ alias s="screen"
 alias sl="screen -ls"
 
 # Git
-function git_current_branch() {
-  git symbolic-ref HEAD 2> /dev/null | sed -e 's/refs\/heads\///'
-}
+alias=git_current_branch="git symbolic-ref HEAD 2> /dev/null | sed -e 's/refs\/heads\///'"
 alias git="git-achievements"
 alias ga="git add"
 alias gb="git branch"
