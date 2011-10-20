@@ -2,6 +2,11 @@
 # ~/.rtorrent.rc and enable/modify the options as needed. Remember to
 # uncomment the options you wish to enable.
 
+done_fg_color = 2
+#done_bg_color = 0
+active_fg_color = 5
+#active_bg_color = 0
+
 # Maximum and minimum number of peers to connect to per torrent.
 #min_peers = 40
 max_peers = 100
