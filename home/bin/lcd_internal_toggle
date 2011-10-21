@@ -1,8 +1,0 @@
-#!/bin/bash
-xrandr | grep LVDS-1 | grep " 1440x900+0+0 "
-if [ $? -eq 0 ]; then
-    xrandr --output LVDS-1 --off
-else 
-    xrandr --output LVDS-1 --auto
-    xcalib ~/.color/macbookpro_3-1.icc
-fi
