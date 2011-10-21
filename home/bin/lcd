@@ -1,0 +1,29 @@
+#!/bin/bash
+
+# usage: lcd ACTION
+#
+# actions:
+#     on
+#     off
+#
+# antigravtiy syncs configuration for arch, awesome, emacs, and xmonad.
+
+background="${HOME}/dotfiles/backgrounds/taos_mesa-gorge_storm.jpg"
+
+if [ "$1" == "--help" ]; then
+    sed -n -e '/^# usage:/,/^$/ s/^# \?//p' < $0
+    exit
+fi
+
+if [ "$1" == "on" ]; then
+  disper -d DFP-0,DFP-1 -t "left" -e
+elif [ "$1" == "off" ]; then
+  disper -s
+fi
+
+if [ "$1" == "on" ] || [ "$1" == "off" ]; then
+  feh --bg-scale "${background}" &
+  pkill trayer
+  trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true \
+    --width 4  --height 18 --transparent true --alpha 0 --tint 0x2F2F2F &
+fi

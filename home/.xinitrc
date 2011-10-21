@@ -49,17 +49,19 @@ xset fp rehash                                     # Use custom fonts on dzen to
 
 # {{{ Autostart settings
 #
-feh --bg-scale "${background}" &                                              # Set background
-#/usr/bin/nitrogen --restore &                                                # Restore last background
-trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true \
-  --width 4  --height 18 --transparent true --alpha 0 --tint 0x2F2F2F &      # Add an icon tray
+if disper -l | grep DFP-1; then
+  ~/bin/lcd on                                                                      # Start trayer and background
+else
+  ~/bin/lcd off
+fi
+#(sleep 15s && blueman-applet) &
 gtk-redshift -l 40.4167:-3.7003 -t 6000:4500 -m vidmode &                     # Start redshift
 /usr/bin/xscreensaver -no-splash &                                            # Start xscreensaver
 ogg123 -q "${tone}" &                                                         # Play a startup sound
 mpd ~/.mpd/mpd.conf                                                           # Start mpd daemon
 dropboxd &                                                                    # Start dropbx daemon
 [[ ! -r "${eserver}" ]] && emacs -u rizumu --daemon --eval "(server-start)" & # Start the GNU Emacs daemon
-# urxvt -e screen -l -UDRS term &                                               # resume last screen session or start newa
+# urxvt -e screen -l -UDRS term &                                               ## resume last screen session or start new
 urxvtcd -title term -q -f -o &                                                # Start urxvt daemon
 
 # Start the GnuPG agent and enable OpenSSH agent emulation
