@@ -117,7 +117,7 @@ function gbt() {
     git branch --track $2 $1/$2
     git checkout $2
 }
-function grb() {
+function grrb() {
     # git remove remote branch
     git checkout $1 &&
     git branch $2 origin/$1 &&

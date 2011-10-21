@@ -61,7 +61,7 @@ ogg123 -q "${tone}" &                                                         # 
 mpd ~/.mpd/mpd.conf                                                           # Start mpd daemon
 dropboxd &                                                                    # Start dropbx daemon
 [[ ! -r "${eserver}" ]] && emacs -u rizumu --daemon --eval "(server-start)" & # Start the GNU Emacs daemon
-# urxvt -e screen -l -UDRS term &                                               ## resume last screen session or start new
+# urxvt -e screen -l -UDRS term &                                               # resume last screen session or start new
 urxvtcd -title term -q -f -o &                                                # Start urxvt daemon
 
 # Start the GnuPG agent and enable OpenSSH agent emulation
