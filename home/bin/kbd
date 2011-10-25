@@ -1,0 +1,38 @@
+#!/bin/bash
+# The Happy Hacker Keyboard Professional 2 is the system default.
+# The dipswitch SW3 is flipped to change del to bksp. The rest of
+# dipswitches are kept off. Other keyboards are made to behave as the HHKB does.
+# udev rules exist so that this script is run when hot plugging the usb
+sleep 1
+DISPLAY=":0.0"
+HOME=/home/rizumu/
+XAUTHORITY=$HOME/.Xauthority
+export DISPLAY XAUTHORITY HOME
+daskb_id=`xinput -list | grep -i 'daskeyboard' | grep -o id=[0-9]. | grep -o [0-9]. | head -1`
+hhkb_id=`xinput -list | grep -i 'HHKB' | grep -o id=[0-9]. | grep -o [0-9]. | head -1`
+
+setxkbmap -option ctrl:nocaps
+xset r rate 200 30
+
+if [ -f "$HOME/.Xmodmap" ]; then
+    /usr/bin/xmodmap $HOME/.Xmodmap
+fi
+
+if [ "${daskb_id}" ]; then
+    setxkbmap -device "${daskb_id}" -option altwin:swap_lalt_lwin
+    # numlockx &
+fi
+
+if [ "${HHKB_ID}" ]; then
+    setxkbmap -device "${hhkb_id}" -option altwin:swap_lalt_lwin
+fi
+
+# azerty  colemak  dvorak  fgGIod  include  olpc  qwerty  qwertz
+#setxkbmap -layout colemak
+#lsusb | grep -i 'Holtek' | grep -o ID\ [0-9]....[0-9].... | grep -o [0-9]....[0-9]....
+#lsusb | grep -i 'HHKB' | grep -o ID\ [0-9]....[0-9].... | grep -o [0-9]....[0-9]....
+#I got to the same exact point today in trying to set up two keyboards with udev, setxkbmap, and xinput --list
+
+#Have you figured this out, I am stuck just the same? Please update if you have a solution.
+
+#Maybe there is a way to hack around it to have the script, call another script that sleeps, but lets udev continue, then it

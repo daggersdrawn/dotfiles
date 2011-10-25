@@ -34,19 +34,14 @@ fi
 
 # {{{ Input settings
 #
-if [ -f $HOME/.Xmodmap ]; then
-    /usr/bin/xmodmap $HOME/.Xmodmap
+if [ -f "$HOME/bin/kbd" ]; then
+    $HOME/bin/kbd                 # Keyboards are configured in the kbd script
 fi
-#setxkbmap -option ctrl:swapcaps                    # Swap ctrl and caps
-#setxkbmap -device 12 -option altwin:swap_lalt_lwin # Swap alt and super
-xset r rate 200 30                                 # Keyboard control, repeat delay and repeat rate
-# numlockx &                                         # Numlock on TODO: only on full keyboard, not laptop keyboard
-xsetroot -cursor_name left_ptr                     # Pointer apperance: xcb does not support Xcursor yet
-xset m 30/10 4                                     # Pointer control, acceleration and threshold
-unclutter &                                        # Hide cursor when not in use
-# syndaemon -k -i 2 -d &                             # Disable the touchpad while typing
-xset +fp /usr/share/fonts/local                    # Use custom fonts on dzen toolbar
-xset fp rehash                                     # Use custom fonts on dzen toolbar
+xsetroot -cursor_name left_ptr    # Pointer apperance: xcb does not support Xcursor yet
+xset m 30/10 4                    # Pointer control, acceleration and threshold
+unclutter &                       # Hide cursor when not in use
+xset +fp /usr/share/fonts/local   # Use custom fonts on dzen toolbar
+xset fp rehash                    # Use custom fonts on dzen toolbar
 # }}}
 
 
