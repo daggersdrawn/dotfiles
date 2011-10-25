@@ -10,6 +10,7 @@ XAUTHORITY=$HOME/.Xauthority
 export DISPLAY XAUTHORITY HOME
 daskb_id=`xinput -list | grep -i 'daskeyboard' | grep -o id=[0-9]. | grep -o [0-9]. | head -1`
 hhkb_id=`xinput -list | grep -i 'HHKB' | grep -o id=[0-9]. | grep -o [0-9]. | head -1`
+macbook_id=`xinput -list | grep -i 'Apple Internal' | grep -o id=[0-9]. | grep -o [0-9]. | head -1`
 
 setxkbmap -option ctrl:nocaps
 xset r rate 200 30
@@ -23,8 +24,12 @@ if [ "${daskb_id}" ]; then
     # numlockx &
 fi
 
-if [ "${HHKB_ID}" ]; then
-    setxkbmap -device "${hhkb_id}" -option altwin:swap_lalt_lwin
+#if [ "${HHKB_ID}" ]; then
+#    setxkbmap -device "${hhkb_id}" -option altwin:swap_lalt_lwin
+#fi
+
+if [ "${macbook_id}" ]; then
+    setxkbmap -device "${macbook_id}" -option altwin:swap_lalt_lwin
 fi
 
 # azerty  colemak  dvorak  fgGIod  include  olpc  qwerty  qwertz
