@@ -34,8 +34,11 @@ fi
 
 # {{{ Input settings
 #
-setxkbmap -option ctrl:swapcaps                    # Swap ctrl and caps
-setxkbmap -device 12 -option altwin:swap_lalt_lwin # Swap alt and super
+if [ -f $HOME/.Xmodmap ]; then
+    /usr/bin/xmodmap $HOME/.Xmodmap
+fi
+#setxkbmap -option ctrl:swapcaps                    # Swap ctrl and caps
+#setxkbmap -device 12 -option altwin:swap_lalt_lwin # Swap alt and super
 xset r rate 200 30                                 # Keyboard control, repeat delay and repeat rate
 # numlockx &                                         # Numlock on TODO: only on full keyboard, not laptop keyboard
 xsetroot -cursor_name left_ptr                     # Pointer apperance: xcb does not support Xcursor yet

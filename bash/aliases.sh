@@ -32,6 +32,7 @@ alias units="units -t" # terse mode
 alias diff="LC_ALL=C TZ=GMT0 colordiff -Naur" # normalise diffs for distribution and use color
 alias lynx="lynx -force_html -width=$COLUMNS" # best settings for viewing HTML
 alias tog="mpc toggle" # pause/unpause mpd
+alias conncount="netstat -an | grep -c EST"
 
 # standard
 alias l="ls -AF"
