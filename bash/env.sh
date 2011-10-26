@@ -1,25 +1,59 @@
-# add homebrews bin
+### Set path
+
+# add local bin
 if [ -d "/usr/local/bin" ]; then
     PATH="/usr/local/bin:$PATH"
 fi
 
-# set PATH so it includes user's private bin if it exists
+# add local sbin
+if [ -d "/usr/local/sbin" ]; then
+    PATH="/usr/local/sbin:$PATH"
+fi
+
+# add user's private bin if it exists
 if [ -d "$HOME/bin" ]; then
     PATH="$HOME/bin:$PATH"
 fi
 
-# is $1 installed?
-_have() { which "$1" &>/dev/null; }
+# }}}
+
+### Set dir colors {{{
+
+if [[ -f "$HOME/dotfiles/bash/dircolors" ]] && [[ $(tput colors) == "256" ]]; then
+  # https://github.com/trapd00r/LS_COLORS
+  eval $( dircolors -b $HOME/dotfiles/bash/dircolors )
+fi
+
+# }}}
 
 ### General options {{{
 
 # is $1 installed?
 _have() { which "$1" &>/dev/null; }
 
-if [[ -f "$HOME/dotfiles/bash/dircolors" ]] && [[ $(tput colors) == "256" ]]; then
-  # https://github.com/trapd00r/LS_COLORS
-  eval $( dircolors -b $HOME/dotfiles/bash/dircolors )
-fi
+# python virtual env
+if [ -f /usr/bin/virtualenvwrapper.sh ]; then
+  . /usr/bin/virtualenvwrapper.sh
+fi # arch
+if [ -f /usr/local/share/python/virtualenvwrapper.sh ]; then
+  . /usr/local/share/python/virtualenvwrapper.sh
+fi # homebrew
+
+# history
+unset HISTFILESIZE
+export HISTSIZE=10000
+export HISTFILESIZE=10000
+export HISTTIMEFORMAT="%Y/%m/%d %H:%M "
+export HISTIGNORE="&:ls:ll:la:cd:exit:clear:history"
+export HISTCONTROL=ignoredups
+PROMPT_COMMAND="history -a"
+export HISTSIZE PROMPT_COMMAND
+shopt -s histappend
+
+# Setting for the new UTF-8 terminal support in Leopard
+export LANG=en_US.UTF-8
+export LC_CTYPE=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
 
 # bash 4 features
 if [[ ${BASH_VERSINFO[0]} -ge 4 ]]; then
@@ -87,7 +121,7 @@ _set_browser() {
   done
 }
 
-# OS conditionals
+### OS conditionals {{{
 if $_islinux; then
   export LS_OPTIONS="--color=auto"
 else
@@ -127,29 +161,6 @@ if [ -f $HOME/.hgtab-bash.sh ]; then
   . $HOME/.hgtab-bash.sh
 fi
 
-# python virtual env
-if [ -f /usr/bin/virtualenvwrapper.sh ]; then
-  . /usr/bin/virtualenvwrapper.sh
-fi # arch
-if [ -f /usr/local/share/python/virtualenvwrapper.sh ]; then
-  . /usr/local/share/python/virtualenvwrapper.sh
-fi # homebrew
-
-# history
-unset HISTFILESIZE
-export HISTSIZE=10000
-export HISTFILESIZE=10000
-export HISTTIMEFORMAT="%Y/%m/%d %H:%M "
-export HISTIGNORE="&:ls:ll:la:cd:exit:clear:history"
-export HISTCONTROL=ignoredups
-PROMPT_COMMAND="history -a"
-export HISTSIZE PROMPT_COMMAND
-shopt -s histappend
-
-# Setting for the new UTF-8 terminal support in Leopard
-export LANG=en_US.UTF-8
-export LC_CTYPE=en_US.UTF-8
-export LC_ALL=en_US.UTF-8
 
 # vim
 if [ -f /usr/share/vim/vim70 ]; then
@@ -167,26 +178,9 @@ if _have dmenu; then
   . "$HOME/.dmenurc"
 fi
 
-# bin
-echo $PATH | grep -q -s "/usr/local/bin"
-if [ $? -eq 1 ] ; then
-  PATH=$PATH:/usr/local/bin
-  export PATH
-fi
-echo $PATH | grep -q -s "/usr/local/sbin"
-if [ $? -eq 1 ] ; then
-  PATH=$PATH:/usr/local/sbin
-  export PATH
-fi
-
 # tmux
 [[ -s $HOME/.tmuxinator/scripts/tmuxinator ]] && source $HOME/.tmuxinator/scripts/tmuxinator
 [[ ${TERM} == "screen" ]] && export TERM="rxvt-unicode-256color"
-
-# git achievements
-if [ -d $HOME/development/git/git-achievements ]; then
-  export PATH="$PATH:$HOME/development/git/git-achievements"
-fi
 
 # perl
 if $_islinux; then
@@ -196,3 +190,5 @@ if $_islinux; then
   export PERL5LIB="/home/rizumu/perl5/lib/perl5/x86_64-linux-thread-multi:/home/rizumu/perl5/lib/perl5";
   export PATH="/home/rizumu/perl5/bin:$PATH";
 fi
+
+# }}}
