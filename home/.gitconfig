@@ -1,14 +1,62 @@
 [user]
     name = Thomas Schreiber
     email = tom@insatsu.us
+
 [core]
     editor = emacsclient --tty
     excludesfile = ~/.gitignore
+    filemode = true
+    logallrefupdates = true
+    whitespace = space-before-tab, trailing-space
+
+
 [alias]
     ediff = difftool -t ediff
+    wip = !git add -u && git commit -m ...
+    wipc = !date >> WIP && git add WIP && git commit -m ...
+
+[help]
+    browser = open
+
+[branch]
+    autosetupmerge = true
+
+[diff]
+    renames = copies
+    mnemonicprefix = true
+
 [difftool "ediff"]
 	cmd = /home/rizumu/bin/ediff \"$LOCAL\" \"$REMOTE\"
+
+[push]
+    default = current
+
+[sendemail]
+    smtpserver = smtp.gmail.com
+    smtpserverport = 587
+    smtpencryption = tls
+    smtpuser = funkshun@gmail.com
+
 [color]
-    ui = true
-[achievement]
-	upload = true
+    ui = auto
+
+[color "diff"]
+    meta = blue bold
+    frag = magenta bold
+    old = red bold
+    new = green bold
+
+[color "branch"]
+    current = yellow reverse
+    local = yellow bold
+    remote = green bold
+    plain = red bold
+
+[color "status"]
+    added = yellow
+    changed = green bold
+    untracked = blue bold
+
+[hub]
+    http-clone = true
+
