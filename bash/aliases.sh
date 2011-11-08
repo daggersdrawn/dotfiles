@@ -92,7 +92,8 @@ alias s="screen"
 alias sl="screen -ls"
 
 # Git
-alias git_current_branch="git symbolic-ref HEAD 2> /dev/null | sed -e 's/refs\/heads\///'"
+git_current_branch="git symbolic-ref HEAD 2> /dev/null | sed -e 's/refs\/heads\///'"
+alias git_current_branch=$git_current_branch
 alias ga="git add"
 alias gb="git branch"
 alias gba="git branch -a"
@@ -102,17 +103,16 @@ alias gco="git checkout"
 alias gd="git diff"
 alias gdm="git diff master n"
 alias gg="git log -p -2 --pretty=format:'%h - %an, %ar : %s' --shortstat"
-alias gloga="git log --graph"
-alias glogb="git log --pretty=oneline --graph --all"
-alias glogc="git log --decorate --stat --graph --pretty=format:'%C(yellow)%h%Creset (%ar - %Cred%an%Creset), %s%n'"
-alias grb="git rebase -p"
 alias gl="git fetch origin && grb origin/$(git_current_branch)"
-alias gup="gl"
-alias gp="git push"
-alias gpthis="git push origin HEAD:$(git_current_branch)"
-alias gst="git status"
+alias gla="git log --graph"
+alias glb="git log --pretty=oneline --graph --all"
+alias glc="git log --decorate --stat --graph --pretty=format:'%C(yellow)%h%Creset (%ar - %Cred%an%Creset), %s%n'"
 alias gm="git merge --no-ff"
+alias gp="git push"
+alias gpc="git push origin HEAD:$(git_current_branch)"
+alias grb="git rebase --preserve-merges"
 alias grm="git commit -F .git/MERGE_MSG"  # git resolve merge
+alias gst="git status"
 function gbt() {
     # Setup a tracking branch from [remote] [branch_name]
     git branch --track $2 $1/$2
