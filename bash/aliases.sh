@@ -24,15 +24,21 @@ alias h="history"        # shortcut for history
 alias hc="history | awk '{a[$2]++}END{for (i in a){print a [i] \' \' i}}' | sort -rn | head" # show most commonly used command
 alias ping="ping -c 5"   # Pings with 5 packets, not unlimited. Instead of ping try: mtr google.com
 function take {
-    mkdir $1
-    cd $1
-}
+  mkdir $1
+  cd $1
+} # mkdir and cd
 alias cal="cal -3" # show 3 months by default
 alias units="units -t" # terse mode
 alias diff="LC_ALL=C TZ=GMT0 colordiff -Naur" # normalise diffs for distribution and use color
 alias lynx="lynx -force_html -width=$COLUMNS" # best settings for viewing HTML
 alias tog="mpc toggle" # pause/unpause mpd
 alias conncount="netstat -an | grep -c EST"
+man_utf8() {
+  for i in {{0..9},{A..F}}{{0..9},{A..F}}{{0..9},{A..F}}{{0..9},{A..F}}; do
+    printf "$i \u$i\n";
+  done|less;
+} # All UTF-8. req. bash4
+
 
 # standard
 alias l="ls -AF"
@@ -45,12 +51,11 @@ alias path='echo -e "${PATH//:/\n}"'
 # task
 alias t="c && task ls"
 
-# Find and Replace
 function rep() {
-    for i in `grep -R --exclude="*.svn*" "$1" * | sed s/:.*$//g | uniq`; do
-        sed -i ".bak" -e "s#$1#$2#g" $i
-    done
-}
+  for i in `grep -R --exclude="*.svn*" "$1" * | sed s/:.*$//g | uniq`; do
+    sed -i ".bak" -e "s#$1#$2#g" $i
+  done
+} # Find and Replace
 
 # I hate noise
 set bell-style visible
@@ -118,25 +123,21 @@ alias gout="git-outgoing"
 alias gp="git push"
 alias gpc="git push origin HEAD:$(git_current_branch)"
 alias grm="git commit -F .git/MERGE_MSG"  # git resolve merge
-alias gs="git status -sb -uno --ignore-submodules=untracked"
-alias gst="git status"
-alias gsa="git status -sb --ignore-submodules=untracked"
+alias gst="git status -sb -uno --ignore-submodules=untracked"
 alias gt="git-track"
 alias gw="hub browse"
 function gbt() {
-    # Setup a tracking branch from [remote] [branch_name]
-    git branch --track $2 $1/$2
-    git checkout $2
-}
+  git branch --track $2 $1/$2
+  git checkout $2
+} # Setup a tracking branch from [remote] [branch_name]
 function grrb() {
-    # git remove remote branch
-    git checkout $1 &&
-    git branch $2 origin/$1 &&
-    git push origin $2 &&
-    git push origin :$1 &&
-    git checkout dev &&
-    git branch -D $1
-}
+  git checkout $1 &&
+  git branch $2 origin/$1 &&
+  git push origin $2 &&
+  git push origin :$1 &&
+  git checkout dev &&
+  git branch -D $1
+} # git remove remote branch
 
 # Hg
 alias delorig="find . \( -name '*.orig' \) -exec rm -v {} \;"
@@ -168,27 +169,27 @@ alias rt="python manage.py test --settings=settings_test"
 
 # Emacs
 function e {
-    if [ "$1" == "" ]; then
-        emacsclient --tty  .
-    else
-        emacsclient --tty $1
-    fi
+  if [ "$1" == "" ]; then
+    emacsclient --tty  .
+  else
+    emacsclient --tty $1
+  fi
 } # open in current terminal.
 
 function ec {
-    if [ "$1" == "" ]; then
-        emacsclient --no-wait .
-    else
-        emacsclient --no-wait $1
-    fi
+  if [ "$1" == "" ]; then
+    emacsclient --no-wait .
+  else
+    emacsclient --no-wait $1
+  fi
 } # open in the daemon in the current frame, TODO: must be open already.
 
 function en {
-    if [ "$1" == "" ]; then
-        emacsclient --no-wait --create-frame .
-    else
-        emacsclient --no-wait --create-frame $1
-    fi
+  if [ "$1" == "" ]; then
+    emacsclient --no-wait --create-frame .
+  else
+    emacsclient --no-wait --create-frame $1
+  fi
 } # open in the dameon in a new frame.
 
 # colortail
@@ -206,33 +207,31 @@ if _have mpc; then
   alias p="mpc prev"
 fi
 
-# ossvol
 if _have ossvol; then
   alias u="ossvol -i 3"
   alias d="ossvol -d 3"
   alias m="ossvol -t"
-fi
+fi # ossvol
 
 # Zile
 alias z="zile"
 
-# only if we have a disc drive
 if [[ -b '/dev/sr0' ]]; then
-alias eject='eject -T /dev/sr0'
+  alias eject='eject -T /dev/sr0'
   alias mountdvd='sudo mount -t iso9660 -o ro /dev/sr0 /media/dvd/'
-fi
+fi # only if we have a disc drive
 
 # only if we have xmonad
 [[ -f "$HOME/.xmonad/xmonad.hs" ]] && alias checkmonad="(cd ~/.xmonad && ghci -ilib xmonad.hs)"
 
 # Unidad
 function workon-unidad {
-    if command -v deactivate &>/dev/null; then
-        deactivate || true
-    fi
-    export PROJECT_CURRENT="project_$1"
-    cd $HOME/development/unidad/comunidad
-    source ACTIVATE
+  if command -v deactivate &>/dev/null; then
+    deactivate || true
+  fi
+  export PROJECT_CURRENT="project_$1"
+  cd $HOME/development/unidad/comunidad
+  source ACTIVATE
 }
 
 alias workon-marca="workon-unidad marca"
@@ -247,22 +246,20 @@ alias irc="ssh -t irc screen -raAd"
 # works, but not as an alias. lossless > lossless is bad anyway.
 alias mp32ogg="find . -iname '*.mp3' | while read song; do mpg321 ${song} -w - | oggenc -q 9 -o ${song%.mp3}.ogg -; done"
 
-# combine pdfs into one using ghostscript
 combinepdf() {
   _have gs || return 1
   [[ $# -ge 2 ]] || return 1
 
   local out="$1"; shift
 
-gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -sOutputFile="$out" "$@"
-}
+  gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -sOutputFile="$out" "$@"
+} # combine pdfs into one using ghostscript
 
-# make a thumb
 thumbit() {
   _have mogrify || return 1
 
   for pic in "$@"; do
-case "$pic" in
+    case "$pic" in
       *.jpg) thumb="${pic/.jpg/-thumb.jpg}" ;;
       *.jpeg) thumb="${pic/.jpeg/-thumb.jpeg}" ;;
       *.png) thumb="${pic/.png/-thumb.png}" ;;
@@ -273,9 +270,8 @@ case "$pic" in
 
     cp "$pic" "$thumb" && mogrify -resize 10% "$thumb"
   done
-}
+} # make a thumb
 
-# rip a dvd with handbrake
 hbrip() {
   _have HandBrakeCLI || return 1
   [[ -n "$1" ]] || return 1
@@ -288,9 +284,8 @@ hbrip() {
   echo "rip /dev/sr0 --> $out"
   HandBrakeCLI -Z iPad "$@" -i /dev/sr0 -o "$out" 2>/dev/null
   echo
-}
+} # rip a dvd with handbrake
 
-# convert media to ipad format with handbrake
 hbconvert() {
   _have HandBrakeCLI || return 1
   [[ -n "$1" ]] || return 1
@@ -303,31 +298,28 @@ hbconvert() {
   echo "convert $in --> $out"
   HandBrakeCLI -Z iPad "$@" -i "$in" -o "$out" 2>/dev/null
   echo
-}
+} # convert media to ipad format with handbrake
 
-# simple spellchecker, uses /usr/share/dict/words
 spellcheck() {
   [[ -f /usr/share/dict/words ]] || return 1
 
   for word in "$@"; do
-if grep -Fqx "$word" /usr/share/dict/words; then
-echo -e "\e[1;32m$word\e[0m" # green
+    if grep -Fqx "$word" /usr/share/dict/words; then
+      echo -e "\e[1;32m$word\e[0m" # green
     else
-echo -e "\e[1;31m$word\e[0m" # red
+      echo -e "\e[1;31m$word\e[0m" # red
     fi
-done
-}
+  done
+} # simple spellchecker, uses /usr/share/dict/words
 
-# go to google for anything
 google() {
   [[ -z "$BROWSER" ]] && return 1
 
   local term="${*:-$(xclip -o)}"
 
   $BROWSER "http://www.google.com/search?q=${term// /+}" &>/dev/null &
-}
+} # go to google for anything
 
-# go to google for a definition
 define() {
   _have lynx || return 1
 
@@ -346,10 +338,10 @@ define() {
        "http://www.google.com/search?hl=$lang&q=define%3A+$1&btnG=Google+Search" | grep -m 5 -C 2 -A 5 -w "*" > "$tmp"
 
   if [[ ! -s "$tmp" ]]; then
-echo -e "No definition found.\n"
+    echo -e "No definition found.\n"
   else
-echo -e "$(grep -v Search "$tmp" | sed "s/$1/\\\e[1;32m&\\\e[0m/g")\n"
+    echo -e "$(grep -v Search "$tmp" | sed "s/$1/\\\e[1;32m&\\\e[0m/g")\n"
   fi
 
-rm -f "$tmp"
-}
+  rm -f "$tmp"
+} # go to google for a definition
