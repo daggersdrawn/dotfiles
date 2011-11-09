@@ -44,7 +44,6 @@
     meta = blue bold
     frag = magenta bold
     old = red bold
-    new = green bold
 
 [color "branch"]
     current = yellow reverse
