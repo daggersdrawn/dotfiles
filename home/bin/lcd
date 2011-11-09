@@ -17,7 +17,9 @@ fi
 
 if [ "$1" == "on" ]; then
   disper -d DFP-0,DFP-1 -t "left" -e
+  xcalib ~/.color/lacie_321.icc
 elif [ "$1" == "off" ]; then
+  xcalib ~/.color/macbookpro_3-1.icc
   disper -s
 fi
 
