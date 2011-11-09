@@ -123,7 +123,7 @@ alias gout="git-outgoing"
 alias gp="git push"
 alias gpc="git push origin HEAD:$(git_current_branch)"
 alias grm="git commit -F .git/MERGE_MSG"  # git resolve merge
-alias gst="git status -sb -uno --ignore-submodules=untracked"
+alias gst="git status -sb"
 alias gt="git-track"
 alias gw="hub browse"
 function gbt() {
