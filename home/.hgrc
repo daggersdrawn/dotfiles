@@ -29,6 +29,9 @@ track.current = True
 pager = less -R
 attend = help log glog diff cat heads incoming outgoing annotate
 
+[web]
+cacerts = /etc/ssl/certs/ca-certificates.crt
+
 [hgk]
 path=~/.hgextensions/bin/hgk
 
