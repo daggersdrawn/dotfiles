@@ -97,7 +97,7 @@ function getObjects() {
     return specific.concat(general).filter(function (site) !Set.add(seen, site));
 }
 
-var onUnload = util.overlayObject(gBrowser, {
+var onUnload = overlay.overlayObject(gBrowser, {
     // Extend NoScript's bookmarklet handling hack to the command-line
     // Modified from NoScript's own wrapper.
     loadURIWithFlags: function loadURIWithFlags(url) {
@@ -139,7 +139,7 @@ highlight.loadCSS(<css>
 
 let groupProto = {};
 ["temp", "jsPolicy", "untrusted"].forEach(function (group)
-    memoize(groupProto, group, function () services.get("noscript")[group + "Sites"].matches(this.site)));
+    memoize(groupProto, group, function () services.noscript[group + "Sites"].matches(this.site)));
 let groupDesc = {
     NoScriptTemp:       "Temporarily allowed",
     NoScriptAllowed:    "Allowed permanently",
@@ -244,16 +244,16 @@ function groupParams(group) ( {
     initialValue: true,
     persist: false
 });
-options.add(["noscript-forbid", "nsf"],
+group.options.add(["noscript-forbid", "nsf"],
     "The set of permissions forbidden to untrusted sites",
     "stringlist", "",
     groupParams("forbid"));
-options.add(["noscript-list", "nsl"],
+group.options.add(["noscript-list", "nsl"],
     "The set of domains to show in the menu and completion list",
     "stringlist", "",
     groupParams("list"));
 
-options.add(["script"],
+group.options.add(["script"],
     "Whether NoScript is enabled",
     "boolean", false,
     {
@@ -320,7 +320,7 @@ options.add(["script"],
         completer: function (context) completion.noscriptObjects(context)
     }
 ].forEach(function (params)
-    options.add(params.names, params.description,
+    group.options.add(params.names, params.description,
         "stringlist", "",
         {
             completer: function (context) {
@@ -416,7 +416,7 @@ var INFO =
                 The list of objects which allowed to display. See also
                 <o>noscript-forbid</o>.
             </p>
-            <example><ex>:map <k name="A-c"/></ex> <ex>:set nso!=<k name="A-Tab"/></ex></example>
+            <example><ex>:map <k name="A-c" link="false"/></ex> <ex>:set nso!=<k name="A-Tab" link="c_&lt;A-Tab>"/></ex></example>
         </description>
     </item>
     <item>
@@ -428,7 +428,7 @@ var INFO =
                 The list of sites which are permanently allowed to execute
                 scripts.
             </p>
-            <example><ex>:map <k name="A-s"/></ex> <ex>:set nss!=<k name="A-Tab"/></ex></example>
+            <example><ex>:map <k name="A-s" link="false"/></ex> <ex>:set nss!=<k name="A-Tab" link="c_&lt;A-Tab>"/></ex></example>
         </description>
     </item>
     <item>
@@ -441,7 +441,7 @@ var INFO =
                 scripts. The value is not preserved across application
                 restarts.
             </p>
-            <example><ex>:map <k name="A-S-s"/></ex> <ex>:set nst!=<k name="A-Tab"/></ex></example>
+            <example><ex>:map <k name="A-S-s" link="false"/></ex> <ex>:set nst!=<k name="A-Tab" link="c_&lt;A-Tab>"/></ex></example>
         </description>
     </item>
     <item>
@@ -453,7 +453,7 @@ var INFO =
                 The list of untrusted sites which are not allowed to activate,
                 nor are listed in the main completion lists or NoScript menu.
             </p>
-            <example><ex>:map <k name="A-C-s"/></ex> <ex>:set nsu!=<k name="A-Tab"/></ex></example>
+            <example><ex>:map <k name="A-C-s" link="false"/></ex> <ex>:set nsu!=<k name="A-Tab" link="c_&lt;A-Tab>"/></ex></example>
         </description>
     </item>
 </plugin>;
