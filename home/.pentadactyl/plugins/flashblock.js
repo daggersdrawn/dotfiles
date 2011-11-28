@@ -72,7 +72,7 @@ var INFO =
                 any flash animations are currently blocked, all may begin
                 playing. Otherwise, all animations are stopped.
             </p>
-            <example><ex>:map</ex> <k name="silent"/> <k name="A-p"/> <ex>:flashtoggle</ex><k name="CR"/></example>
+            <example><ex>:map</ex> -silent <k name="A-p" link="false"/> <ex>:flashtoggle</ex><k name="CR"/></example>
         </description>
     </item>
 </plugin>;
@@ -80,11 +80,11 @@ var INFO =
 if ("noscriptOverlay" in window)
     noscriptOverlay.safeAllow("dactyl:", true, false);
 
-options.add(["flashblock", "fb"],
+group.options.add(["flashblock", "fb"],
     "Enable blocking of flash animations",
     "boolean", true,
     { setter: reload });
-options.add(["fbwhitelist", "fbw"],
+group.options.add(["fbwhitelist", "fbw"],
     "Sites which may run flash animations without prompting",
     "sitelist", "",
     {
@@ -102,7 +102,7 @@ options.add(["fbwhitelist", "fbw"],
 group.commands.add(["flashtoggle", "flt"],
     "Toggle playing of flash animations on the current page",
     function () {
-        if (util.evaluateXPath("//pseudoembed", buffer.focusedFrame.document).snapshotLength)
+        if (DOM("pseudoembed", buffer.focusedFrame.document).length)
             commands.get("flashplay").action();
         else
             commands.get("flashstop").action();
