@@ -16,7 +16,10 @@ alias dsleep="xset dpms force off"
 alias ..="cd .."         # Go up one directory
 alias ...="cd ../.."     # Go up two directories
 alias ....="cd ../../.." # Go up three directories
+alias c='clear;echo "Currently logged in on $(tty), as $(whoami) in directory $(pwd)."' # shortcut to clear your terminal
+alias cdd='cd -'        # Go to last used directory
 alias delds="find . \( -name '.DS_Store' \) -exec rm -v {} \;"
+alias delorig='find . \( -name "*.orig" \) -exec rm -v {} \;'
 alias df="df -h"         # Disk free, in gigabytes, not bytes
 alias du="du -h -c"      # Calculate total disk usage for a folder
 alias grep="grep --color=auto" # Always highlight grep search term
@@ -26,7 +29,7 @@ alias ping="ping -c 5"   # Pings with 5 packets, not unlimited. Instead of ping 
 function take {
   mkdir $1
   cd $1
-} # mkdir and cd
+}  # mkdir and cd
 alias cal="cal -3" # show 3 months by default
 alias units="units -t" # terse mode
 alias diff="LC_ALL=C TZ=GMT0 colordiff -Naur" # normalise diffs for distribution and use color
