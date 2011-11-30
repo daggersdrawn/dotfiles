@@ -48,10 +48,10 @@ URxvt*cutchars:        '"'()*<>[]{|}
 !
 ! Fonts
 ! run "fc-list" for a list of available fonts
-URxvt.font: xft:Inconsolata:pixelsize=12:antialias=true:hinting=true
-URxvt.boldFont: xft:Inconsolata:pixelsize=12:antialias=true:bold:hinting=true
-URxvt.italicFont: xft:Inconsolata:pixelsize=12:antialias=true:italic:autohint=true:hinting=true
-URxvt.bolditalicFont: xft:Inconsolata:pixelsize=12:antialias=true:bold:italic:autohint=true:hinting=true
+URxvt.font: xft:Inconsolata:pixelsize=12.6:antialias=true:hinting=true
+URxvt.boldFont: xft:Inconsolata:pixelsize=12.6:antialias=true:bold:hinting=true
+URxvt.italicFont: xft:Inconsolata:pixelsize=12.6:antialias=true:italic:autohint=true:hinting=true
+URxvt.bolditalicFont: xft:Inconsolata:pixelsize=12.6:antialias=true:bold:italic:autohint=true:hinting=true
 !URxvt.inheritPixmap: true
 URxvt.xftAntialias: true
 URxvt.letterSpace: -1
