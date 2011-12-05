@@ -100,7 +100,9 @@ alias s="screen"
 alias sl="screen -ls"
 
 # Git
-alias git_current_branch="git symbolic-ref HEAD 2> /dev/null | cut -b 12-"
+function git_current_branch() {
+  git symbolic-ref HEAD 2> /dev/null | cut -b 12-
+}
 alias ga="git add"
 alias gb="git branch --set-upstream"
 alias gba="git branch -a"
@@ -116,7 +118,8 @@ alias fp="format-patch --stdout"
 alias gg="git log -p -2 --pretty=format:'%h - %an, %ar : %s' --shortstat"
 alias gin="git-incoming"
 alias grb="git rebase --preserve-merges origin/$(git_current_branch)"
-alias gl="git fetch origin && grb"
+#alias gl="git fetch origin && grb"
+alias gl="git pull --rebase"
 alias gla="git log --graph"
 alias glb="git log --pretty=oneline --graph --all"
 alias glc="git log --decorate --stat --graph --pretty=format:'%C(yellow)%h%Creset (%ar - %Cred%an%Creset), %s%n'"
@@ -124,8 +127,8 @@ alias gld="git log --pretty=oneline --abbrev-commit --max-count=15"
 alias gm="git merge --no-ff"
 alias gout="git-outgoing"
 alias gp="git push"
-alias gpc="git push origin HEAD:$(git_current_branch)"
 alias grm="git commit -F .git/MERGE_MSG"  # git resolve merge
+alias gsh="git show"
 alias gst="git status -sb"
 alias gt="git-track"
 alias gw="hub browse"
