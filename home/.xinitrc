@@ -48,7 +48,7 @@ xset fp rehash                    # Use custom fonts on dzen toolbar
 # {{{ Autostart settings
 #
 if disper -l | grep DFP-1; then
-  ~/bin/lcd on                                                                      # Start trayer and background
+  ~/bin/lcd on
 else
   ~/bin/lcd off
 fi
