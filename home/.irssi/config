@@ -45,7 +45,6 @@ channels = (
   { name = "#cubefarm";   chatnet = "eldarion"; autojoin = "yes"; },
   { name = "#gondor";     chatnet = "eldarion"; autojoin = "yes"; },
   { name = "#jahzeen";    chatnet = "eldarion"; autojoin = "yes"; },
-  { name = "#vv";         chatnet = "eldarion"; autojoin = "yes"; }
 );
 
 aliases = {
@@ -322,8 +321,8 @@ windows = {
       {
         type = "CHANNEL";
         chat_type = "IRC";
-        name = "#vv";
-        tag = "eldarion";
+        name = "#django";
+        tag = "fnode";
       }
     );
   };
@@ -332,7 +331,7 @@ windows = {
       {
         type = "CHANNEL";
         chat_type = "IRC";
-        name = "#django";
+        name = "#pinax";
         tag = "fnode";
       }
     );
@@ -342,7 +341,7 @@ windows = {
       {
         type = "CHANNEL";
         chat_type = "IRC";
-        name = "#pinax";
+        name = "#pinax-dev";
         tag = "fnode";
       }
     );
