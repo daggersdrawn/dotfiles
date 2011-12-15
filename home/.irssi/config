@@ -258,8 +258,8 @@ logs = { };
 ignores = (
   {
     level = "JOINS PARTS QUITS";
-    channels = ( "#django", "#django-dev", "#archlinux", "#emacs", "&bitlbee",
-                 "#cubefarm", "#gondor" );
+    channels = ( "#django", "#django-dev", "#pinax", "#pinax-dev", "#archlinux",
+        "#emacs", "&bitlbee", "#cubefarm", "#gondor", "#python", "#xmonad" );
   },
   {
     level = "MODES";
