@@ -169,7 +169,6 @@ alias pmt="python manage.py test"
 alias pm="python manage.py"
 alias pms="python manage.py shell_plus"
 alias edj="subl $HOME/development/python/django"
-. $HOME/dotfiles/bash/django_bash_completion
 alias rr="reset; run"
 alias rt="python manage.py test --settings=settings_test"
 

@@ -17,6 +17,9 @@ fi
 
 # }}}
 
+# command line completion scripts of common Python packages.
+source `which pycompletion`
+
 ### Set dir colors {{{
 
 if [[ -f "$HOME/dotfiles/bash/dircolors" ]] && [[ $(tput colors) == "256" ]]; then
