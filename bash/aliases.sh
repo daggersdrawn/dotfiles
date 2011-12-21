@@ -103,35 +103,20 @@ alias sl="screen -ls"
 function git_current_branch() {
   git symbolic-ref HEAD 2> /dev/null | cut -b 12-
 }
-alias ga="git add"
-alias gb="git branch --set-upstream"
-alias gba="git branch -a"
-alias gbv="git branch --color -v | cut -c1-100"
-alias gc="git commit -v -m"
-alias gca="git commit -v -a -m"
 alias gcb="git-cut-branch"
-alias gco="git checkout"
 alias gcompare="hub compare"
-alias gd="git diff"
-alias gdm="git diff master n"
-alias fp="format-patch --stdout"
-alias gg="git log -p -2 --pretty=format:'%h - %an, %ar : %s' --shortstat"
 alias gin="git-incoming"
-alias grb="git rebase --preserve-merges origin/$(git_current_branch)"
-#alias gl="git fetch origin && grb"
-alias gl="git pull --rebase"
+alias fp="format-patch --stdout"
 alias gla="git log --graph"
 alias glb="git log --pretty=oneline --graph --all"
 alias glc="git log --decorate --stat --graph --pretty=format:'%C(yellow)%h%Creset (%ar - %Cred%an%Creset), %s%n'"
 alias gld="git log --pretty=oneline --abbrev-commit --max-count=15"
-alias gm="git merge --no-ff"
 alias gout="git-outgoing"
-alias gp="git push"
-alias grm="git commit -F .git/MERGE_MSG"  # git resolve merge
-alias gsh="git show"
-alias gst="git status -sb"
 alias gt="git-track"
 alias gw="hub browse"
+alias gg="git log -p -2 --pretty=format:'%h - %an, %ar : %s' --shortstat"
+alias grb="git rebase --preserve-merges origin/$(git_current_branch)"
+#alias gl="git fetch origin && grb"
 function gbt() {
   git branch --track $2 $1/$2
   git checkout $2
@@ -144,6 +129,46 @@ function grrb() {
   git checkout dev &&
   git branch -D $1
 } # git remove remote branch
+
+# Git alias completion
+__define_git_completion () {
+eval "
+    _git_$2_shortcut () {
+        COMP_LINE=\"git $2\${COMP_LINE#$1}\"
+        let COMP_POINT+=$((4+${#2}-${#1}))
+        COMP_WORDS=(git $2 \"\${COMP_WORDS[@]:1}\")
+        let COMP_CWORD+=1
+
+        local cur words cword prev
+        _get_comp_words_by_ref -n =: cur words cword prev
+        _git_$2
+    }
+"
+}
+
+__git_shortcut () {
+    type _git_$2_shortcut &>/dev/null || __define_git_completion $1 $2
+    alias $1="git $2 $3"
+    complete -o default -o nospace -F _git_$2_shortcut $1
+}
+
+__git_shortcut  ga    add
+__git_shortcut  gb    branch --set-upstream
+__git_shortcut  gba   branch -a
+__git_shortcut  gbv   branch --color -v | cut -c1-100
+__git_shortcut  gco   checkout
+__git_shortcut  gc    commit '-v -m'
+__git_shortcut  gca   commit '-a -v -m'
+__git_shortcut  gd    diff
+__git_shortcut  gdc   diff --cached
+__git_shortcut  gds   diff --stat
+__git_shortcut  gf    fetch
+__git_shortcut  gl    pull --rebase
+__git_shortcut  gm    merge --no-ff
+__git_shortcut  gp    push
+__git_shortcut  grm   commit -F .git/MERGE_MSG  # git resolve merge
+__git_shortcut  gsh   show
+__git_shortcut  gst   status -sb
 
 # Hg
 alias delorig="find . \( -name '*.orig' \) -exec rm -v {} \;"
