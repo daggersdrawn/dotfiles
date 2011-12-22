@@ -1,0 +1,33 @@
+[MASTER]
+# List of plugins (as comma separated values of python modules names) to load,
+# usually to register additional checkers.
+load-plugins=
+
+[REPORTS]
+include-ids=yes
+reports=no
+
+[BASIC]
+good-names=n,i,j,k,x,e,Run,_,urlpatterns,setUp,qs,pk,register,logger
+
+# Regular expression which should only match correct function names
+function-rgx=[a-z_][a-z0-9_]{2,60}$
+
+# Regular expression which should only match correct method names
+method-rgx=[a-z_][a-z0-9_]{2,60}$
+
+# Regular expression which should only match correct instance attribute names
+attr-rgx=[a-z_][a-z0-9_]{2,60}$
+
+[DESIGN]
+max-locals=20
+
+[FORMAT]
+max-line-length=120
+
+[VARIABLES]
+
+dummy-variables-rgx=^.*_$
+
+[TYPECHECK]
+generated-members=DoesNotExist,MultipleObjectsReturned,objects,status_code,context
