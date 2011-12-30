@@ -166,7 +166,7 @@ __git_shortcut  gf    fetch
 __git_shortcut  gl    pull --rebase
 __git_shortcut  gm    merge --no-ff
 __git_shortcut  gp    push
-__git_shortcut  grm   commit -F .git/MERGE_MSG  # git resolve merge
+__git_shortcut  grm   commit '-F .git/MERGE_MSG'  # git resolve merge
 __git_shortcut  gsh   show
 __git_shortcut  gst   status -sb
 
