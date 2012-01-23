@@ -41,7 +41,7 @@ man_utf8() {
     printf "$i \u$i\n";
   done|less;
 } # All UTF-8. req. bash4
-
+alias skype="xhost +local: && sudo -u skype /usr/bin/skype"
 
 # standard
 alias l="ls -AF"
