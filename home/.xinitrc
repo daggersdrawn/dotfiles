@@ -52,15 +52,14 @@ if disper -l | grep DFP-1; then
 else
   ~/bin/lcd off
 fi
-#(sleep 15s && blueman-applet) &
-gtk-redshift -l 40.4167:-3.7003 -t 6000:4500 -m vidmode &                     # Start redshift
 /usr/bin/xscreensaver -no-splash &                                            # Start xscreensaver
 ogg123 -q "${tone}" &                                                         # Play a startup sound
 mpd ~/.mpd/mpd.conf                                                           # Start mpd daemon
 dropboxd &                                                                    # Start dropbx daemon
 [[ ! -r "${eserver}" ]] && emacs -u rizumu --daemon --eval "(server-start)" & # Start the GNU Emacs daemon
-# urxvt -e screen -l -UDRS term &                                               # resume last screen session or start new
 urxvtcd -title term -q -f -o &                                                # Start urxvt daemon
+# gtk-redshift -l 40.4167:-3.7003 -t 6000:4500 -m vidmode &                     # Start redshift
+# urxvt -e screen -l -UDRS term &                                               # resume last screen session or start new
 
 # Start the GnuPG agent and enable OpenSSH agent emulation
 gnupginf="${HOME}/.gnupg/gpg-agent.info"
