@@ -58,7 +58,7 @@ function rep() {
   for i in `grep -R --exclude="*.svn*" "$1" * | sed s/:.*$//g | uniq`; do
     sed -i ".bak" -e "s#$1#$2#g" $i
   done
-} # Find and Replace
+} # rep: find and replace
 
 # I hate noise
 set bell-style visible
@@ -75,19 +75,27 @@ alias grep="GREP_COLOR='1;33;40' LANG=C grep --color=auto"
 alias tm="top -o vsize" #memory
 alias tu="top -o cpu" #cpu
 
-# Pacman
-alias pacupg="sudo pacman -Syu" # Synchronize with repositories before upgrading packages that are out of date on the local system.
-alias pacin="sudo pacman -S"    # Install specific package(s) from the repositories
-alias pacins="sudo pacman -U"   # Install specific package not from the repositories but from a file
-alias pacre="sudo pacman -R"    # Remove the specified package(s), retaining its configuration(s) and required dependencies
-alias pacrem="sudo pacman -Rns" # Remove the specified package(s), its configuration(s) and unneeded dependencies
-alias pacrep="pacman -Si"       # Display information about a given package in the repositories
-alias pacreps="pacman -Ss"      # Search for package(s) in the repositories
+# Pacman + yaourt
+alias yogurt="yaourt"
+alias pacs="pacsearch"
+pacsearch () {
+echo -e "$(pacman -Ss $@ | sed \
+-e 's#core/.*#\\033[1;31m&\\033[0;37m#g' \
+-e 's#extra/.*#\\033[0;32m&\\033[0;37m#g' \
+-e 's#community/.*#\\033[1;35m&\\033[0;37m#g' \
+-e 's#^.*/.* [0-9].*#\\033[0;36m&\\033[0;37m#g' )"
+}
+alias install="yaourt -S"
+alias update="yaourt -Syu --aur"
+alias remove="yaourt -Rns"      # Remove the specified package(s), its configuration(s) and unneeded dependencies
+alias lsorhpans="pacman -Qdt"
+alias rmorphans="sudo pacman -Rns $(pacman -Qtdq)"
+alias search="yaourt -Ss"
+alias pkg-info="yaourt -Si"
+alias fetch="yaourt -G"
+alias list-files="yaourt -Ql"
 alias pacloc="pacman -Qi"       # Display information about a given package in the local database
 alias paclocs="pacman -Qs"      # Search for package(s) in the local database
-alias pacorph="pacman -Qtd"     # List all orphaned packages
-alias pacupd="sudo pacman -Sy && sudo abs" # Update and refresh the local package and ABS databases against repositories
-alias pacinsd="sudo pacman -S --asdeps"    # Install given package(s) as dependencies of another package
 alias pacmir="sudo pacman -Syy"            # Force refresh of all package lists after updating /etc/pacman.d/mirrorlist
 
 # Python
