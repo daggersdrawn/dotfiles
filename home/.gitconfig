@@ -28,6 +28,13 @@
 [difftool "ediff"]
 	cmd = /home/rizumu/bin/ediff \"$LOCAL\" \"$REMOTE\"
 
+[merge]
+	tool = extMerge
+
+[mergetool "extMerge"]
+    cmd = extMerge "$BASE" "$LOCAL" "$REMOTE" "$MERGED"
+    trustExitCode = false
+
 [push]
     default = current
 
@@ -58,4 +65,3 @@
 
 [hub]
     http-clone = true
-
