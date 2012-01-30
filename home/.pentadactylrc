@@ -247,4 +247,4 @@ map <C-c>s :noscript toggletemp<CR>
 map <C-c>S :noscript popup<CR>
 " }}}
 
-autocmd Enter * set fbwhitelist=youtube.com,vimeo.com,soundcloud.com,maps.google.com,github.com
+autocmd Enter * set fbwhitelist=youtube.com,vimeo.com,soundcloud.com,maps.google.com,github.com,thisismyjam.com
