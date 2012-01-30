@@ -1,4 +1,4 @@
-"use strict";
+/* use strict */
 isGlobalModule = true;
 
 XML.prettyPrinting   = false;

@@ -4,7 +4,7 @@
  *
  * Documentation is at the tail of this file.
  */
-"use strict";
+/* use strict */
 
 dactyl.assert("noscriptOverlay" in window,
               "This plugin requires the NoScript add-on.");
@@ -156,7 +156,7 @@ function splitContext(context, list) {
 }
 
 completion.noscriptObjects = function (context) {
-    let whitelist = this.set;
+    let whitelist = options.get("noscript-objects").set;
     context = context.fork();
     context.compare = CompletionContext.Sort.unsorted;
     context.generate = getObjects;
@@ -348,7 +348,7 @@ group.options.add(["script"],
 XML.ignoreWhitespace = false;
 XML.prettyPrinting   = false;
 var INFO =
-<plugin name="noscript" version="0.7"
+<plugin name="noscript" version="0.8"
         href="http://dactyl.sf.net/pentadactyl/plugins#noscript-plugin"
         summary="NoScript integration"
         xmlns={NS}>

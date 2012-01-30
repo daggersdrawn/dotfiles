@@ -1,8 +1,8 @@
-"use strict";
+/* use strict */
 XML.ignoreWhitespace = false;
 XML.prettyPrinting = false;
 var INFO =
-<plugin name="flashblock" version="1.0.11"
+<plugin name="flashblock" version="1.1"
         href="http://dactyl.sf.net/pentadactyl/plugins#flashblock-plugin"
         summary="Flash Blocker"
         xmlns={NS}>
@@ -102,7 +102,7 @@ group.options.add(["fbwhitelist", "fbw"],
 group.commands.add(["flashtoggle", "flt"],
     "Toggle playing of flash animations on the current page",
     function () {
-        if (DOM("pseudoembed", buffer.focusedFrame.document).length)
+        if (buffer.allFrames().some(function (w) DOM("pseudoembed", w.document).length))
             commands.get("flashplay").action();
         else
             commands.get("flashstop").action();
