@@ -206,7 +206,7 @@ alias rt='python manage.py test --settings=settings_test'
 
 # Emacs
 function e {
-  if [ '$1' == '' ]; then
+  if [ "$1" == "" ]; then
     emacsclient --tty  .
   else
     emacsclient --tty $1
@@ -214,7 +214,7 @@ function e {
 } # open in current terminal.
 
 function ec {
-  if [ '$1' == '' ]; then
+  if [ "$1" == "" ]; then
     emacsclient --no-wait .
   else
     emacsclient --no-wait $1
@@ -222,7 +222,7 @@ function ec {
 } # open in the daemon in the current frame, TODO: must be open already.
 
 function en {
-  if [ '$1' == '' ]; then
+  if [ "$1" == "" ]; then
     emacsclient --no-wait --create-frame .
   else
     emacsclient --no-wait --create-frame $1
