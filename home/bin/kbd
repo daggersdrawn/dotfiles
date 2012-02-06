@@ -17,7 +17,7 @@ daskb_id=`xinput -list | grep -o -P 'daskeyboard' | grep -o -P '\d+'`
 hhkb_id=`xinput -list | xinput -list | grep -o -P 'HHKB Professional\s+id=\d+' | grep -o -P '\d+'`
 macbook_id=`xinput -list | xinput list | grep -o -P 'Apple Internal Keyboard / Trackpad\s+id=\d+' | grep -o -P '\d+' | head -1`
 
-#setxkbmap -layout us -variant intl
+setxkbmap -option compose:ralt  # https://wiki.archlinux.org/index.php/Accents_on_US_keyboards
 setxkbmap -option ctrl:nocaps
 xset r rate 200 30
 
