@@ -45,7 +45,7 @@
     smtpuser = funkshun@gmail.com
 
 [color]
-	ui = always
+	ui = auto
 
 [color "diff"]
     meta = blue bold
