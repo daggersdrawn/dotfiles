@@ -14,4 +14,5 @@ home/.gnupg/random_seed
 home/.gnupg/secring.gpg
 home/.gnupg/sshcontrol
 home/.gnupg/trustdb.gpg
+home/.pyflymakercc
 home/bin/rdesktop_route
