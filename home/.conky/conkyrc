@@ -22,7 +22,7 @@ total_run_times 0
 update_interval 1
 use_xft yes
 xftalpha 0.7
-xftfont Verdana:size=8
+xftfont inconsolata:size=7.5:antialias=true
 
 # After TEXT is formatted on screen
 TEXT

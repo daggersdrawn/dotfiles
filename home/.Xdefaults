@@ -28,9 +28,10 @@ URxvt*cursorBlink:       false
 URxvt*urgentOnBell:       true
 URxvt*visualBell:        false
 !URxvt*override-redirect:false
-!URxvt*borderLess:       false
+URxvt*borderless: 1
 !URxvt*internalBorder:       0
 !URxvt*externalBorder:       0
+URxvt*depth: 32
 !
 ! Extensions
 URxvt*perl-lib:        /usr/lib/urxvt/perl/
@@ -48,13 +49,13 @@ URxvt*cutchars:        '"'()*<>[]{|}
 !
 ! Fonts
 ! run "fc-list" for a list of available fonts
-URxvt.font: xft:Inconsolata:pixelsize=12.6:antialias=true:hinting=true
-URxvt.boldFont: xft:Inconsolata:pixelsize=12.6:antialias=true:bold:hinting=true
-URxvt.italicFont: xft:Inconsolata:pixelsize=12.6:antialias=true:italic:autohint=true:hinting=true
-URxvt.bolditalicFont: xft:Inconsolata:pixelsize=12.6:antialias=true:bold:italic:autohint=true:hinting=true
+URxvt*font: xft:inconsolata:size=7.5:antialias=true:hinting=true
+URxvt.boldFont: xft:Inconsolata:size=7.5:antialias=true:bold:hinting=true
+URxvt.italicFont: xft:Inconsolata:size=7.5:antialias=true:italic:autohint=true:hinting=true
+URxvt.bolditalicFont: xft:Inconsolata:size=7.5:antialias=true:bold:italic:autohint=true:hinting=true
 !URxvt.inheritPixmap: true
 URxvt.xftAntialias: true
-URxvt.letterSpace: -1
+!URxvt.letterSpace: -1.5
 !
 ! Cursor
 URxvt*cursorColor:  #DCDCCC
@@ -109,8 +110,8 @@ xterm*highlightSelection: true
 ! Appearance
 xterm*utf8:          2
 xterm*eightBitInput: true
-xterm*font:        xft:Inconsolata:pixelsize=13:antialias=true:hinting=true
-xterm*boldFont:    xft:Inconsolata:pixelsize=13:antialias=true:bold:hinting=true
+xterm*font:        xft:Inconsolata:pixelsize=7.5:antialias=true:hinting=true
+xterm*boldFont:    xft:Inconsolata:pixelsize=7.5:antialias=true:bold:hinting=true
 xterm*cursorColor: #DCDCCC
 ! Zenburn
 xterm*background:  #3f3f3f
@@ -150,7 +151,7 @@ XLock.info:
 !XLock.info:         Enter password to unlock \nSelect icon to lock
 XLock.validate:      Validating login...
 XLock.invalid:       Login failed
-XLock*font:          xft:Inconsolata:pixelsize=13:antialias=true:hinting=true
+XLock*font:          xft:Inconsolata:pixelsize=7.5:antialias=true:hinting=true
 !XLock.ncolors:      200
 !XLock.dpmsstandby:  600
 !XLock.dpmssuspend:  1200
@@ -163,10 +164,10 @@ Xman*Background:          #3F3F3F
 Xman*Foreground:          #F0DFAF
 Xman*bothShown:           true
 Xman*topBox:              false
-Xman*manualFontNormal: xft:Inconsolata:pixelsize=13:antialias=true:hinting=true
-Xman*manualFontBold: xft:Inconsolata:pixelsize=13:antialias=true:bold:hinting=true
-Xman*manualFontItalic: xft:Inconsolata:pixelsize=13:antialias=true:italic:autohint=true:hinting=true
-Xman*directoryFontNormal: xft:Inconsolata:pixelsize=13:antialias=true:bold:italic:autohint=true:hinting=true
+Xman*manualFontNormal: xft:Inconsolata:pixelsize=7.5:antialias=true:hinting=true
+Xman*manualFontBold: xft:Inconsolata:pixelsize=7.5:antialias=true:bold:hinting=true
+Xman*manualFontItalic: xft:Inconsolata:pixelsize=7.5:antialias=true:italic:autohint=true:hinting=true
+Xman*directoryFontNormal: xft:Inconsolata:pixelsize=7.5:antialias=true:bold:italic:autohint=true:hinting=true
 !}}}
 
 
@@ -197,7 +198,7 @@ xdiary*foreground: #F0DFAF
 
 
 !{{{ XMESSAGE
-Xmessage*font:                  xft:Inconsolata:pixelsize=13:antialias=true:hinting=true
+Xmessage*font:                  xft:Inconsolata:pixelsize=7.5:antialias=true:hinting=true
 Xmessage*background:            #3F3F3F
 Xmessage*foreground:            #F0DFAF
 Xmessage*form.*.shapeStyle:     rectangle
@@ -213,7 +214,7 @@ Xmessage*defaultButton:         Quit
 !{{{ XCLIPBOARD
 xclipboard.geometry:	  287x195+993+15
 XClipboard*international: true
-XClipboard*font:          xft:Inconsolata:pixelsize=13:antialias=true:hinting=true
+XClipboard*font:          xft:Inconsolata:pixelsize=7.5:antialias=true:hinting=true
 XClipboard*borderColor:	  #3F3F3F
 XClipboard*cursorColor:	  Gray93
 XClipboard*Foreground:    #F0DFAF
@@ -275,7 +276,7 @@ XFontSel*MenuButton.shadowWidth:          0
 XFontsel*Toggle*ToggleStyle:          check
 XFontsel*MenuButton*Justify:           left
 XFontsel*MenuButton*MenuButtonStyle: select
-xfontsel*Font: xft:Inconsolata:pixelsize=13:antialias=true:hinting=true
+xfontsel*Font: xft:Inconsolata:pixelsize=7.5:antialias=true:hinting=true
 xfontsel.pane.commandBox.quitButton.background:           #777777
 xfontsel.pane.commandBox.quitButton.foreground:           snow
 xfontsel.pane.commandBox.ownButton.background:            orange3
