@@ -127,6 +127,7 @@ _set_browser() {
 ### OS conditionals {{{
 if $_islinux; then
   export LS_OPTIONS="--color=auto"
+  export PACMAN="pacman-color"
 else
   # GCC fix for OSX (libjpeg) http://bit.ly/5M3eUC
   export CC=/usr/bin/gcc-4.2 export CPP=/usr/bin/cpp-4.2 export CXX=/usr/bin/g++-4.2
