@@ -3,7 +3,7 @@
     email = tom@insatsu.us
 
 [core]
-    editor = emacsclient --tty
+    editor = emacsclient -nw
     excludesfile = ~/.gitignore
     filemode = true
     logallrefupdates = true
@@ -29,10 +29,10 @@
 	cmd = /home/rizumu/bin/ediff \"$LOCAL\" \"$REMOTE\"
 
 [merge]
-	tool = extMerge
+	tool = p4merge
 
-[mergetool "extMerge"]
-    cmd = extMerge "$BASE" "$LOCAL" "$REMOTE" "$MERGED"
+[mergetool "p4merge"]
+    cmd = p4merge "$BASE" "$LOCAL" "$REMOTE" "$MERGED"
     trustExitCode = false
 
 [push]
