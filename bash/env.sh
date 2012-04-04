@@ -43,13 +43,18 @@ if [ -f /usr/local/share/python/virtualenvwrapper.sh ]; then
 fi # homebrew
 
 # history
+
+# Save and reload the history after each command finishes
+export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
+
+
 unset HISTFILESIZE
-export HISTSIZE=10000
-export HISTFILESIZE=10000
+export HISTSIZE=100000
+export HISTFILESIZE=100000
 export HISTTIMEFORMAT="%Y/%m/%d %H:%M "
 export HISTIGNORE="&:ls:ll:la:cd:exit:clear:history"
-export HISTCONTROL=ignoredups
-PROMPT_COMMAND="history -a"
+export HISTCONTROL=ignoredups:erasedups
+export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 export HISTSIZE PROMPT_COMMAND
 shopt -s histappend
 
