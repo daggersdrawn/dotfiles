@@ -21,15 +21,14 @@ servers = (
     use_ssl = "no"; ssl_verify = "no"; autoconnect = "yes"; },
   { address = "irc.freenode.net"; chatnet = "fnode"; port = "7000"; autoconnect = "yes";
     use_ssl = "yes"; ssl_verify = "yes"; ssl_cacert = "/etc/ssl/certs/GandiStandardSSLCA.pem"; },
-  { address = "irc.eldarion.com"; chatnet = "eldarion"; port = "6667"; autoconnect = "yes"; }
-#    use_ssl = "no"; ssl_verify = "no"; }
+  { address = "Eldarion.irc.grove.io"; chatnet = "eldarion"; port = "6697"; autoconnect = "yes";
+    use_ssl = "yes"; ssl_verify = "no"; password = "Eldarion"; },
 );
 
 chatnets = {
   bitlbee  = { type = "IRC"; max_msgs = "3";
                autosendcmd = "/^msg -bitlbee &bitlbee identify BITLBEE_PASSWORD; wait -bitlbee 2000"; };
   fnode    = { type = "IRC"; max_msgs = "3"; };
-  oftc     = { type = "IRC"; max_msgs = "3"; };
   eldarion = { type = "IRC"; max_msgs = "3"; };
 };
 
@@ -42,6 +41,7 @@ channels = (
   { name = "#django-dev"; chatnet = "fnode";    autojoin = "yes"; },
   { name = "#pinax";      chatnet = "fnode";    autojoin = "yes"; },
   { name = "#pinax-dev";  chatnet = "fnode";    autojoin = "yes"; },
+  { name = "#salt";       chatnet = "fnode";    autojoin = "yes"; },
   { name = "#cubefarm";   chatnet = "eldarion"; autojoin = "yes"; },
   { name = "#gondor";     chatnet = "eldarion"; autojoin = "yes"; },
   { name = "#jahzeen";    chatnet = "eldarion"; autojoin = "yes"; },
@@ -259,7 +259,7 @@ ignores = (
   {
     level = "JOINS PARTS QUITS";
     channels = ( "#django", "#django-dev", "#pinax", "#pinax-dev", "#archlinux",
-        "#emacs", "&bitlbee", "#cubefarm", "#gondor", "#python", "#xmonad" );
+        "#emacs", "&bitlbee", "#cubefarm", "#gondor", "#python", "#xmonad", "#salt" );
   },
   {
     level = "MODES";
@@ -393,6 +393,16 @@ windows = {
         type = "CHANNEL";
         chat_type = "IRC";
         name = "#xmonad";
+        tag = "fnode";
+      }
+    );
+  };
+  15 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "#salt";
         tag = "fnode";
       }
     );
