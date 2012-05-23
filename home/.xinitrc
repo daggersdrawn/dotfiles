@@ -61,14 +61,22 @@ urxvtcd -title term -q -f -o &                                                # 
 # gtk-redshift -l 40.4167:-3.7003 -t 6000:4500 -m vidmode &                     # Start redshift
 # urxvt -e screen -l -UDRS term &                                               # resume last screen session or start new
 
-# Start the GnuPG agent and enable OpenSSH agent emulation
+# Start the GnuPG agent but don't enable OpenSSH agent emulation
 gnupginf="${HOME}/.gnupg/gpg-agent.info"
 
 if pgrep -u "${USER}" gpg-agent >/dev/null 2>&1; then
-    eval `cat $gnupginf`
-    eval `cut -d= -f1 $gnupginf | xargs echo export`
+  eval `cat $gnupginf`
+  eval `cut -d= -f1 $gnupginf | xargs echo export`
 else
-    eval `gpg-agent --enable-ssh-support --daemon`
+  eval `gpg-agent --daemon`
+fi
+
+# Start the SSH-Agent to replace broken GnuPG agent
+if (pgrep -u "${USER}" ssh-agent); then
+  eval `cat ${HOME}/.keychain/${HOSTNAME}-sh`
+else
+  eval `ssh-agent`
+  (sleep 15 && keychain -q --timeout 480 --agents ssh id_rsa)&
 fi
 # }}}
 
