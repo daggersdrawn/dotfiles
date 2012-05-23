@@ -63,6 +63,15 @@ export LANG=en_US.UTF-8
 export LC_CTYPE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
+
+if [ -d "$HOME/.ec2/" ]; then
+  export EC2_HOME=~/.ec2
+  export PATH=$PATH:$EC2_HOME/bin
+  export EC2_PRIVATE_KEY=`ls $EC2_HOME/pk-*.pem`
+  export EC2_CERT=`ls $EC2_HOME/cert-*.pem`
+  export JAVA_HOME=/usr
+fi
+
 # bash 4 features
 if [[ ${BASH_VERSINFO[0]} -ge 4 ]]; then
   shopt -s globstar

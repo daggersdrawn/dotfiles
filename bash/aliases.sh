@@ -261,21 +261,6 @@ fi # only if we have a disc drive
 # only if we have xmonad
 [[ -f '$HOME/.xmonad/xmonad.hs' ]] && alias checkmonad='(cd ~/.xmonad && ghci -ilib xmonad.hs)'
 
-# Unidad
-function workon-unidad {
-  if command -v deactivate &>/dev/null; then
-    deactivate || true
-  fi
-  export PROJECT_CURRENT='project_$1'
-  cd $HOME/development/unidad/comunidad
-  source ACTIVATE
-}
-
-alias workon-marca='workon-unidad marca'
-alias workon-elmundo='workon-unidad elmundo'
-alias workon-expansion='workon-unidad expansion'
-alias workon-telva='workon-unidad telva'
-
 # irssi on remote machine
 alias irc='ssh -t irc screen -raAd'
 
