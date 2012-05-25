@@ -54,10 +54,8 @@ alias path='echo -e "${PATH//:/\n}"'
 alias t='c && task ls'
 
 function rep() {
-  for i in `grep -R --exclude='*.svn*' '$1' * | sed s/:.*$//g | uniq`; do
-    sed -i '.bak' -e 's#$1#$2#g' $i
-  done
-} # rep: find and replace
+  perl -e 's/'$1'/'$2'/g;' -pi $(find ./ -type f)
+} # rep: find and replace in current directory
 
 # I hate noise
 set bell-style visible
