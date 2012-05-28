@@ -15,6 +15,11 @@ if [ -d "$HOME/bin" ]; then
     PATH="$HOME/bin:$PATH"
 fi
 
+# add haskell cabal bin if it exists
+if [ -d "$HOME/.cabal/bin" ]; then
+    PATH="$HOME/.cabal/bin:$PATH"
+fi
+
 # }}}
 
 # command line completion scripts of common Python packages.
