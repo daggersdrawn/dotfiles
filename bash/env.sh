@@ -22,9 +22,6 @@ fi
 
 # }}}
 
-# command line completion scripts of common Python packages.
-source `which pycompletion`
-
 ### Set dir colors {{{
 
 if [[ -f "$HOME/dotfiles/bash/dircolors" ]] && [[ $(tput colors) == "256" ]]; then
@@ -51,7 +48,6 @@ fi # homebrew
 
 # Save and reload the history after each command finishes
 export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
-
 
 unset HISTFILESIZE
 export HISTSIZE=100000
@@ -144,22 +140,32 @@ _set_browser() {
 }
 
 ### OS conditionals {{{
+# For OSX gcc issues see:
+#     http://stackoverflow.com/questions/8473066/gcc-4-2-failed-with-exit-status-1
+#     https://github.com/kennethreitz/osx-gcc-installer/downloads
+#
 if $_islinux; then
   export LS_OPTIONS="--color=auto"
   export PACMAN="pacman-color"
+  # command line completion scripts of common Python packages.
+  source `which pycompletion`
 else
-  # GCC fix for OSX (libjpeg) http://bit.ly/5M3eUC
-  export CC=/usr/bin/gcc-4.2 export CPP=/usr/bin/cpp-4.2 export CXX=/usr/bin/g++-4.2
+  # command line completion scripts of common Python packages.
+  source /usr/local/share/python/pycompletion
+  # coreutils fix
+  PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
   # homebrew paths
   export PATH=/usr/local/bin:$PATH
   export PATH=/usr/local/sbin:$PATH
   export PATH=/usr/local/share/python:$PATH
-  alias ec="/Applications/Emacs.app/Contents/MacOS/bin/emacsclient --no-wait $1"
   alias rquicksilver="sudo umount -Af && killall Quicksilver && open /Applications/Quicksilver.app"
   alias killdash="defaults write com.apple.dashboard mcx-disabled -boolean YES; killall Dock;"
   alias startdash="defaults write com.apple.dashboard mcx-disabled -boolean NO; killall Dock;"
   alias o="open ."
   alias o.="open ."
+  if [ -f `brew --prefix`/etc/bash_completion ]; then
+    . `brew --prefix`/etc/bash_completion
+  fi
 fi
 
 # custom ip var
