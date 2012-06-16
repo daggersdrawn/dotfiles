@@ -227,6 +227,10 @@ function en {
   fi
 } # open in the dameon in a new frame.
 
+#ed
+# http://blog.sanctum.geek.nz/actually-using-ed/
+alias ed='ed -p "ed> "'
+
 # colortail
 alias tailirc='/usr/bin/colortail -q -k /etc/colortail/conf.irc'
 alias colortail='colortail -q -k /etc/colortail/conf.messages'
