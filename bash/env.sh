@@ -20,6 +20,13 @@ if [ -d "$HOME/.cabal/bin" ]; then
     PATH="$HOME/.cabal/bin:$PATH"
 fi
 
+# add ruby's bins if they exists
+if [ -d "$HOME/.gem/ruby/1.9.1/bin" ]; then
+    PATH="$HOME/.gem/ruby/1.9.1/bin:$PATH"
+fi
+if [ -d "$HOME/.rbenv/bin" ]; then
+    PATH="$HOME/.rbenv/bin:$PATH"
+fi
 # }}}
 
 ### Set dir colors {{{
