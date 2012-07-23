@@ -72,28 +72,29 @@ alias grep='GREP_COLOR="1;33;40" LANG=C grep --color=auto'
 alias tm='top -o vsize' #memory
 alias tu='top -o cpu' #cpu
 
-# Pacman + yaourt
+# X
+alias x='startx'
+alias sex='startx'
+
+# yaourt (manually add --nocofirm to skip propmts)
 alias yogurt='yaourt'
-alias pacs='pacsearch'
-pacsearch () {
-echo -e '$(pacman -Ss $@ | sed \
--e 's#core/.*#\\033[1;31m&\\033[0;37m#g' \
--e 's#extra/.*#\\033[0;32m&\\033[0;37m#g' \
--e 's#community/.*#\\033[1;35m&\\033[0;37m#g' \
--e 's#^.*/.* [0-9].*#\\033[0;36m&\\033[0;37m#g' )'
-}
-alias install='yaourt -S'
-alias update='yaourt -Syu --aur'
-alias remove='yaourt -Rns'      # Remove the specified package(s), its configuration(s) and unneeded dependencies
-alias lsorhpans='pacman -Qdt'
-alias rmorphans='sudo pacman -Rns $(pacman -Qtdq)'
-alias search='yaourt -Ss'
-alias pkg-info='yaourt -Si'
-alias fetch='yaourt -G'
-alias list-files='yaourt -Ql'
-alias pacloc='pacman -Qi'       # Display information about a given package in the local database
-alias paclocs='pacman -Qs'      # Search for package(s) in the local database
-alias pacmir='sudo pacman -Syy'            # Force refresh of all package lists after updating /etc/pacman.d/mirrorlist
+alias y='yaourt'               # yaourt alias
+alias yi='yaourt -S'           # Install a package
+alias yiu='yaourt -U'          # Install specific package not from the repositories but from a file
+alias yid='yaourt -S --asdeps' # Install given package(s) as dependencies of another package
+alias yu='yaourt -Syyu'        # Full system update
+alias yua='yaourt -Syyu --aur' # Full system update including aur
+alias ys='yaourt -Ss'          # Search for the package
+alias yg='yaourt -G'           # Get (fetch) the package
+alias yr='yaourt -Rns'         # Remove the specified package(s), its configuration(s) and unneeded dependencies
+alias yrk='yaourt -R'          # Remove the specified package(s), keeping its configuration(s) and required dependencies
+alias yf='yaourt -Ql'          # List files for the package
+alias yinfo='yaourt -Si'       # Display information about a given package in the repositories
+alias yinfo='yaourt -Qi'       # Display information about a given package in the local database
+alias yl='yaourt -Qs'          # Search for package(s) in the local database
+alias yo='yaourt -Qdt'         # List orphans
+alias ymir='yaourt -Syy'       # Force refresh of all package lists after updating /etc/pacman.d/mirrorlist
+alias rmorphans='yaourt -Rns $(yaourt -Qtdq)'
 
 # Python
 alias delpyc="find . \( -name '*.pyc' -o -name '*.pyo' \) -exec rm -v {} \;"
