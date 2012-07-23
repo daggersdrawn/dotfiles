@@ -4,21 +4,23 @@
 #
 # Executed by startx (run your window manager from here)
 
+# {{{ Source scripts in /etc/X11/xinit/xinitrc.d/
+#
 if [ -d /etc/X11/xinit/xinitrc.d ]; then
   for f in /etc/X11/xinit/xinitrc.d/*; do
     [ -x "$f" ] && . "$f"
   done
   unset f
 fi
-
+# }}}
 
 # {{{ Environment settings
 #
-errorlog="${HOME}/.xerrors"
-gnupglog="${HOME}/.gnupg/gpg-agent.info"
-tone="${HOME}/dotfiles/tones/gudrun_gut-thelandKRZ.ogg"
+errorlog="~/.xerrors"
+gnupglog="~/.gnupg/gpg-agent.info"
+tone="~/dotfiles/tones/gudrun_gut-thelandKRZ.ogg"
 eserver="/tmp/emacs${UID}/server"
-background="${HOME}/dotfiles/backgrounds/taos_mesa-gorge_storm.jpg"
+background="~/dotfiles/backgrounds/taos_mesa-gorge_storm.jpg"
 # }}}
 
 
@@ -34,8 +36,8 @@ fi
 
 # {{{ Input settings
 #
-if [ -f "$HOME/bin/kbd" ]; then
-    $HOME/bin/kbd                 # Keyboards are configured in the kbd script
+if [ -f "~/bin/kbd" ]; then
+    ~/bin/kbd                 # Keyboards are configured in the kbd script
 fi
 xsetroot -cursor_name left_ptr    # Pointer apperance: xcb does not support Xcursor yet
 xset m 30/10 4                    # Pointer control, acceleration and threshold
