@@ -63,29 +63,14 @@ urxvtcd -title term -q -f -o &                                                # 
 # gtk-redshift -l 40.4167:-3.7003 -t 6000:4500 -m vidmode &                     # Start redshift
 # urxvt -e screen -l -UDRS term &                                               # resume last screen session or start new
 
-# Start the GnuPG agent and enable OpenSSH agent emulation
-gnupginf="${HOME}/.gnupg/gpg-agent.info"
-
-if pgrep -u "${USER}" gpg-agent >/dev/null 2>&1; then
-  eval `cat $gnupginf`
-  eval `cut -d= -f1 $gnupginf | xargs echo export`
-else
-  eval `gpg-agent --enable-ssh-support --daemon`
-fi
+# GnuPG agent can't handle ecdsa, use keychain with x11-ssh-askpass
+keychain ~/.ssh/id_ecdsa ~/.ssh/id_rsa
+[ -f ~/.keychain/$HOSTNAME-sh ] && . ~/.keychain/$HOSTNAME-sh 2>/dev/null
+[ -f ~/.keychain/$HOSTNAME-sh-gpg ] && . ~/.keychain/$HOSTNAME-sh-gpg 2>/dev/null
 # }}}
 
 
-# {{{ Choose the session at login time by pressing F1
+# {{{ Start xmonad
 #
-DEFAULT_SESSION=xmonad
-case $1 in
-  qtile)
-    exec ck-launch-session qtile ;;
-  xfce4)
-    exec ck-launch-session startxfce4 ;;
-  xmonad)
-    exec ck-launch-session xmonad ;;
-  *)
-    exec ck-launch-session $DEFAULT_SESSION ;;
-esac
+xmonad
 # }}}
