@@ -68,10 +68,6 @@ keychain ~/.ssh/id_ecdsa ~/.ssh/id_rsa
 
 # gtk-redshift -l 40.4167:-3.7003 -t 6000:4500 -m vidmode &                   # Start redshift
 emacs --title org &
-chromium --app=https://mail.google.com &
-chromium --app=https://www.google.com/calendar/render?pli=1 &
-chromium --app=https://plus.google.com &
-chromium --app=https://soundcloud.com &
 urxvt -T Terminal &
 # urxvt -e screen -l -UDRS term &                                             # resume last screen session or start new
 # }}}
