@@ -76,7 +76,7 @@ alias tu='top -o cpu' #cpu
 alias x='startx'
 alias sex='startx'
 
-# yaourt (manually add --nocofirm to skip propmts)
+# yaourt (manually add --noconfirm to skip prompts)
 alias yogurt='yaourt'
 alias y='yaourt'               # yaourt alias
 alias yi='yaourt -S'           # Install a package
