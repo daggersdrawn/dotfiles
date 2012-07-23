@@ -60,19 +60,20 @@ mpd ~/.mpd/mpd.conf                                                           # 
 dropboxd &                                                                    # Start dropbx daemon
 [[ ! -r "${eserver}" ]] && emacs -u rizumu --daemon --eval "(server-start)" & # Start the GNU Emacs daemon
 urxvtcd -title term -q -f -o &                                                # Start urxvt daemon
-# gtk-redshift -l 40.4167:-3.7003 -t 6000:4500 -m vidmode &                   # Start redshift
-urxvt -T Terminal &
-emacs --title org &
-chromium --app=https://mail.google.com &
-chromium --app=https://www.google.com/calendar/render?pli=1 &
-chromium --app=https://plus.google.com &
-chromium --app=https://soundcloud.com &
-# urxvt -e screen -l -UDRS term &                                             # resume last screen session or start new
 
 # GnuPG agent can't handle ecdsa, use keychain with x11-ssh-askpass
 keychain ~/.ssh/id_ecdsa ~/.ssh/id_rsa
 [ -f ~/.keychain/$HOSTNAME-sh ] && . ~/.keychain/$HOSTNAME-sh 2>/dev/null
 [ -f ~/.keychain/$HOSTNAME-sh-gpg ] && . ~/.keychain/$HOSTNAME-sh-gpg 2>/dev/null
+
+# gtk-redshift -l 40.4167:-3.7003 -t 6000:4500 -m vidmode &                   # Start redshift
+emacs --title org &
+chromium --app=https://mail.google.com &
+chromium --app=https://www.google.com/calendar/render?pli=1 &
+chromium --app=https://plus.google.com &
+chromium --app=https://soundcloud.com &
+urxvt -T Terminal &
+# urxvt -e screen -l -UDRS term &                                             # resume last screen session or start new
 # }}}
 
 
