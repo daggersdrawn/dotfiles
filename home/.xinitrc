@@ -67,8 +67,6 @@ keychain ~/.ssh/id_ecdsa ~/.ssh/id_rsa
 [ -f ~/.keychain/$HOSTNAME-sh-gpg ] && . ~/.keychain/$HOSTNAME-sh-gpg 2>/dev/null
 
 # gtk-redshift -l 40.4167:-3.7003 -t 6000:4500 -m vidmode &                   # Start redshift
-emacs --title org &
-urxvt -T Terminal &
 # urxvt -e screen -l -UDRS term &                                             # resume last screen session or start new
 # }}}
 
