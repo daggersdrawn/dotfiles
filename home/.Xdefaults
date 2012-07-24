@@ -36,7 +36,7 @@ URxvt*depth: 32
 ! Extensions
 URxvt*perl-lib:        /usr/lib/urxvt/perl/
 URxvt*perl-ext-common: default,matcher,searchable-scrollback,clipboard,url-select,keyboard-select
-URxvt*urlLauncher:     /usr/bin/firefox
+URxvt*urlLauncher:     /usr/bin/uzbl-browser
 URxvt.keysym.M-u:      perl:url-select:select_next
 URxvt.keysym.M-c:      perl:clipboard:copy
 URxvt.keysym.M-v:      perl:clipboard:paste
@@ -174,7 +174,7 @@ Xman*directoryFontNormal: xft:Inconsolata:pixelsize=10:antialias=true:bold:itali
 !{{{ XPDF
 xpdf*foreground:     black
 xpdf*background:     white
-xpdf*urlCommand:     /usr/bin/firefox %s
+xpdf*urlCommand:     /usr/bin/uzbl-browser %s
 xpdf*antialias:      yes
 xpdf*enableFreetype: yes
 !}}}
