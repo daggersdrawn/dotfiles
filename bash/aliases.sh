@@ -107,6 +107,11 @@ alias emailserver='python -m smtpd -n -c DebuggingServer localhost:1025'
 alias s='screen'
 alias sl='screen -ls'
 
+# Pentadactyl
+function fbwhitelist() {
+  sed -ie '$s/$/,'$1'/' $HOME/.pentadactylrc
+}
+
 # Git
 function git_current_branch() {
   git symbolic-ref HEAD 2> /dev/null | cut -b 12-
