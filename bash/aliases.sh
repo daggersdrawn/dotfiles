@@ -75,6 +75,7 @@ alias tu='top -o cpu' #cpu
 # X
 alias x='startx'
 alias sex='startx'
+alias xdefaults='xrdb -merge ~/.Xdefaults'
 
 # yaourt (manually add --noconfirm to skip prompts)
 alias yogurt='yaourt'
@@ -211,6 +212,8 @@ alias rr='reset; run'
 alias rt='python manage.py test --settings=settings_test'
 
 # Emacs
+alias esd='[[ ! -r "${eserver}" ]] && emacs -u rizumu --daemon --eval "(server-start)" && notify-send "emacs makes everything else vanish" &' # Start the GNU Emacs daemon
+
 function e {
   if [ "$1" == "" ]; then
     emacsclient --tty  .

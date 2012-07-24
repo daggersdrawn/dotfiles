@@ -96,7 +96,7 @@ if [[ "$TERM" != 'linux' ]]; then
 fi
 
 # list of apps to be tried in order
-xbrowsers="browser:chromium:google-chrome:firefox"
+xbrowsers="browser:uzbl-browser:chromium:firefox"
 browsers="elinks:lynx:links"
 editors="emacs:vim:vi"
 
