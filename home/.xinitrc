@@ -16,11 +16,11 @@ fi
 
 # {{{ Environment settings
 #
-errorlog="~/.xerrors"
+errorlog="$HOME/.xerrors"
 gnupglog="~/.gnupg/gpg-agent.info"
-tone="~/dotfiles/tones/gudrun_gut-thelandKRZ.ogg"
+tone="$HOME/dotfiles/tones/gudrun_gut-thelandKRZ.ogg"
 eserver="/tmp/emacs${UID}/server"
-background="~/dotfiles/backgrounds/taos_mesa-gorge_storm.jpg"
+background="$HOME/dotfiles/backgrounds/taos_mesa-gorge_storm.jpg"
 # }}}
 
 
@@ -36,8 +36,8 @@ fi
 
 # {{{ Input settings
 #
-if [ -f "~/bin/kbd" ]; then
-    ~/bin/kbd                 # Keyboards are configured in the kbd script
+if [ -f "$HOME/bin/kbd" ]; then
+    $HOME/bin/kbd                 # Keyboards are configured in the kbd script
 fi
 xsetroot -cursor_name left_ptr    # Pointer apperance: xcb does not support Xcursor yet
 xset m 30/10 4                    # Pointer control, acceleration and threshold
@@ -50,21 +50,21 @@ xset fp rehash                    # Use custom fonts on dzen toolbar
 # {{{ Autostart settings
 #
 if disper -l | grep DFP-1; then
-  ~/bin/lcd on
+  $HOME/bin/lcd on
 else
-  ~/bin/lcd off
+  $HOME/bin/lcd off
 fi
 /usr/bin/xscreensaver -no-splash &                                            # Start xscreensaver
 ogg123 -q "${tone}" &                                                         # Play a startup sound
-mpd ~/.mpd/mpd.conf                                                           # Start mpd daemon
+mpd $HOME/.mpd/mpd.conf                                                           # Start mpd daemon
 dropboxd &                                                                    # Start dropbx daemon
 [[ ! -r "${eserver}" ]] && emacs -u rizumu --daemon --eval "(server-start)" & # Start the GNU Emacs daemon
 urxvtcd -title term -q -f -o &                                                # Start urxvt daemon
 
 # GnuPG agent can't handle ecdsa, use keychain with x11-ssh-askpass
-keychain ~/.ssh/id_ecdsa ~/.ssh/id_rsa
-[ -f ~/.keychain/$HOSTNAME-sh ] && . ~/.keychain/$HOSTNAME-sh 2>/dev/null
-[ -f ~/.keychain/$HOSTNAME-sh-gpg ] && . ~/.keychain/$HOSTNAME-sh-gpg 2>/dev/null
+keychain $HOME/.ssh/id_ecdsa $HOME/.ssh/id_rsa
+[ -f $HOME/.keychain/$HOSTNAME-sh ] && . $HOME/.keychain/$HOSTNAME-sh 2>/dev/null
+[ -f $HOME/.keychain/$HOSTNAME-sh-gpg ] && . $HOME/.keychain/$HOSTNAME-sh-gpg 2>/dev/null
 
 # gtk-redshift -l 40.4167:-3.7003 -t 6000:4500 -m vidmode &                   # Start redshift
 # urxvt -e screen -l -UDRS term &                                             # resume last screen session or start new
