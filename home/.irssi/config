@@ -11,9 +11,10 @@
 #  * adv_windowlist.pl nm.pl          trackbar.pl
 #  * cap_ssl.pl        nickcolor.pl   nicklist.pl
 #  * scriptassist.pl   irsnot.pl      autoaway.pl
+#  * mouse.pl
 #
-# Until a better solution is found to autoconnect to
-# bitlbee, set an environemnt variable:
+# Until a better solution can be found to autoconnect
+# to bitlbee, set an environemnt variable:
 #     export BITLBEE_PASSWORD="pw"
 
 servers = (
