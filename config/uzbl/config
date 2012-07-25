@@ -441,4 +441,5 @@ sync_spawn_exec @scripts_dir/load_cookies.sh @data_home/uzbl/session-cookies.txt
 # Set the "home" page.
 set uri = uzbl.org/doesitwork/@COMMIT
 
+@on_event GEOMETRY_CHANGED spawn /home/rizumu/.config/uzbl/scripts/dynzoom.py \@geometry 1024 768
 # vim: set fdm=syntax:
