@@ -54,13 +54,13 @@ if disper -l | grep DFP-1; then
 else
   $HOME/bin/lcd off
 fi
-# gtk-redshift -l 40.4167:-3.7003 -t 6000:4500 -m vidmode &                   # Start redshift
-/usr/bin/xscreensaver -no-splash &                                            # Start xscreensaver
-ogg123 -q "${tone}" &                                                         # Play a startup sound
-mpd $HOME/.mpd/mpd.conf                                                           # Start mpd daemon
-dropboxd &                                                                    # Start dropbx daemon
+# gtk-redshift -l 40.4167:-3.7003 -t 6000:4500 -m vidmode &                   # start redshift
+/usr/bin/xscreensaver -no-splash &                                            # start xscreensaver
+ogg123 -q "${tone}" &                                                         # play a startup sound
+mpd $HOME/.mpd/mpd.conf                                                       # start mpd daemon
+dropboxd &                                                                    # start dropbx daemon
 [[ ! -r "${eserver}" ]] && emacs -u rizumu --daemon --eval "(server-start)" && notify-send "emacs makes everything else vanish" & # Start the GNU Emacs daemon
-urxvtcd -title term -q -f -o &                                                # Start urxvt daemon
+urxvtcd -title term -q -f -o &                                                # start urxvt daemon
 # urxvt -e screen -l -UDRS term &                                             # resume last screen session or start new
 
 # GnuPG agent can't handle ecdsa, use keychain with x11-ssh-askpass
