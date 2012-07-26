@@ -100,7 +100,7 @@ alias ymir='yaourt -Syy'       # Force refresh of all package lists after updati
 alias rmorphans='yaourt -Rns $(yaourt -Qtdq)'
 
 # Python
-alias delpyc="find . \( -name '*.pyc' -o -name '*.pyo' \) -exec rm -v {} \;"
+alias delpyc='find . \( -name '*.pyc' -o -name "*.pyo" \) -exec rm -v {} \;'
 alias py='ipython'
 alias emailserver='python -m smtpd -n -c DebuggingServer localhost:1025'
 
@@ -212,10 +212,15 @@ alias rr='reset; run'
 alias rt='python manage.py test --settings=settings_test'
 
 # Emacs
-alias esd='[[ ! -r "${eserver}" ]] && emacs -u rizumu --daemon --eval "(server-start)" && notify-send "emacs makes everything else vanish" &' # Start the GNU Emacs daemon
+function esd {
+  if [ ! $(pgrep --full emacs.*daemon) ]; then
+    emacs -u rizumu --daemon --eval '(server-start)' &&
+    notify-send 'like the noonday sun does the stars, emacs makes everything else vanish' &
+  fi
+} # If not running, start the GNU Emacs daemon
 
 function e {
-  if [ "$1" == "" ]; then
+  if [ '$1' == '' ]; then
     emacsclient --tty  .
   else
     emacsclient --tty $1
@@ -223,7 +228,7 @@ function e {
 } # open in current terminal.
 
 function ec {
-  if [ "$1" == "" ]; then
+  if [ '$1' == '' ]; then
     emacsclient --no-wait .
   else
     emacsclient --no-wait $1
@@ -231,7 +236,7 @@ function ec {
 } # open in the daemon in the current frame, TODO: must be open already.
 
 function en {
-  if [ "$1" == "" ]; then
+  if [ '$1' == '' ]; then
     emacsclient --no-wait --create-frame .
   else
     emacsclient --no-wait --create-frame $1

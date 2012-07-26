@@ -59,7 +59,7 @@ fi
 ogg123 -q "${tone}" &                                                         # play a startup sound
 mpd $HOME/.mpd/mpd.conf                                                       # start mpd daemon
 dropboxd &                                                                    # start dropbx daemon
-[[ ! -r "${eserver}" ]] && emacs -u rizumu --daemon --eval "(server-start)" && notify-send "emacs makes everything else vanish" & # Start the GNU Emacs daemon
+[[ ! -r "${eserver}" ]] && esd                                                # start emacs dameon, see bash/aliases.sh
 urxvtcd -title term -q -f -o &                                                # start urxvt daemon
 # urxvt -e screen -l -UDRS term &                                             # resume last screen session or start new
 
@@ -72,5 +72,6 @@ keychain $HOME/.ssh/id_ecdsa $HOME/.ssh/id_rsa
 
 # {{{ Start xmonad
 #
+cd $HOME  # make X always open new terms in ~/
 xmonad
 # }}}
