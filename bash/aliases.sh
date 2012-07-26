@@ -212,12 +212,6 @@ alias rr='reset; run'
 alias rt='python manage.py test --settings=settings_test'
 
 # Emacs
-function esd {
-  if [ ! $(pgrep --full emacs.*daemon) ]; then
-    emacs -u rizumu --daemon --eval '(server-start)' &&
-    notify-send 'like the noonday sun does the stars, emacs makes everything else vanish' &
-  fi
-} # If not running, start the GNU Emacs daemon
 
 function e {
   if [ '$1' == '' ]; then

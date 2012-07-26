@@ -49,7 +49,8 @@ xset fp rehash                    # Use custom fonts on dzen toolbar
 
 # {{{ Autostart settings
 #
-if disper -l | grep DFP-1; then
+$HOME/bin/esd &                                    # start emacs dameon, see bash/aliases.sh
+if disper -l | grep DFP-1; then                                               # configure lcd displays
   $HOME/bin/lcd on
 else
   $HOME/bin/lcd off
@@ -59,7 +60,6 @@ fi
 ogg123 -q "${tone}" &                                                         # play a startup sound
 mpd $HOME/.mpd/mpd.conf                                                       # start mpd daemon
 dropboxd &                                                                    # start dropbx daemon
-[[ ! -r "${eserver}" ]] && esd                                                # start emacs dameon, see bash/aliases.sh
 urxvtcd -title term -q -f -o &                                                # start urxvt daemon
 # urxvt -e screen -l -UDRS term &                                             # resume last screen session or start new
 
