@@ -27,5 +27,5 @@ if [ "$1" == "on" ] || [ "$1" == "off" ]; then
   feh --bg-scale "${background}" &
   pkill trayer
   trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true \
-    --width 4  --height 18 --transparent true --alpha 0 --tint 0x2F2F2F &
+    --width 10  --height 18 --transparent true --alpha 0 --tint 0x2F2F2F &
 fi
