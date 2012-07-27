@@ -49,7 +49,7 @@ xset fp rehash                    # Use custom fonts on dzen toolbar
 
 # {{{ Autostart settings
 #
-$HOME/bin/esd &                                    # start emacs dameon, see bash/aliases.sh
+$HOME/bin/esd &                                                               # start emacs dameon
 if disper -l | grep DFP-1; then                                               # configure lcd displays
   $HOME/bin/lcd on
 else

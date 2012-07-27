@@ -219,7 +219,15 @@ function e {
   else
     emacsclient --tty $1
   fi
-} # open in current terminal.
+} # open, in current shell, using the emacs daemon.
+
+function et {
+  if [ '$1' == '' ]; then
+    emacs --no-window-system --quick .
+  else
+    emacs --no-window-system --quick $1
+  fi
+} # open quickly, in the current shell, using no cofing or daemon.
 
 function ec {
   if [ '$1' == '' ]; then
@@ -227,7 +235,7 @@ function ec {
   else
     emacsclient --no-wait $1
   fi
-} # open in the daemon in the current frame, TODO: must be open already.
+} # open, in the current frame, using the emacs daemon. TODO: open a new frame if not already open
 
 function en {
   if [ '$1' == '' ]; then
@@ -235,7 +243,7 @@ function en {
   else
     emacsclient --no-wait --create-frame $1
   fi
-} # open in the dameon in a new frame.
+} # open, in a new frame, using the emacs dameon.
 
 #ed
 # http://blog.sanctum.geek.nz/actually-using-ed/
