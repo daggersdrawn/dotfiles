@@ -62,6 +62,7 @@ mpd $HOME/.mpd/mpd.conf                                                       # 
 dropboxd &                                                                    # start dropbx daemon
 urxvtcd -title term -q -f -o &                                                # start urxvt daemon
 # urxvt -e screen -l -UDRS term &                                             # resume last screen session or start new
+[ -f ~/.pomodoro_session ] && rm ~/.pomodoro_session                          # clear pomodoro timer
 
 # GnuPG agent can't handle ecdsa, use keychain with x11-ssh-askpass
 keychain $HOME/.ssh/id_ecdsa $HOME/.ssh/id_rsa
