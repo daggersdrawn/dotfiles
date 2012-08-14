@@ -51,9 +51,9 @@ set download_handler    = sync_spawn @scripts_dir/download.sh
 # Open link in new window
 #@on_event   NEW_WINDOW     sh 'uzbl-browser ${1:+-u "$1"}' %r
 # Open in current window (also see the REQ_NEW_WINDOW event handler below)
-@on_event   NEW_WINDOW     uri %s
+#@on_event   NEW_WINDOW     uri %s
 # Open in new tab. Other options are NEW_TAB_NEXT, NEW_BG_TAB and NEW_BG_TAB_NEXT.
-#@on_event   NEW_WINDOW     event NEW_TAB %s
+@on_event   NEW_WINDOW     event NEW_TAB %s
 
 #   What to do when the user requests a new window:
 # If your the NEW_WINDOW handler opens the uri in the current window, you'll
