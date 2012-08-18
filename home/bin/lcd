@@ -16,11 +16,14 @@ if [ "$1" == "--help" ]; then
 fi
 
 if [ "$1" == "on" ]; then
-  disper -d DFP-0,DFP-1 -t "left" -e
-  xcalib ~/.color/lacie_321.icc
+  #disper -d LVDS1,VGA1-t "left" -e
+  #disper -S -r 1600x1200
+  xrandr --output VGA1 --mode 1600x1200 --pos 0x0 --output LVDS1 --mode 1280x800 --pos 1600x0
+  xcalib ~/.color/lacie_photon-20-vision.icc
 elif [ "$1" == "off" ]; then
-  xcalib ~/.color/macbookpro_3-1.icc
-  disper -s
+  # find one for thinkpad!
+  #xcalib ~/.color/macbookpro_3-1.icc
+  xrandr --output LVDS1 --mode 1280x800 --pos 0x0 --output VGA1 --off
 fi
 
 if [ "$1" == "on" ] || [ "$1" == "off" ]; then
