@@ -210,6 +210,7 @@ alias pm='python manage.py'
 alias pms='python manage.py shell_plus'
 alias edj='subl $HOME/development/python/django'
 alias rr='reset; run'
+alias rrf='reset; run --forked'
 alias rt='python manage.py test --settings=settings_test'
 
 # Emacs
