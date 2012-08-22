@@ -18,8 +18,10 @@ alias ...='cd ../..'     # Go up two directories
 alias ....='cd ../../..' # Go up three directories
 alias c='clear;echo "Currently logged in on $(tty), as $(whoami) in directory $(pwd)."' # shortcut to clear your terminal
 alias cdd='cd -'        # Go to last used directory
-alias delds='find . \( -name ".DS_Store" \) -exec rm -v {} \;'
-alias delorig='find . \( -name "*.orig" \) -exec rm -v {} \;'
+alias delds='find . -name .DS_STORE -delete'
+alias delorig='find . -name \*.orig -delete'
+alias delpyc="find . \( -name '*.pyc' -o -name '*.pyo' \) -delete"
+alias delemacs="find . \( -name '\#*\#' -o -name '.\#*' \) -delete"
 alias df='df -h'         # Disk free, in gigabytes, not bytes
 alias du='du -h -c'      # Calculate total disk usage for a folder
 alias grep='grep --color=auto' # Always highlight grep search term
@@ -101,7 +103,6 @@ alias ymir='yaourt -Syy'       # Force refresh of all package lists after updati
 alias rmorphans='yaourt -Rns $(yaourt -Qtdq)'
 
 # Python
-alias delpyc='find . \( -name '*.pyc' -o -name "*.pyo" \) -exec rm -v {} \;'
 alias py='ipython'
 alias emailserver='python -m smtpd -n -c DebuggingServer localhost:1025'
 
@@ -131,6 +132,9 @@ alias gt='git-track'
 alias gw='hub browse'
 alias gg='git log -p -2 --pretty=format:"%h - %an, %ar : %s" --shortstat'
 alias grb='git rebase --preserve-merges origin/$(git_current_branch)'
+function gcpfalr {
+  git --git-dir=$1/.git format-patch -k -1 --stdout $2| git am -3 -k
+} # git cherry pick from another local repo. $ gcpfalr ../path/to/repo SHA
 #alias gl='git fetch origin && grb'
 function gbt() {
   git branch --track $2 $1/$2
@@ -186,7 +190,6 @@ __git_shortcut  gsh   show
 __git_shortcut  gst   status -sb
 
 # Hg
-alias delorig='find . \( -name "*.orig" \) -exec rm -v {} \;'
 alias hgb='hg branch'
 alias hgbs='hg branches'
 alias hgc='hg commit -m'
