@@ -132,6 +132,7 @@ alias gt='git-track'
 alias gw='hub browse'
 alias gg='git log -p -2 --pretty=format:"%h - %an, %ar : %s" --shortstat'
 alias grb='git rebase --preserve-merges origin/$(git_current_branch)'
+alias gsti='git ls-files --others -i --exclude-standard'
 function gcpfalr {
   git --git-dir=$1/.git format-patch -k -1 --stdout $2| git am -3 -k
 } # git cherry pick from another local repo. $ gcpfalr ../path/to/repo SHA
