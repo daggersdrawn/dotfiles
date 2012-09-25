@@ -9,7 +9,7 @@
 #static_route2="-net 172.0.0.0 netmask 255.0.0.0 gw 10.5.222.254"
 #ROUTES=(default_gateway static_route_0 static_route1 static_route2)
 
-sudo /etc/rc.d/cupsd start
+sudo systemctl start cupsd.service
 sudo route add -net 172.24.0.0 netmask 255.252.0.0 gw 10.5.222.254
 sudo route add -net 10.0.0.0 netmask 255.0.0.0 gw 10.5.222.254
 sudo route add -net 172.0.0.0 netmask 255.0.0.0 gw 10.5.222.254

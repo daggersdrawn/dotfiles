@@ -49,7 +49,7 @@ URxvt*cutchars:        '"'()*<>[]{|}
 !
 ! Fonts
 ! run "fc-list" for a list of available fonts
-URxvt*font: xft:inconsolata:size=10:antialias=true:hinting=true
+URxvt*font: xft:Inconsolata:size=10:antialias=true:hinting=true
 URxvt.boldFont: xft:Inconsolata:size=10:antialias=true:bold:hinting=true
 URxvt.italicFont: xft:Inconsolata:size=10:antialias=true:italic:autohint=true:hinting=true
 URxvt.bolditalicFont: xft:Inconsolata:size=10:antialias=true:bold:italic:autohint=true:hinting=true

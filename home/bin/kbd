@@ -40,3 +40,4 @@ fi
 
 # azerty  colemak  dvorak  fgGIod  include  olpc  qwerty  qwertz
 #setxkbmap -layout colemak
+#setxkbmap -layout us-acentos
