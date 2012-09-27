@@ -71,7 +71,7 @@ export LC_ALL=en_US.UTF-8
 
 
 if [ -d "$HOME/.ec2/" ]; then
-  export EC2_HOME=~/.ec2
+  export EC2_HOME=$HOME/.ec2
   export PATH=$PATH:$EC2_HOME/bin
   export EC2_PRIVATE_KEY=`ls $EC2_HOME/pk-*.pem`
   export EC2_CERT=`ls $EC2_HOME/cert-*.pem`
@@ -102,19 +102,6 @@ editors="emacs:vim:vi"
 
 # }}}
 
-### Overall conditionals/functions {{{
-_islinux=false
-[[ "$(uname -s)" =~ Linux|GNU|GNU/* ]] && _islinux=true
-
-_isarch=false
-[[ -f /etc/arch-release ]] && _isarch=true
-
-_isxrunning=false
-[[ -n "$DISPLAY" ]] && _isxrunning=true
-
-_isroot=false
-[[ $UID -eq 0 ]] && _isroot=true
-
 # set $EDITOR
 _set_editor() {
   local IFS=':' editor
@@ -129,6 +116,62 @@ _set_editor() {
     fi
   done
 }
+_set_editor
+
+# set ip address
+[[ -f "$HOME/.myip" ]] && export MYIP=$(cat "$HOME/.myip")
+
+export LESS="-QR"
+export PAGER=less
+
+# git
+if [ -f $HOME/.git-completion.bash ]; then
+  . $HOME/.git-completion.bash
+fi
+
+# mercurial
+if [ -f $HOME/.hgtab-bash.sh ]; then
+  . $HOME/.hgtab-bash.sh
+fi
+
+# vim
+if [ -f /usr/share/vim/vim70 ]; then
+  export VIMRUNTIME=/usr/share/vim/vim70
+fi
+if [ -f /usr/share/vim/vim71 ]; then
+  export VIMRUNTIME=/usr/share/vim/vim71
+fi
+if [ -f /usr/share/vim/vim72 ]; then
+  export VIMRUNTIME=/usr/share/vim/vim72
+fi
+
+# dmenu options
+if _have dmenu; then
+  . "$HOME/.dmenurc"
+fi
+
+# tmux
+[[ -s $HOME/.tmuxinator/scripts/tmuxinator ]] && source $HOME/.tmuxinator/scripts/tmuxinator
+[[ ${TERM} == "screen" ]] && export TERM="rxvt-unicode-256color"
+
+# }}}
+
+### System conditionals {{{
+# For OSX gcc issues see:
+#     http://stackoverflow.com/questions/8473066/gcc-4-2-failed-with-exit-status-1
+#     https://github.com/kennethreitz/osx-gcc-installer/downloads
+#
+_islinux=false
+[[ "$(uname -s)" =~ Linux|GNU|GNU/* ]] && _islinux=true
+
+_isarch=false
+[[ -f /etc/arch-release ]] && _isarch=true
+
+_isxrunning=false
+[[ -n "$DISPLAY" ]] && _isxrunning=true
+
+_isroot=false
+[[ $UID -eq 0 ]] && _isroot=true
 
 # set $BROWSER
 _set_browser() {
@@ -143,12 +186,8 @@ _set_browser() {
     fi
   done
 }
+$_isxrunning && _set_browser "$xbrowsers" || _set_browser "$browsers"
 
-### OS conditionals {{{
-# For OSX gcc issues see:
-#     http://stackoverflow.com/questions/8473066/gcc-4-2-failed-with-exit-status-1
-#     https://github.com/kennethreitz/osx-gcc-installer/downloads
-#
 if $_islinux; then
   export LS_OPTIONS="--color=auto"
   export PACMAN="pacman-color"
@@ -173,56 +212,13 @@ else
   fi
 fi
 
-# custom ip var
-[[ -f "$HOME/.myip" ]] && export MYIP=$(cat "$HOME/.myip")
-
-# set browser
-$_isxrunning && _set_browser "$xbrowsers" || _set_browser "$browsers"
-
-# set editor
-_set_editor
-
-export LESS="-QR"
-export PAGER=less
-
-# git
-if [ -f $HOME/.git-completion.bash ]; then
-  . $HOME/.git-completion.bash
-fi
-
-# mercurial
-if [ -f $HOME/.hgtab-bash.sh ]; then
-  . $HOME/.hgtab-bash.sh
-fi
-
-
-# vim
-if [ -f /usr/share/vim/vim70 ]; then
-  export VIMRUNTIME=/usr/share/vim/vim70
-fi
-if [ -f /usr/share/vim/vim71 ]; then
-  export VIMRUNTIME=/usr/share/vim/vim71
-fi
-if [ -f /usr/share/vim/vim72 ]; then
-  export VIMRUNTIME=/usr/share/vim/vim72
-fi
-
-# dmenu options
-if _have dmenu; then
-  . "$HOME/.dmenurc"
-fi
-
-# tmux
-[[ -s $HOME/.tmuxinator/scripts/tmuxinator ]] && source $HOME/.tmuxinator/scripts/tmuxinator
-[[ ${TERM} == "screen" ]] && export TERM="rxvt-unicode-256color"
-
 # perl
 if $_islinux; then
-  export PERL_LOCAL_LIB_ROOT="/home/rizumu/perl5";
-  export PERL_MB_OPT="--install_base /home/rizumu/perl5";
-  export PERL_MM_OPT="INSTALL_BASE=/home/rizumu/perl5";
-  export PERL5LIB="/home/rizumu/perl5/lib/perl5/x86_64-linux-thread-multi:/home/rizumu/perl5/lib/perl5";
-  export PATH="/home/rizumu/perl5/bin:$PATH";
+  export PERL_LOCAL_LIB_ROOT="$HOME/perl5";
+  export PERL_MB_OPT="--install_base $HOME/perl5";
+  export PERL_MM_OPT="INSTALL_BASE=$HOME/perl5";
+  export PERL5LIB="$HOME/perl5/lib/perl5/x86_64-linux-thread-multi:$HOME/perl5/lib/perl5";
+  export PATH="$HOME/perl5/bin:$PATH";
 fi
 
 # }}}
