@@ -79,6 +79,7 @@ alias tu='top -o cpu' #cpu
 alias x='startx'
 alias sex='startx'
 alias xdefaults='xrdb -merge ~/.Xdefaults'
+alias invert='xcalib -invert -alter'
 
 # yaourt (manually add --noconfirm to skip prompts)
 alias yogurt='yaourt'
