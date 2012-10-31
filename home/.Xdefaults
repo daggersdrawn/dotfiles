@@ -11,90 +11,91 @@ Xft.lcdfilter:  lcddefault
 !}}}
 
 !{{{ CURSOR THEME
-Xcursor*theme: Vanilla-DMZ-AA
+Xcursor.theme: Vanilla-DMZ-AA
 Xcursor.size:  22
 !}}}
 
 !{{{ URXVT
 !
 ! General
-URxvt*termName:           rxvt-unicode-256color
-URxvt*loginShell:         true
-URxvt*scrollBar:         false
-URxvt*secondaryScroll:    true
-URxvt*saveLines:         65535
-URxvt*cursorBlink:       false
-!URxvt*cursorUnderline:   true
-URxvt*urgentOnBell:       true
-URxvt*visualBell:        false
-!URxvt*override-redirect:false
-URxvt*borderless: 1
-!URxvt*internalBorder:       0
-!URxvt*externalBorder:       0
-URxvt*depth: 32
+URxvt.termName:           rxvt-unicode-256color
+URxvt.loginShell:         true
+URxvt.scrollBar:         false
+URxvt.secondaryScroll:    true
+URxvt.saveLines:         65535
+URxvt.cursorBlink:       false
+!URxvt.cursorUnderline:   true
+URxvt.urgentOnBell:       true
+URxvt.visualBell:        false
+!URxvt.override-redirect:false
+URxvt.borderless: 1
+!URxvt.internalBorder:       0
+!URxvt.externalBorder:       0
+URxvt.depth: 32
 !
 ! Extensions
-URxvt*perl-lib:        /usr/lib/urxvt/perl/
-URxvt*perl-ext-common: default,matcher,searchable-scrollback,clipboard,url-select,keyboard-select
-URxvt*urlLauncher:     /usr/bin/uzbl-browser
+URxvt.perl-lib:        /usr/lib/urxvt/perl/
+URxvt.perl-ext-common: default,matcher,searchable-scrollback,clipboard,url-select,keyboard-select
+URxvt.urlLauncher:     /usr/bin/uzbl-browser
 URxvt.keysym.M-u:      perl:url-select:select_next
 URxvt.keysym.M-c:      perl:clipboard:copy
 URxvt.keysym.M-v:      perl:clipboard:paste
 URxvt.keysym.M-C-v:    perl:clipboard:paste_escaped
 URxvt.keysym.M-s:      perl:keyboard-select:search
 URxvt.keysym.M-Escape: perl:keyboard-select:activate
-URxvt*matcher.button:  1
+URxvt.matcher.button:  1
 ! Catch ugly URLs
-URxvt*cutchars:        '"'()*<>[]{|}
+URxvt.cutchars:        '"'()*<>[]{|}
 !
 ! Fonts
 ! run "fc-list" for a list of available fonts
-URxvt*font: xft:Inconsolata:size=10:antialias=true:hinting=true
-URxvt.boldFont: xft:Inconsolata:size=10:antialias=true:bold:hinting=true
-URxvt.italicFont: xft:Inconsolata:size=10:antialias=true:italic:autohint=true:hinting=true
-URxvt.bolditalicFont: xft:Inconsolata:size=10:antialias=true:bold:italic:autohint=true:hinting=true
+URxvt.font:xft:Inconsolata:medium:pixelsize=13
+URxvt.boldFont:xft:Inconsolata:bold:pixelsize=13
+URxvt.italicfont:xft:Inconsolata:italic:pixelsize=13
+URxvt.bolditalicFont:xft:Inconsolata:bold:italic:pixelsize=13
+
 !URxvt.inheritPixmap: true
 URxvt.xftAntialias: true
 URxvt.letterSpace: -1.5
 !
 ! Cursor
-URxvt*cursorColor:  #DCDCCC
+URxvt.cursorColor:  #DCDCCC
 ! URLs
-URxvt*colorUL:      #ffffff
-URxvt*underlineURLs:true
+URxvt.colorUL:      #ffffff
+URxvt.underlineURLs:true
 !
 ! Pseudo Transparency
-!URxvt*shading:      5
-!URxvt*transparent:  true
+!URxvt.shading:      5
+!URxvt.transparent:  true
 !
 ! Zenburn color-scheme
-URxvt*background:   #3f3f3f
-URxvt*foreground:   #dcdccc
+URxvt.background:   #3f3f3f
+URxvt.foreground:   #dcdccc
 ! black + red
-!URxvt*color0:      #3f3f3f
-URxvt*color0:       #1E2320
-URxvt*color1:       #705050
+!URxvt.color0:      #3f3f3f
+URxvt.color0:       #1E2320
+URxvt.color1:       #705050
 ! green + yellow
-URxvt*color2:       #60b48a
-URxvt*color3:       #dfaf8f
+URxvt.color2:       #60b48a
+URxvt.color3:       #dfaf8f
 ! blue + purple
-URxvt*color4:       #506070
-URxvt*color5:       #dc8cc3
+URxvt.color4:       #506070
+URxvt.color5:       #dc8cc3
 ! cyan + white
-URxvt*color6:       #8cd0d3
-URxvt*color7:       #dcdccc
+URxvt.color6:       #8cd0d3
+URxvt.color7:       #dcdccc
 ! bright-black + bright-red
-URxvt*color8:       #709080
-URxvt*color9:       #dca3a3
+URxvt.color8:       #709080
+URxvt.color9:       #dca3a3
 ! bright-green + bright-yellow
-URxvt*color10:      #c3bf9f
-URxvt*color11:      #f0dfaf
+URxvt.color10:      #c3bf9f
+URxvt.color11:      #f0dfaf
 ! bright-blue + bright-purple
-URxvt*color12:      #94bff3
-URxvt*color13:      #ec93d3
+URxvt.color12:      #94bff3
+URxvt.color13:      #ec93d3
 ! bright-cyan + bright-white
-URxvt*color14:      #93e0e3
-URxvt*color15:      #ffffff
+URxvt.color14:      #93e0e3
+URxvt.color15:      #ffffff
 !}}}
 
 
