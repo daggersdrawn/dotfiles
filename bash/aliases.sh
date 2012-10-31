@@ -106,6 +106,7 @@ alias rmorphans='yaourt -Rns $(yaourt -Qtdq)'
 # Python
 alias py='ipython'
 alias emailserver='python -m smtpd -n -c DebuggingServer localhost:1025'
+alias linecountpy='find . -name "*.py" -exec wc {} +'
 
 # Screen
 alias s='screen'
