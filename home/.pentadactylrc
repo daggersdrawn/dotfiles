@@ -242,41 +242,6 @@ map <A-Left> :tabmove! -1<CR>
 map <A-Right> :tabmove! +1<CR>
 " }}}
 
-map <C-d> <Nop>
-map <C-u> <Nop>
-map <C-x> <Nop>
-map <C-g> <Nop>
-map : <Nop>
-map ~ <Nop>
-map / <Nop>
-map ? <Nop>
-map $ <Nop>
-map 0 <Nop>
-map b <Nop>
-map B <Nop>
-map d <Nop>
-map F <Nop>
-map gg <Nop>
-map gh <Nop>
-map gi <Nop>
-map gU <Nop>
-map G <Nop>
-map i <Nop>
-map j <Nop>
-map k <Nop>
-map o <Nop>
-map O <Nop>
-map p <Nop>
-map P <Nop>
-map q <Nop>
-map r <Nop>
-map t <Nop>
-map u <Nop>
-map w <Nop>
-map y <Nop>
-map Y <Nop>
-map ZZ <Nop>
-
 " {{{ Plugin bindings
 "
 " Noscript
