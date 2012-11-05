@@ -14,16 +14,15 @@
 
 " {{{ Options
 "
-" User styles as colorschemes in Pentadactyl 2
+" User styles as colorschemes in Pentadactyl
 colorscheme zenburn
 
 set go=bCs
 set hintkeys="asdfghjkl"
 set stal=never
-highlight -a Hint text-transform: uppercase
 
 " Window title
-set titlestring=
+set titlestring=Firefox
 
 " No toolbars or menus by default
 " set toolbars=noaddons,nobookmarks,nomenu,nonavigation,tabs
@@ -44,7 +43,7 @@ set incfind
 set hlfind
 
 " Show completions and use AwesomeBar (+search plugins)
-set autocomplete
+set autocomplete=
 set complete=sl
 
 " Ex commands output in a new tab by default (prefs, addons...)
@@ -250,3 +249,6 @@ map <C-c>S :noscript popup<CR>
 " }}}
 set passkeys+=mail.google.com:jkroae<CR>,gi
 autocmd Enter * set fbwhitelist=youtube.com,vimeo.com,soundcloud.com,maps.google.com,github.com,thisismyjam.com,discogs.com,intergalactic.fm,archlinux.ca,clone.nl,kompakt.fm,dopejams.net,soundonsound.com,soundonsound.co.uk
+
+" Buftabs
+set showtabline=never

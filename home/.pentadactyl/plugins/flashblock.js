@@ -77,8 +77,8 @@ var INFO =
     </item>
 </plugin>;
 
-if ("noscriptOverlay" in window)
-    noscriptOverlay.safeAllow("dactyl:", true, false);
+if (window.noscriptOverlay)
+    window.noscriptOverlay.safeAllow("dactyl:", true, false);
 
 group.options.add(["flashblock", "fb"],
     "Enable blocking of flash animations",
