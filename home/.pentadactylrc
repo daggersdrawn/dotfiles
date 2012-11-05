@@ -1,11 +1,11 @@
-" {{{ anrxc's vimperator configuration with Emacs bindings
+" {{{ pentadactyl configuration with Emacs bindings
 "
 " Bindings
-"   * http://sysphere.org/~anrxc/j/articles/vimperator/index.html
+"   * http://sysphere.org/~anrxc/j/articles/pentadactyl/index.html
 
 " Todo
 "  * C-n and C-p in "INSERT (menu)" mode
-"    * http://code.google.com/p/vimperator-labs/issues/detail?id=36
+"    * http://code.google.com/p/pentadactyl-labs/issues/detail?id=36
 
 " License
 "  * http://creativecommons.org/publicdomain/zero/1.0
@@ -14,11 +14,16 @@
 
 " {{{ Options
 "
-" User styles as colorschemes in Vimperator 2
+" User styles as colorschemes in Pentadactyl 2
 colorscheme zenburn
 
+set go=bCs
+set hintkeys="asdfghjkl"
+set stal=never
+highlight -a Hint text-transform: uppercase
+
 " Window title
-set titlestring=Firefox
+set titlestring=
 
 " No toolbars or menus by default
 " set toolbars=noaddons,nobookmarks,nomenu,nonavigation,tabs
@@ -54,128 +59,123 @@ set ds=yubnub
 "     - Emacs GTK key-theme and FF already provide bindings for input fields
 "
 " M-x enters command mode
-noremap <A-x> :
+map -b <A-x> :
 
 " Emacs navigation in command line and insert mode
-cmap <C-n> <Tab>
-cmap <C-p> <S-Tab>
-cmap <C-f> <Right>
-cmap <C-b> <Left>
-cmap <C-j> <CR>
-noremap <C-j> <CR>
-inoremap <C-j> <CR>
-inoremap <C-n> <Down>
-inoremap <C-p> <Up>
-inoremap <C-f> <Right>
-inoremap <C-b> <Left>
-
-" Use C-f and C-b for tab browsing
-noremap <C-f> <C-n>
-noremap <C-b> <C-p>
+map -b -m c <C-n> <Tab>
+map -b -m c <C-p> <S-Tab>
+map -b <C-j> gT
+map -b <C-k> gt
+map -b -m i <C-n> <Down>
+map -b -m i <C-p> <Up>
+map -b -m c,i <C-b> <Left>
+map -b -m c,i <C-f> <Right>
 
 " Use C-a and C-e to jump to first/last tab
-"noremap <C-a> g0
-"noremap <C-e> g$
+"map -b <C-a> g0
+"map -b <C-e> g$
 "
 " Or use them to go to the absolute left/right of the document
-noremap <C-a> 0
-noremap <C-e> $
+map -b <C-a> 0
+map -b <C-e> $
 
 " Use C-p and C-n for up/down
-noremap <C-p> 2k
-noremap <C-n> 2j
+map -b <C-p> 2k
+map -b <C-n> 2j
 
 " Use C-v and M-v for jump scrolling
-noremap <C-v> <C-d>
-noremap <A-v> <C-u>
+map -b <C-v> <C-d>
+map -b <A-v> <C-u>
 
 " Goto the top of the document with M-<
-noremap <A-<> gg
+map -b <A-<> gg
 
 " Goto the end of the document with M->
-noremap <A->> G
+map -b <A->> G
 
 " Use C-s and C-r for searching (n/N for next/prev as in less)
-noremap <C-s> /
-noremap <C-r> ?
+map -b <C-s> /
+map -b <C-r> ?
 
 " Copy the current URL to the clipboard with M-w
-noremap <A-w> y
+map -b <A-w> y
 "
 " Copy selected text to the clipboard with C-w
-noremap <C-w> Y
+map -b <C-w> Y
 
 " Paste the current clipboard selection to a new buffer with C-y
-noremap <C-y> P
+map -b <C-y> P
 
 " Use current URL as a start for a new location with C-x C-v
-noremap <C-x><C-v> O
+map -b <C-x><C-v> O
 
 " C-g as cancel (C-q is stop)
-cmap <C-g> <Esc>
-imap <C-g> <Esc>
-noremap <C-g> <Esc>
+map -b -m base <C-g> <Esc>
 
 " Avoid Find dialog when canceling a started command, C-x C-g
-noremap <C-x><C-g> <Esc>
+map -b <C-x><C-g> <Esc>
 "
 " Avoid quit on C-q, and it's more suitable for Stop here
-noremap <C-q> :stop<CR>
+map -b <C-q> :stop<CR>
 
 " Kill the buffer with C-x k
-noremap <C-x>k d
+map -b <C-x>k d
 
 " Undo close tab with C-_ (also with C-Shift-t, as C-t is new tab)
-noremap <C-_> u
+map -b <C-_> u
 
 " Exit and save the session with C-x C-c
-noremap <C-x><C-c> ZZ
+map -b <C-x><C-c> ZZ
+
+" Use C-f and C-b for tab browsing
+map -b <C-b> <A-left>
+map -b <C-f> <A-right>
 
 " Buffer lists with C-x b and C-x C-b
-noremap <C-x>b b
-noremap <C-x><C-b> B
+map -b <C-x>b b
+map -b <C-x><C-b> b
 
 " Open a link in a new tab with C-x t
 " Open a link in the current tab with C-x l
-noremap <C-x>t :t<SPACE>
-noremap <C-x>l :o<SPACE>
+map -b <C-x>t :t<SPACE>
+map -b <C-x>l :o<SPACE>
 
 " Open hints in new tab by default (switch roles of f and F)
-"noremap f F
-"noremap F f
+"map -b f F
+"map -b F f
 
 " Switch hints to letter "j", for right hand usage
-noremap j f
-noremap J F
+map -b j f
+map -b J F
 "
 " Extended hint mode with M-j
 "  ; - focus link, a - save, y - copy link, O - :open query, T - for :tabopen ...
-noremap <A-j> ;
+map -b <A-j> ;
 
 " We can now also use F for Shift+b/f as back/forward
-noremap F L
-noremap B H
+map -b F L
+map -b B H
 
 " Back with Backspace as well
 map <BS> H
 
 " Use C-h i to start help
-noremap <C-h>i :help<CR>
+map -b <C-h>i :help<CR>
 
 " Record a key sequence into a macro with C-x (
-noremap <C-x>( q
+map -b <C-x>( q
 
 " Play a macro with C-x e
-noremap <C-x>e @
+map -b <C-x>e @
 
 " Set a mark at the cursor with C-x r m
-noremap <C-x>rm m
+map -b <C-x>rm m
 
 " Jump to the mark in the current buffer with C-x r b
-noremap <C-x>rb '
+map -b <C-x>rb '
 
 " C-v was pass-next, remap to bind with default keys
-noremap <C-d> <C-v>
+map -b <C-d> <C-v>
 "
 " C-x C-f starts the "Open File" dialog (C-x C-s is Save)
 map <C-x><C-f> <C-d><C-o>
@@ -206,6 +206,9 @@ map <C-c>a <C-d><C-d>
 " Bookmarks search, and search by tag
 map <C-c>q :bmarks<SPACE>
 map <C-c>w :bmarks -tags=
+
+" Unsure
+map -b <C-c>~ ~
 
 " View source with C-c g, and
 map <C-c>g gf
@@ -239,6 +242,40 @@ map <A-Left> :tabmove! -1<CR>
 map <A-Right> :tabmove! +1<CR>
 " }}}
 
+map <C-d> <Nop>
+map <C-u> <Nop>
+map <C-x> <Nop>
+map <C-g> <Nop>
+map : <Nop>
+map ~ <Nop>
+map / <Nop>
+map ? <Nop>
+map $ <Nop>
+map 0 <Nop>
+map b <Nop>
+map B <Nop>
+map d <Nop>
+map F <Nop>
+map gg <Nop>
+map gh <Nop>
+map gi <Nop>
+map gU <Nop>
+map G <Nop>
+map i <Nop>
+map j <Nop>
+map k <Nop>
+map o <Nop>
+map O <Nop>
+map p <Nop>
+map P <Nop>
+map q <Nop>
+map r <Nop>
+map t <Nop>
+map u <Nop>
+map w <Nop>
+map y <Nop>
+map Y <Nop>
+map ZZ <Nop>
 
 " {{{ Plugin bindings
 "
@@ -247,4 +284,4 @@ map <C-c>s :noscript toggletemp<CR>
 map <C-c>S :noscript popup<CR>
 " }}}
 set passkeys+=mail.google.com:jkroae<CR>,gi
-autocmd Enter * set fbwhitelist=youtube.com,vimeo.com,soundcloud.com,maps.google.com,github.com,thisismyjam.com,discogs.com,intergalactic.fm,archlinux.ca
+autocmd Enter * set fbwhitelist=youtube.com,vimeo.com,soundcloud.com,maps.google.com,github.com,thisismyjam.com,discogs.com,intergalactic.fm,archlinux.ca,clone.nl,kompakt.fm,dopejams.net,soundonsound.com,soundonsound.co.uk
