@@ -1,14 +1,18 @@
 #!/bin/bash
 
+# Requires the BACKGROUND environemnt variable to be set to path to an image.
+#
+# example:
+#     BACKGROUND="$HOME/dotfiles/backgrounds/taos_mesa-gorge_storm.jpg"
+#
 # usage: lcd ACTION
+#
 #
 # actions:
 #     on
 #     off
 #
 # antigravtiy syncs configuration for arch, awesome, emacs, and xmonad.
-
-background="${HOME}/dotfiles/backgrounds/taos_mesa-gorge_storm.jpg"
 
 if [ "$1" == "--help" ]; then
     sed -n -e '/^# usage:/,/^$/ s/^# \?//p' < $0
@@ -27,7 +31,7 @@ elif [ "$1" == "off" ]; then
 fi
 
 if [ "$1" == "on" ] || [ "$1" == "off" ]; then
-  feh --bg-scale "${background}" &
+  feh --bg-scale "${BACKGROUND}" &
   pkill trayer
   trayer --edge top --align right --SetDockType true --SetPartialStrut true --expand true \
     --width 10  --height 18 --transparent true --alpha 0 --tint 0x2F2F2F &

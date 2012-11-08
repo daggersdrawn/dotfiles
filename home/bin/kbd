@@ -7,23 +7,13 @@
 # lsusb | grep -i 'Holtek' | grep -o ID\ [0-9]....[0-9].... | grep -o [0-9]....[0-9]....
 # lsusb | grep -i 'HHKB' | grep -o ID\ [0-9]....[0-9].... | grep -o [0-9]....[0-9]....
 
-
 sleep 1
 DISPLAY=":0.0"
-HOME=/home/rizumu/
 XAUTHORITY=$HOME/.Xauthority
 export DISPLAY XAUTHORITY HOME
 daskb_id=`xinput -list | grep -o -P 'daskeyboard' | grep -o -P '\d+'`
 hhkb_id=`xinput -list | xinput -list | grep -o -P 'HHKB Professional\s+id=\d+' | grep -o -P '\d+'`
 macbook_id=`xinput -list | xinput list | grep -o -P 'Apple Internal Keyboard / Trackpad\s+id=\d+' | grep -o -P '\d+' | head -1`
-
-setxkbmap -option compose:ralt  # https://wiki.archlinux.org/index.php/Accents_on_US_keyboards
-setxkbmap -option ctrl:nocaps
-xset r rate 200 30
-
-if [ -f "$HOME/.Xmodmap" ]; then
-    /usr/bin/xmodmap $HOME/.Xmodmap
-fi
 
 if [ "${daskb_id}" ]; then
     setxkbmap -device "${daskb_id}" -option altwin:swap_lalt_lwin
@@ -37,7 +27,3 @@ fi
 if [ "${macbook_id}" ]; then
     setxkbmap -device "${macbook_id}" -option altwin:swap_lalt_lwin
 fi
-
-# azerty  colemak  dvorak  fgGIod  include  olpc  qwerty  qwertz
-#setxkbmap -layout colemak
-#setxkbmap -layout us-acentos
