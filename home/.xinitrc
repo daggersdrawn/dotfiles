@@ -13,8 +13,6 @@ gnupglog="~/.gnupg/gpg-agent.info"
 eserver="/tmp/emacs${UID}/server"
 tone="$HOME/dotfiles/tones/gudrun_gut-thelandKRZ.ogg"
 fonts_dir=/usr/share/fonts/local
-usermodmap="${HOME}/.Xmodmap"
-sysmodmap="/etc/X11/xinit/.Xmodmap"
 BACKGROUND="$HOME/dotfiles/backgrounds/taos_mesa-gorge_storm.jpg"
 export BACKGROUND
 # }}}
@@ -57,9 +55,7 @@ gtk-redshift -l 40.4167:-3.7003 -t 6000:4500 -m vidmode &                   # st
 
 
 # {{{ Keyboard settings
-# Merge keymaps
-[[ -r "${sysmodmap}" ]]     && xmodmap "${sysmodmap}"
-[[ -r "${usermodmap}" ]]    && xmodmap "${usermodmap}"
+# the keymap is altred in .Xmodmap
 # The kbd script detects different keyboards, makes their keys uniform, and handles usb hotplugging.
 if [ -f "$HOME/bin/kbd" ]; then
     $HOME/bin/kbd
