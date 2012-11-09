@@ -15,4 +15,5 @@ home/.gnupg/secring.gpg
 home/.gnupg/sshcontrol
 home/.gnupg/trustdb.gpg
 home/.pyflymakercc
+home/.vim/.netrwhist
 home/bin/rdesktop_route
