@@ -3,12 +3,11 @@
     email = tom@insatsu.us
 
 [core]
-    editor = emacsclient -nw
+    editor = emacs --no-window-system --quick
     excludesfile = ~/.gitignore
     filemode = true
     logallrefupdates = true
     whitespace = space-before-tab, trailing-space
-
 
 [alias]
     ediff = difftool -t ediff
@@ -62,3 +61,5 @@
     added = yellow
     changed = green bold
     untracked = blue bold
+[credential]
+    helper = osxkeychain
