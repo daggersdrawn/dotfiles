@@ -197,7 +197,9 @@ else
   # command line completion scripts of common Python packages.
   source /usr/local/share/python/pycompletion
   # coreutils fix
-  PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
+  export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
+  # latex/auctex
+  export PATH=/usr/texbin:$PATH
   # homebrew paths
   export PATH=/usr/local/bin:$PATH
   export PATH=/usr/local/sbin:$PATH
