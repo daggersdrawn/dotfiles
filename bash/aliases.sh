@@ -11,6 +11,7 @@ alias shutdown='dbus-send --system --print-reply --dest="org.freedesktop.Console
 alias suspend='dbus-send --system --print-reply --dest="org.freedesktop.UPower" /org/freedesktop/UPower org.freedesktop.UPower.Suspend'
 alias hibernate='dbus-send --system --print-reply --dest="org.freedesktop.UPower" /org/freedesktop/UPower org.freedesktop.UPower.Hibernate'
 alias dsleep='xset dpms force off'
+alias nocaps='setxkbmap -option ctrl:nocaps'
 
 # Global
 alias ..='cd ..'         # Go up one directory
