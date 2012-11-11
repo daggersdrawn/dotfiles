@@ -130,10 +130,10 @@ alias gla='git log --graph'
 alias glb='git log --pretty=oneline --graph --all'
 alias glc='git log --decorate --stat --graph --pretty=format:"%C(yellow)%h%Creset (%ar - %Cred%an%Creset), %s%n"'
 alias gld='git log --pretty=oneline --abbrev-commit --max-count=15'
+alias gle='git log -p -2 --pretty=format:"%h - %an, %ar : %s" --shortstat'
 alias gout='git-outgoing'
 alias gt='git-track'
 alias gw='hub browse'
-alias gg='git log -p -2 --pretty=format:"%h - %an, %ar : %s" --shortstat'
 alias grb='git rebase --preserve-merges origin/$(git_current_branch)'
 alias gsti='git ls-files --others -i --exclude-standard'
 function gcpfalr {
@@ -180,12 +180,14 @@ __git_shortcut  gb    branch --set-upstream
 __git_shortcut  gba   branch -a
 __git_shortcut  gbv   branch --color -v | cut -c1-100
 __git_shortcut  gco   checkout
+__git_shortcut  gco   checkout
 __git_shortcut  gc    commit '-v -m'
 __git_shortcut  gca   commit '-a -v -m'
 __git_shortcut  gd    diff
 __git_shortcut  gdc   diff --cached
 __git_shortcut  gds   diff --stat
 __git_shortcut  gf    fetch
+__git_shortcut  gg    grep '--color -n -h --heading --break'
 __git_shortcut  gl    pull --rebase
 __git_shortcut  gm    merge --no-ff
 __git_shortcut  gp    push
