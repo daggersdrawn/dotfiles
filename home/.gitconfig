@@ -61,5 +61,9 @@
     added = yellow
     changed = green bold
     untracked = blue bold
+
 [credential]
     helper = osxkeychain
+
+[hub]
+	protocol = https
