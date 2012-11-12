@@ -1,0 +1,2 @@
+SSH_AUTH_SOCK=/var/folders/kt/56t3d1v10m900krnp6p0fyxc0000gn/T//ssh-ZVHMRIOxPtZO/agent.302; export SSH_AUTH_SOCK;
+SSH_AGENT_PID=304; export SSH_AGENT_PID;
