@@ -184,7 +184,7 @@ map <C-x><C-f> <C-d><C-o>
 "
 " M-Up/Dn toggles the toolbar and scrollbars
 map <A-Down> :set guioptions=BmTs<CR>
-map <A-Up> :set guioptions-=BmTs<CR>
+map <A-Up> :set guioptions-=BmT<CR>
 
 " Sidebar selection with s, close with S
 map s :sidebar<SPACE>
