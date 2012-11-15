@@ -194,6 +194,13 @@ if $_islinux; then
   # command line completion scripts of common Python packages.
   source `which pycompletion`
 else
+  # assume osx
+
+  # set p4merge path
+  function p4merge() {
+    /Applications/p4merge.app/Contents/MacOS/p4merge $*
+  }
+
   # command line completion scripts of common Python packages.
   source /usr/local/share/python/pycompletion
   # coreutils fix
