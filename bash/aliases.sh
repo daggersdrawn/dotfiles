@@ -124,6 +124,7 @@ function git_current_branch() {
 }
 alias gcb='git-cut-branch'
 alias gcompare='hub compare'
+alias gdh='git describe --exact-match-head'
 alias gin='git-incoming'
 alias fp='format-patch --stdout'
 alias gla='git log --graph'
