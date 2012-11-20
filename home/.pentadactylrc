@@ -50,7 +50,8 @@ set complete=sl
 set newtab=all
 
 " Internal default search engine is ignored, plugins are used
-set ds=yubnub
+"set ds=yubnub
+set ds=google-ssl
 " }}}
 
 
