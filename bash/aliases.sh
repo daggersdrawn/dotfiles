@@ -133,6 +133,7 @@ alias glc='git log --decorate --stat --graph --pretty=format:"%C(yellow)%h%Crese
 alias gld='git log --pretty=oneline --abbrev-commit --max-count=15'
 alias gle='git log -p -2 --pretty=format:"%h - %an, %ar : %s" --shortstat'
 alias gout='git-outgoing'
+alias grso='git remote show origin'
 alias gt='git-track'
 alias gw='hub browse'
 alias grb='git rebase --preserve-merges origin/$(git_current_branch)'
