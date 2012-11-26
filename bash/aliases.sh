@@ -26,6 +26,7 @@ alias delemacs="find . \( -name '\#*\#' -o -name '.\#*' \) -delete"
 alias df='df -h'         # Disk free, in gigabytes, not bytes
 alias du='du -h -c'      # Calculate total disk usage for a folder
 alias grep='grep --color=auto' # Always highlight grep search term
+alias egrep='egrep --color=auto' # Always highlight egrep search term
 alias h='history'        # shortcut for history
 alias ping='ping -c 5'   # Pings with 5 packets, not unlimited. Instead of ping try: mtr google.com
 function take {
