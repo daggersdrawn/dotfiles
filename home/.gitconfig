@@ -25,10 +25,10 @@
     mnemonicprefix = true
 
 [difftool "ediff"]
-	cmd = /home/rizumu/bin/ediff \"$LOCAL\" \"$REMOTE\"
+    cmd = /home/rizumu/bin/ediff \"$LOCAL\" \"$REMOTE\"
 
 [merge]
-	tool = p4merge
+    tool = p4merge
 
 [mergetool "p4merge"]
     cmd = p4merge "$BASE" "$LOCAL" "$REMOTE" "$MERGED"
@@ -44,7 +44,7 @@
     smtpuser = funkshun@gmail.com
 
 [color]
-	ui = auto
+    ui = auto
 
 [color "diff"]
     meta = blue bold
@@ -62,8 +62,7 @@
     changed = green bold
     untracked = blue bold
 
-[credential]
-    helper = osxkeychain
-
 [hub]
-	protocol = https
+    protocol = https
+[credential]
+	helper = cache
