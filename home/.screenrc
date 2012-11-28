@@ -1,7 +1,5 @@
-# anrxc's screen init file on Arch GNU/Linux
-
 vbell off                         # no bell
-autodetach on                     # detach on hangup, ever, ever turn this off.
+autodetach on                     # detach on hangup, never, never turn this off.
 startup_message off               # don't display the copyright page
 defutf8 on                        # utf-8 encoding
 defscrollback 5000                # change default scrollback value for new windows
@@ -13,9 +11,17 @@ term screen-256color-bce          # set $TERM https://bbs.archlinux.org/viewtopi
 termcapinfo rxvt* ti@:te@:XT      # improve mouse scrolling,
 altscreen on                      # clear screen after fullscreen apps - top, vim.
 verbose on                        # show the commnad for windows when they're resurrected
-escape ^Ww                        # Escape key is C-z.  (I use C-a too much in Emacs.)
+escape ^Qq                        # Escape key is C-q.  (I use C-a too much in Emacs.)
 #screen -t "User" 0 zsh           # default windows
 #screen -t "Emacs" 1 emacs -nw
 sorendition Wk                    # status: normal text on black bg
                                   # [ hostname ][(0*$ sh) (1-$ emacs)][ hostname ]
+pow_detach_msg "Screen session of \$LOGNAME \$:cr:\$:nl:ended."
 hardstatus alwayslastline "%{G}[ %{Y}%H %{G}][%{w}%?%-Lw%?%{G}(%{W}%n*%f %t%?(%u)%?%{G})%{w}%?%+Lw%?%?%= %{G}][%{Y} %H %{G}]"
+
+# create three tabs for terminals
+screen 0
+screen 1
+screen 2
+
+select 0
