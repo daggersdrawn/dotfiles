@@ -58,9 +58,9 @@ alias path='echo -e "${PATH//:/\n}"'
 # task
 alias t='c && task ls'
 
-function rep() {
-  perl -e 's/'$1'/'$2'/g;' -pi $(find ./ -type f)
-} # rep: find and replace in current directory
+function gr() {
+  git grep --full-name --files-with-matches "$1" | xargs sed --in-place -e "s/$1/$2/"
+} # git replace: find and replace in current directory of a git repo
 
 # I hate noise
 set bell-style visible
