@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# antigravtiy syncs configuration for projects, arch, emacs, and xmonad.
+
 # usage: antigravity ACTION
 #
 # actions:
@@ -7,7 +9,6 @@
 #     push
 #     status
 #
-# antigravtiy syncs configuration for arch, awesome, emacs, and xmonad.
 
 if [ "$1" == "--help" ]; then
     sed -n -e '/^# usage:/,/^$/ s/^# \?//p' < $0
