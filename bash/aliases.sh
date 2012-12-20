@@ -58,10 +58,6 @@ alias path='echo -e "${PATH//:/\n}"'
 # task
 alias t='c && task ls'
 
-function gr() {
-  git grep --full-name --files-with-matches "$1" | xargs sed --in-place -e "s/$1/$2/"
-} # git replace: find and replace in current directory of a git repo
-
 # I hate noise
 set bell-style visible
 alias bp='echo -e "\a"' # send a notification, ie. pacman -Syu && bp
@@ -120,6 +116,9 @@ function fbwhitelist() {
 }
 
 # Git
+function gr() {
+  git grep --full-name --files-with-matches "$1" | xargs sed --in-place -e "s/$1/$2/"
+} # git replace: find and replace in current directory of a git repo
 function git_current_branch() {
   git symbolic-ref HEAD 2> /dev/null | cut -b 12-
 }
