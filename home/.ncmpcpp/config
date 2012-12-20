@@ -123,8 +123,6 @@ header_visibility = "no"
 #
 #statusbar_visibility = "yes"
 #
-fancy_scrolling = "yes"
-#
 display_bitrate = "yes"
 #
 ask_before_clearing_main_playlist = "yes"
