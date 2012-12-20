@@ -17,3 +17,8 @@ home/.gnupg/trustdb.gpg
 home/.pyflymakercc
 home/.vim/.netrwhist
 home/bin/rdesktop_route
+home/.mpd/database
+home/.mpd/mpd.pid
+home/.mpd/mpd.db
+home/.mpd/mpd.log
+home/.mpd/mpdstate
