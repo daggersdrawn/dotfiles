@@ -89,7 +89,7 @@ fi
 # list of apps to be tried in order
 xbrowsers="browser:uzbl-browser:chromium:firefox"
 browsers="elinks:lynx:links"
-editors="emacs:vim:vi"
+editors="emacsclient --nw:emacs:zile:vim:vi"
 
 # }}}
 
@@ -98,10 +98,15 @@ _set_editor() {
   local IFS=':' editor
 
   for editor in $editors; do
-  editor="$(which $editor 2>/dev/null)"
-
-    if [[ -x "$editor" ]]; then
-      export EDITOR="$editor"
+    editor_binary=`echo $editor | cut -f 1 -d ' '`
+    if [ "$editor" == "${editor//[\' ]/}" ]; then
+      editor_args=""  # does not contain arguments
+    else
+      editor_args=`echo $editor | cut --complement -f 1 -d ' '`
+    fi
+    editor_binary="$(which $editor_binary 2>/dev/null)"
+    if [[ -x "$editor_binary" ]]; then
+      export EDITOR="$editor_binary $editor_args"
       export VISUAL="$EDITOR"
       break
     fi
