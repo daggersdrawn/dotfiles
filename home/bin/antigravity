@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# antigravtiy syncs configuration for projects, arch, emacs, and xmonad.
+# antigravtiy syncs configuration for projects, arch dotfiles, emacs, pass and xmonad.
 
 # usage: antigravity ACTION
 #
@@ -24,9 +24,10 @@ fi
 echo -e "\033[1mantigravity transmission initiating.\033[0m\n"
 
 echo -e "\n bootmachine " && cd /srv/bootmachine/ && git $1
-echo -e "\n scenemachine " && cd /srv/scenemachine/ && git $1
+echo -e "\n scenemachine " && cd /srv/webapps/scenemachine/ && git $1
 echo -e "\n arch " && cd ~/dotfiles/ && git $1
 echo -e "\n emacs " && cd ~/.emacs.d/ && git $1
+echo -e "\n pass " && cd ~/.password-store/ && git $1
 echo -e "\n xmonad " && cd ~/.xmonad/ && git $1
 
 echo -e "\n\033[1mantigravitiy transmission complete.\033[0m"
