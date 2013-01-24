@@ -212,17 +212,13 @@ alias hgp='hg push'
 alias hgv='hg view'
 
 # Django
-alias rmsyn='rm dev.db; syn'
-alias rmsynrun='rm dev.db; syn; run'
 alias run='python manage.py runserver 0.0.0.0:8000'
 alias syn='python manage.py syncdb --noinput'
-alias pmt='python manage.py test'
-alias pm='python manage.py'
-alias pms='python manage.py shell_plus'
+alias sp='python manage.py shell_plus'
 alias edj='subl $HOME/development/python/django'
 alias rr='reset; run'
 alias rrf='reset; run --forked'
-alias rt='python manage.py test --settings=settings_test'
+alias rt='python manage.py test -s --with-progressive --settings=settings_test'
 
 # Emacs
 
