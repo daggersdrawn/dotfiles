@@ -93,27 +93,6 @@ editors="emacsclient --nw:emacs:zile:vim:vi"
 
 # }}}
 
-# set $EDITOR
-_set_editor() {
-  local IFS=':' editor
-
-  for editor in $editors; do
-    editor_binary=`echo $editor | cut -f 1 -d ' '`
-    if [ "$editor" == "${editor//[\' ]/}" ]; then
-      editor_args=""  # does not contain arguments
-    else
-      editor_args=`echo $editor | cut --complement -f 1 -d ' '`
-    fi
-    editor_binary="$(which $editor_binary 2>/dev/null)"
-    if [[ -x "$editor_binary" ]]; then
-      export EDITOR="$editor_binary $editor_args"
-      export VISUAL="$EDITOR"
-      break
-    fi
-  done
-}
-_set_editor
-
 # set ip address
 [[ -f "$HOME/.myip" ]] && export MYIP=$(cat "$HOME/.myip")
 
@@ -199,14 +178,14 @@ else
 
   # command line completion scripts of common Python packages.
   source /usr/local/share/python/pycompletion
-  # coreutils fix
-  export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
   # latex/auctex
   export PATH=/usr/texbin:$PATH
   # homebrew paths
   export PATH=/usr/local/bin:$PATH
   export PATH=/usr/local/sbin:$PATH
   export PATH=/usr/local/share/python:$PATH
+  # coreutils fix
+  export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
   alias rquicksilver="sudo umount -Af && killall Quicksilver && open /Applications/Quicksilver.app"
   alias killdash="defaults write com.apple.dashboard mcx-disabled -boolean YES; killall Dock;"
   alias startdash="defaults write com.apple.dashboard mcx-disabled -boolean NO; killall Dock;"
@@ -234,5 +213,26 @@ if [[ -f "$HOME/dotfiles/bash/dircolors" ]] && [[ $(tput colors) == "256" ]]; th
   # https://github.com/trapd00r/LS_COLORS
   eval $( dircolors -b $HOME/dotfiles/bash/dircolors )
 fi
+
+# set $EDITOR
+_set_editor() {
+  local IFS=':' editor
+
+  for editor in $editors; do
+    editor_binary=`echo $editor | cut -f 1 -d ' '`
+    if [ "$editor" == "${editor//[\' ]/}" ]; then
+      editor_args=""  # does not contain arguments
+    else
+      editor_args=`echo $editor | cut --complement -f1 -d ' '`
+    fi
+    editor_binary="$(which $editor_binary 2>/dev/null)"
+    if [[ -x "$editor_binary" ]]; then
+      export EDITOR="$editor_binary $editor_args"
+      export VISUAL="$EDITOR"
+      break
+    fi
+  done
+}
+_set_editor
 
 # }}}
