@@ -9,13 +9,9 @@
 PS1='[\u@\h \W]\$ '
 
 if [ -f "$HOME/dotfiles/bash/main.sh" ]; then
-    . "$HOME/dotfiles/bash/main.sh"
+  . "$HOME/dotfiles/bash/main.sh"
 fi
 
-if type "fortune" &> /dev/null && type "cowsay" &> /dev/null && type "ponysay" &> /dev/null; then
-  rem=$(($RANDOM%4))
-  [[ $rem == 0 ]] && fortune -a | fmt -80 -s | cowsay -$(shuf -n 1 -e b d g p s t w y) -f $(shuf -n 1 -e $(cowsay -l | tail -n +2)) -n
-  [[ $rem == 1 ]] && fortune -a | fmt -80 -s | cowthink -$(shuf -n 1 -e b d g p s t w y) -f $(shuf -n 1 -e $(cowthink -l | tail -n +2)) -n
-  [[ $rem == 3 ]] && fortune -a | ponysay
-  [[ $rem == 4 ]] && fortune -a | ponysay
+if type "fortune" &> /dev/null && type "unisay" &> /dev/null; then
+  fortune -a | unisay
 fi
