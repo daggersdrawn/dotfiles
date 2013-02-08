@@ -122,22 +122,27 @@ function gr() {
 function git_current_branch() {
   git symbolic-ref HEAD 2> /dev/null | cut -b 12-
 }
+alias gap='ga -p'
 alias gcb='git-cut-branch'
 alias gcompare='hub compare'
 alias gdh='git describe --exact-match-head'
 alias gin='git-incoming'
 alias fp='format-patch --stdout'
-alias gla='git log --graph'
-alias glb='git log --pretty=oneline --graph --all'
-alias glc='git log --decorate --stat --graph --pretty=format:"%C(yellow)%h%Creset (%ar - %Cred%an%Creset), %s%n"'
-alias gld='git log --pretty=oneline --abbrev-commit --max-count=15'
-alias gle='git log -p -2 --pretty=format:"%h - %an, %ar : %s" --shortstat'
+alias gla="git log --graph --date-order --pretty=format':%C(yellow)%h%Cblue%d%Creset %s %C(white) %an, %ar%Creset'"
+alias glb='git log --graph'
+alias glc='git log --pretty=oneline --graph --all'
+alias gld='git log --decorate --stat --graph --pretty=format:"%C(yellow)%h%Creset (%ar - %Cred%an%Creset), %s%n"'
+alias gle='git log --pretty=oneline --abbrev-commit --max-count=15'
+alias glf='git log -p -2 --pretty=format:"%h - %an, %ar : %s" --shortstat'
 alias gout='git-outgoing'
 alias grso='git remote show origin'
 alias gt='git-track'
 alias gw='hub browse'
 alias grb='git rebase --preserve-merges origin/$(git_current_branch)'
 alias gsti='git ls-files --others -i --exclude-standard'
+alias unstage='reset HEAD'
+alias staged='diff --cached'
+alias unstaged='diff'
 function gcpfalr {
   git --git-dir=$1/.git format-patch -k -1 --stdout $2| git am -3 -k
 } # git cherry pick from another local repo. $ gcpfalr ../path/to/repo SHA
@@ -178,15 +183,14 @@ __git_shortcut () {
 }
 
 __git_shortcut  ga    add
-__git_shortcut  gb    branch --set-upstream
-__git_shortcut  gba   branch -a
-__git_shortcut  gbv   branch --color -v | cut -c1-100
-__git_shortcut  gco   checkout
+__git_shortcut  gbr   branch --set-upstream
 __git_shortcut  gco   checkout
 __git_shortcut  gc    commit '-v -m'
 __git_shortcut  gca   commit '-a -v -m'
-__git_shortcut  gd    diff
-__git_shortcut  gdc   diff --cached
+__git_shortcut  gd    diff -M
+__git_shortcut  gd.   diff -M --color-words='.'
+__git_shortcut  gdc   diff -M --cached
+__git_shortcut  gdc.  diff -M --cached --color-words='.'
 __git_shortcut  gds   diff --stat
 __git_shortcut  gf    fetch
 __git_shortcut  gg    grep '--color -n -h --heading --break'

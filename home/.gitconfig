@@ -1,6 +1,9 @@
 [user]
-    name = rizumu
+    name = Thomas Schreiber
     email = tom@rizu.mu
+
+[github]
+    user = rizumu
 
 [core]
     editor = emacs --no-window-system --quick
@@ -16,6 +19,7 @@
 
 [help]
     browser = open
+    autocorrect = 1
 
 [branch]
     autosetupmerge = true
@@ -34,14 +38,20 @@
     cmd = p4merge "$BASE" "$LOCAL" "$REMOTE" "$MERGED"
     trustExitCode = false
 
+[status]
+    submodule = 1
+
 [push]
-    default = current
+    default = upstream
 
 [sendemail]
     smtpserver = smtp.gmail.com
     smtpserverport = 587
     smtpencryption = tls
     smtpuser = funkshun@gmail.com
+
+[apply]
+    whitespace = warn
 
 [color]
     ui = auto
@@ -64,5 +74,6 @@
 
 [hub]
     protocol = https
+
 [credential]
 	helper = cache
