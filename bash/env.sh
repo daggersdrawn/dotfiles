@@ -168,14 +168,7 @@ if $_islinux; then
   export PACMAN="pacman-color"
   # command line completion scripts of common Python packages.
   source `which pycompletion`
-else
-  # assume osx
-
-  # set p4merge path
-  function p4merge() {
-    /Applications/p4merge.app/Contents/MacOS/p4merge $*
-  }
-
+else  # assume osx
   # command line completion scripts of common Python packages.
   source /usr/local/share/python/pycompletion
   # latex/auctex
