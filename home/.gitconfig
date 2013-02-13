@@ -25,7 +25,7 @@
     autosetupmerge = true
 
 [diff]
-    renames = copies
+    renames = true
     mnemonicprefix = true
 
 [difftool "ediff"]
@@ -33,6 +33,7 @@
 
 [merge]
     tool = p4merge
+    renamelimit = 10000
 
 [mergetool "p4merge"]
     cmd = p4merge "$BASE" "$LOCAL" "$REMOTE" "$MERGED"
