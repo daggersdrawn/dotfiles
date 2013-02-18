@@ -125,10 +125,10 @@ function git_current_branch() {
 alias gap='ga -p'
 alias gcb='git-cut-branch'
 alias gcompare='hub compare'
-alias gdh='git describe --exact-match-head'
+alias gdh='git describe --exact-match HEAD'
 alias gin='git-incoming'
 alias fp='format-patch --stdout'
-alias gla="git log --graph --date-order --pretty=format':%C(yellow)%h%Cblue%d%Creset %s %C(white) %an, %ar%Creset'"
+alias gla='git log --graph --date-order --pretty=format":%C(yellow)%h%Cblue%d%Creset %s %C(white) %an, %ar%Creset"'
 alias glb='git log --graph'
 alias glc='git log --pretty=oneline --graph --all'
 alias gld='git log --decorate --stat --graph --pretty=format:"%C(yellow)%h%Creset (%ar - %Cred%an%Creset), %s%n"'
