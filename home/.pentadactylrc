@@ -241,14 +241,21 @@ map <A-Left> :tabmove! -1<CR>
 map <A-Right> :tabmove! +1<CR>
 " }}}
 
+" {{{ Passkeys
+" Gmail
+"
+set passkeys+=mail.google.com:'!#*+-./<C-Down><C-s><Enter>?INU[]acefjklmnopqrsuvxyz',*a,*n,*r,*s,*t,*u,ga,gc,gd,gi,gl,gs,gt,yo
+set strictfocus=google.com:laissez-faire,'chrome:*':laissez-faire,*:moderate
+" }}}
+
 " {{{ Plugin bindings
 "
 " Noscript
 map <C-c>s :noscript toggletemp<CR>
 map <C-c>S :noscript popup<CR>
-" }}}
-set passkeys+=mail.google.com:jkroae<CR>,gi
-autocmd Enter * set fbwhitelist=youtube.com,vimeo.com,soundcloud.com,maps.google.com,github.com,thisismyjam.com,discogs.com,intergalactic.fm,archlinux.ca,clone.nl,kompakt.fm,dopejams.net,soundonsound.com,soundonsound.co.uk
 
 " Buftabs
 set showtabline=never
+
+" Flashblock whitelist
+autocmd Enter * set fbwhitelist=youtube.com,vimeo.com,soundcloud.com,maps.google.com,github.com,thisismyjam.com,discogs.com,intergalactic.fm,archlinux.ca,clone.nl,kompakt.fm,dopejams.net,soundonsound.com,soundonsound.co.uk
