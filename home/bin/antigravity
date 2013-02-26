@@ -21,19 +21,25 @@ if [ "$1" == "" ]; then
    exit
 fi
 
+if [ "$1" == "pull" ]; then
+   cmd="pull --rebase"
+else
+   cmd=$1
+fi
+
 echo -e "\033[1mantigravity transmission initiating.\033[0m"
 
-echo -e "\narch " && cd ~/dotfiles/ && git $1
-echo -e "\nemacs " && cd ~/.emacs.d/ && git $1
-echo -e "\npass " && cd ~/.password-store/ && git $1
-echo -e "\nxmonad " && cd ~/.xmonad/ && git $1
-echo -e "\nbootmachine " && cd /srv/bootmachine/ && git $1
+echo -e "\narch " && cd ~/dotfiles/ && git $cmd
+echo -e "\nemacs " && cd ~/.emacs.d/ && git $cmd
+echo -e "\npass " && cd ~/.password-store/ && git $cmd
+echo -e "\nxmonad " && cd ~/.xmonad/ && git $cmd
+echo -e "\nbootmachine " && cd /srv/bootmachine/ && git $cmd
 paths=( "/srv/webapps/" "$HOME/code/" )
 for path in "${paths[@]}"
 do
     find $path -type d -name .git \
       | xargs -n 1 dirname \
-      | while read line; do  echo "" && basename $line && cd $line && git $1; done
+      | while read line; do  echo "" && basename $line && cd $line && git $cmd; done
 done
 
 echo -e "\n\033[1mantigravitiy transmission complete.\033[0m"
