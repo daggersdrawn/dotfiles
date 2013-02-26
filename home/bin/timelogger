@@ -1,10 +1,13 @@
-#!/usr/bin/env python
+#!/usr/bin/python2
 import argparse
 import datetime
 import os
 import re
 import requests
 import sys
+
+if sys.version[0] == "3":
+    raw_input = input
 
 
 class TimeLogger(object):
@@ -37,8 +40,7 @@ class TimeLogger(object):
         }
         self.headers["Referer"] = url
         response = self.session.post(url, data=payload, headers=self.headers)
-        if ("Logged in as" not in response.text or
-            username not in response.text):
+        if "http://proyectos.internet.int/my/page" not in response.text:
             print("Not logged in")
             sys.exit()
         self.logged_in = True
@@ -49,7 +51,8 @@ class TimeLogger(object):
         if project:
             self.data.project = project
 
-        activity = raw_input("Activity number (1 bug, 2 feature, 3 support, 4 ops, 5 design, 6 meeting, 7 analysis, 8 management, 9 course): ")
+        activity = raw_input("Activity number (1 bug, 2 feature, 3 support, "
+                             " 4 ops, 5 design, 6 meeting, 7 analysis, 8 management, 9 course): ")
         if activity:
             self.data.activity = activity
 
@@ -72,7 +75,8 @@ class TimeLogger(object):
     def validate_input(self):
         # validate project
         if self.data.project not in [str(i) for i in range(5)]:
-            print("--project argument must be a number: 1 Comunidad, 2 Core, 3 Marca, 4 ElMundo, 5 Expansion, 6 Telva")
+            print("--project argument must be a number: "
+                  "1 Comunidad, 2 Core, 3 Marca, 4 ElMundo, 5 Expansion, 6 Telva")
             sys.exit()
         projects = {
             "0": "30",
@@ -84,19 +88,21 @@ class TimeLogger(object):
         }
         self.data.project = projects[str(int(self.data.project) - 1)]
         # validate activity
-        if self.data.activity not in [str(i) for i in xrange(1, 10)]:
-            print("--activity argument must be a number (1 bug, 2 feature, 3 support, 4 ops, 5 design, 6 meeting, 7 analysis, 8 management, 9 course)")
+        if self.data.activity not in [str(i) for i in range(1, 10)]:
+            print("--activity argument must be a number (1 bug, 2 feature, 3 support, "
+                  "4 ops, 5 design, 6 meeting, 7 analysis, 8 management, 9 course)")
             sys.exit()
 
         # validate day
         try:
             split_date = self.data.day.split("-")
-            test_int_conversion = [int(i) for i in split_date]
+            [int(i) for i in split_date]  # test_int_conversion
             if len(split_date[0]) != 4 or len(split_date[1]) != 2 or len(split_date[2]) != 2:
                 print("--day argument must be in the format YYYY-MM-DD.")
                 sys.exit()
         except ValueError:
-            print("--day argument must be in the format YYYY-MM-DD. Where the characters are replaced with numbers.")
+            print("--day argument must be in the format YYYY-MM-DD. "
+                  " Where the characters are replaced with numbers.")
             sys.exit()
 
     def log_time(self):
@@ -116,11 +122,8 @@ class TimeLogger(object):
 
         }
         self.headers["Referer"] = form_url
-        response = self.session.post(post_url, data=payload, headers=self.headers, allow_redirects=True)
-        # f = open('myfile.html','w')
-        # f.write(response.text.encode('utf-8'))
-        if "You hours has been recorded" not in response.text:
-            print("hours not logged!")
+        response = self.session.post(post_url, data=payload, headers=self.headers,
+                                     allow_redirects=True)
         if args.run_again:
             print("Running the timelogger again: \n")
             self.run_again()
@@ -130,7 +133,7 @@ class TimeLogger(object):
         self.data.activity = "2"
         self.data.time = "7.2"
         self.data.message = ""
-        self.data.day = default=datetime.datetime.now().strftime("%Y-%m-%d")
+        self.data.day = datetime.datetime.now().strftime("%Y-%m-%d")
         self.data.run_again = False
         self.prompt_for_input()
         self.log_time()
@@ -140,25 +143,33 @@ class TimeLogger(object):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         description="This script logs time to redmine.")
-    parser.add_argument("-p", "--project", dest="project", default="1",
-                        help="The project to log hours to. Default is 1 for Comunidad.\
-                        Options (1 Comunidad, 2 Core, 3 Marca, 4 ElMundo, 5 Expansion, 6 Telva).")
-    parser.add_argument("-a", "--activity", dest="activity", default="2",
-                        help="The activity type to log, as an integer. Default is 2 for feature.\
-                        Options (1 bug, 2 feature, 3 support, 4 ops, 5 design, 6 meeting, 7 analysis, 8 management, 9 course).")
-    parser.add_argument("-t", "--time", dest="time", default="7.2",
-                        help="The amount of hours to log. Default is 7.2 hours.")
-    parser.add_argument("-m", "--message", dest="message", default="",
-                        help="A message to go along with the logged hours. Default is blank.")
-    parser.add_argument("-d", "--day", dest="day", default=datetime.datetime.now().strftime("%Y-%m-%d"),
-                        help="The day to log the time for in the format YYYY-MM-DD. Default is today.")
-    parser.add_argument("--use-prompt", dest="use_prompt", default=False, action="store_true",
-                        help="Prompt for user input, useful as a shutdown script. Default is False.")
+    parser.add_argument(
+        "-p", "--project", dest="project", default="1",
+        help="The project to log hours to. Default is 1 for Comunidad.\
+        Options (1 Comunidad, 2 Core, 3 Marca, 4 ElMundo, 5 Expansion, 6 Telva).")
+    parser.add_argument(
+        "-a", "--activity", dest="activity", default="2",
+        help="The activity type to log, as an integer. Default is 2 for feature.\
+             Options (1 bug, 2 feature, 3 support, 4 ops, 5 design, 6 meeting,  \
+             7 analysis, 8 management, 9 course).")
+    parser.add_argument(
+        "-t", "--time", dest="time", default="7.2",
+        help="The amount of hours to log. Default is 7.2 hours.")
+    parser.add_argument(
+        "-m", "--message", dest="message", default="",
+        help="A message to go along with the logged hours. Default is blank.")
+    parser.add_argument(
+        "-d", "--day", dest="day", default=datetime.datetime.now().strftime("%Y-%m-%d"),
+        help="The day to log the time for in the format YYYY-MM-DD. Default is today.")
+    parser.add_argument(
+        "--use-prompt", dest="use_prompt", default=False, action="store_true",
+        help="Prompt for user input, useful as a shutdown script. Default is False.")
     args = parser.parse_args()
 
     args.run_again = False
     if args.use_prompt:
-        use_defaults = raw_input("Use defaults of 7.2 hrs, logged to the Core project, without message, for today (y/n):")
+        use_defaults = raw_input("Use defaults of 7.2 hrs, logged to the Core project, "
+                                 "without message, for today (y/n):")
         if use_defaults == "n".lower():
             args.use_prompt = True
         else:
