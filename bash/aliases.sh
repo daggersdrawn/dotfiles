@@ -19,10 +19,10 @@ alias ...='cd ../..'     # Go up two directories
 alias ....='cd ../../..' # Go up three directories
 alias c='clear;echo "Currently logged in on $(tty), as $(whoami) in directory $(pwd)."' # shortcut to clear your terminal
 alias cdd='cd -'        # Go to last used directory
-alias delds='find . -name .DS_STORE -delete'
-alias delorig='find . -name \*.orig -delete'
-alias delpyc="find . \( -name '*.pyc' -o -name '*.pyo' \) -delete"
-alias delemacs="find . \( -name '\#*\#' -o -name '.\#*' \) -delete"
+alias delds='find . -name .DS_STORE -exec rm -v {} \;'
+alias delorig='find . -name \*.orig  -exec rm -v {} \;'
+alias delpyc='find . \( -name "*.pyc" -o -name "*.pyo" \) -exec rm -v {} \;'
+alias delemacs='find . \( -name "\#*\#" -o -name ".\#*" \) -exec rm -v {} \;'
 alias df='df -h'         # Disk free, in gigabytes, not bytes
 alias du='du -h -c'      # Calculate total disk usage for a folder
 alias grep='grep --color=auto' # Always highlight grep search term
