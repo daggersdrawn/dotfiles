@@ -224,6 +224,9 @@ alias rr='reset; run'
 alias rrf='reset; run --forked'
 alias rt='python manage.py test -s --with-progressive --settings=settings_test'
 
+# Sublime
+alias s.='subl .'
+
 # Emacs
 
 function e {

@@ -95,7 +95,25 @@ fi
 # list of apps to be tried in order
 xbrowsers="browser:uzbl-browser:chromium:firefox"
 browsers="elinks:lynx:links"
-editors="emacsclient --nw:emacs:zile:vim:vi"
+editors="subl:emacsclient --nw:emacs:zile:vim:vi"
+
+# }}}
+
+# set $EDITOR
+_set_editor() {
+  local IFS=':' editor
+
+  for editor in $editors; do
+  editor="$(which $editor 2>/dev/null)"
+
+    if [[ -x "$editor" ]]; then
+      export EDITOR="$editor"
+      export VISUAL="$EDITOR"
+      break
+    fi
+  done
+}
+_set_editor
 
 # set ip address
 [[ -f "$HOME/.myip" ]] && export MYIP=$(cat "$HOME/.myip")
