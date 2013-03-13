@@ -1,4 +1,4 @@
-### Set path
+### Set path {{{
 
 # add local bin
 if [ -d "/usr/local/bin" ]; then
@@ -27,7 +27,13 @@ fi
 if [ -d "$HOME/.rbenv/bin" ]; then
     PATH="$HOME/.rbenv/bin:$PATH"
 fi
+
+# Load RVM into a shell session *as a function*
+if [ -s "$HOME/.rvm/scripts/rvm" ]; then
+    . "$HOME/.rvm/scripts/rvm"
+fi
 # }}}
+
 
 ### General options {{{
 
@@ -91,8 +97,6 @@ xbrowsers="browser:uzbl-browser:chromium:firefox"
 browsers="elinks:lynx:links"
 editors="emacsclient --nw:emacs:zile:vim:vi"
 
-# }}}
-
 # set ip address
 [[ -f "$HOME/.myip" ]] && export MYIP=$(cat "$HOME/.myip")
 
@@ -130,6 +134,7 @@ fi
 [[ ${TERM} == "screen" ]] && export TERM="rxvt-unicode-256color"
 
 # }}}
+
 
 ### System conditionals {{{
 # For OSX gcc issues see:
@@ -199,6 +204,7 @@ if $_islinux; then
 fi
 
 # }}}
+
 
 ### Set dir colors {{{
 
