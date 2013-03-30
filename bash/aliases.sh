@@ -81,24 +81,25 @@ alias invert='xcalib -invert -alter'
 
 # yaourt (manually add --noconfirm to skip prompts)
 alias yogurt='yaourt'
-alias y='yaourt'               # yaourt alias
-alias yi='yaourt -S'           # Install a package
-alias yiu='yaourt -U'          # Install specific package not from the repositories but from a file
-alias yid='yaourt -S --asdeps' # Install given package(s) as dependencies of another package
+alias y='yaourt'                # yaourt alias
+alias yi='yaourt -S'            # Install a package
+alias yiu='yaourt -U'           # Install specific package not from the repositories but from a file
+alias yid='yaourt -S --asdeps'  # Install given package(s) as dependencies of another package
 alias yia='comm -23 <(yaourt -Qeq|sort) <(yaourt -Qgq base base-devel|sort)' # list all installed packages
 alias yiu='comm -23 <(yaourt -Qeq|sort) <(yaourt -Qgq base base-devel|sort)' # list user installed packages
-alias yu='yaourt -Syyu'        # Full system update
-alias yua='yaourt -Syyu --aur' # Full system update including aur
-alias ys='yaourt -Ss'          # Search for the package
-alias yg='yaourt -G'           # Get (fetch) the package
-alias yr='yaourt -Rns'         # Remove the specified package(s), its configuration(s) and unneeded dependencies
-alias yrk='yaourt -R'          # Remove the specified package(s), keeping its configuration(s) and required dependencies
-alias yf='yaourt -Ql'          # List files for the package
-alias yinfo='yaourt -Si'       # Display information about a given package in the repositories
-alias ylinfo='yaourt -Qi'      # Display information about a given package in the local database
-alias yl='yaourt -Qs'          # Search for package(s) in the local database
-alias yo='yaourt -Qdt'         # List orphans
-alias ymir='yaourt -Syy'       # Force refresh of all package lists after updating /etc/pacman.d/mirrorlist
+alias yu='yaourt -Syyu'        # Sync and upgrade packages from pacman
+alias yua='yaourt -Syyu --aur' # Sync and upgrade packages from pacman + aur
+alias yuad='yaourt -Syyu --aur --devel' # Sync and upgrade packages from pacman + aur + devel
+alias ys='yaourt -Ss'           # Search for the package
+alias yg='yaourt -G'            # Get (fetch) the package
+alias yr='yaourt -Rns'          # Remove the specified package(s), its configuration(s) and unneeded dependencies
+alias yrk='yaourt -R'           # Remove the specified package(s), keeping its configuration(s) and required dependencies
+alias yf='yaourt -Ql'           # List files for the package
+alias yinfo='yaourt -Si'        # Display information about a given package in the repositories
+alias ylinfo='yaourt -Qi'       # Display information about a given package in the local database
+alias yl='yaourt -Qs'           # Search for package(s) in the local database
+alias yo='yaourt -Qdt'          # List orphans
+alias ymir='yaourt -Syy'        # Force refresh of all package lists after updating /etc/pacman.d/mirrorlist
 alias rmorphans='yaourt -Rns $(yaourt -Qtdq)'
 
 # Python
