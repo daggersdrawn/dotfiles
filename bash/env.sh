@@ -188,7 +188,7 @@ $_isxrunning && _set_browser "$xbrowsers" || _set_browser "$browsers"
 
 if $_islinux; then
   export LS_OPTIONS="--color=auto"
-  export PACMAN="pacman-color"
+  export PACMAN="pacman"
   # command line completion scripts of common Python packages.
   source `which pycompletion`
 else  # assume osx

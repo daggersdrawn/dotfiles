@@ -195,7 +195,7 @@ main() {
 # }}}
 
 editor=                       # empty uses $EDITOR
-pacman='sudo pacman-color -U' # --asdeps will be added
+pacman='sudo pacman -U' # --asdeps will be added
 pkgdir="$HOME/Packages"       # save packages to
 srcdir="$HOME/Sources"        # build here
 
