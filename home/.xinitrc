@@ -82,7 +82,7 @@ xset fp rehash                    # Use custom fonts on dzen toolbar
 #
 $HOME/bin/esd &                                                               # start emacs dameon
 /usr/bin/xscreensaver -no-splash &                                            # start xscreensaver
-mpd $HOME/.mpd/mpd.conf                                                       # start mpd daemon
+/usr/lib/systemd/systemd --user &                                             # run systemd as user instance (mpd)
 dropboxd &                                                                    # start dropbx daemon
 urxvtcd -title term -q -f -o &                                                # start urxvt daemon
 # urxvt -e screen -l -UDRS term &                                             # resume last screen session or start new
