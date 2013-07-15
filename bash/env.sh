@@ -20,7 +20,7 @@ if [ -d "$HOME/.cabal/bin" ]; then
     PATH="$HOME/.cabal/bin:$PATH"
 fi
 
-# add ruby's bins if they exists
+# add ruby's bins if they exist
 if [ -d "$HOME/.gem/ruby/1.9.1/bin" ]; then
     PATH="$HOME/.gem/ruby/1.9.1/bin:$PATH"
 fi
@@ -199,7 +199,7 @@ else  # assume osx
   # homebrew paths
   export PATH=/usr/local/bin:$PATH
   export PATH=/usr/local/sbin:$PATH
-  export PATH=/usr/local/share/python:$PATH
+  export PATH=/usr/local/share/npm/bin:$PATH
   # coreutils fix
   export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
   alias rquicksilver="sudo umount -Af && killall Quicksilver && open /Applications/Quicksilver.app"
