@@ -44,8 +44,8 @@ _have() { which "$1" &>/dev/null; }
 if [ -f /usr/bin/virtualenvwrapper.sh ]; then
   . /usr/bin/virtualenvwrapper.sh
 fi # arch
-if [ -f /usr/local/share/python/virtualenvwrapper.sh ]; then
-  . /usr/local/share/python/virtualenvwrapper.sh
+if [ -f /usr/local/bin/virtualenvwrapper.sh ]; then
+  . /usr/local/bin/virtualenvwrapper.sh
 fi # homebrew
 
 # history
