@@ -3,9 +3,13 @@
 # The dipswitch SW3 is flipped to change del to bksp. The rest of
 # dipswitches are kept off. Other keyboards are made to behave as the HHKB does.
 # udev rules exist so that this script is run when hot plugging the usb
+
 # To get hardware id for udev rule, use lsusb
 # lsusb | grep -i 'Holtek' | grep -o ID\ [0-9]....[0-9].... | grep -o [0-9]....[0-9]....
 # lsusb | grep -i 'HHKB' | grep -o ID\ [0-9]....[0-9].... | grep -o [0-9]....[0-9]....
+
+# In the file /etc/udev/rules.d/00-usb-keyboards.rules and reboot:
+# ACTION=="add", ATTRS{idVendor}=="04d9", ATTRS{idProduct}=="2013", RUN+="/home/rizumu/bin/kbd_udev", OWNER="rizumu"
 
 sleep 1
 DISPLAY=":0.0"
@@ -27,3 +31,12 @@ fi
 if [ "${macbook_id}" ]; then
     setxkbmap -device "${macbook_id}" -option altwin:swap_lalt_lwin
 fi
+
+setxkbmap -option compose:ralt  # https://wiki.archlinux.org/index.php/Accents_on_US_keyboards
+setxkbmap -option ctrl:nocaps
+xset r rate 200 30
+
+## ALTERNATIVE LAYOUTS
+## azerty  colemak  dvorak  fgGIod  include  olpc  qwerty  qwertz
+#setxkbmap -layout colemak
+#setxkbmap -layout us-acentos

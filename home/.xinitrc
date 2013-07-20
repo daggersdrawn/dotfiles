@@ -56,16 +56,10 @@ gtk-redshift -l 40.4167:-3.7003 -t 6000:4500 -m vidmode &                   # st
 
 # {{{ Keyboard settings
 # the keymap is altred in .Xmodmap
-# The kbd script detects different keyboards, makes their keys uniform, and handles usb hotplugging.
+# The kbd script detects specific keyboards, unifies layouts and sets key options.
 if [ -f "$HOME/bin/kbd" ]; then
     $HOME/bin/kbd
 fi
-setxkbmap -option compose:ralt  # https://wiki.archlinux.org/index.php/Accents_on_US_keyboards
-setxkbmap -option ctrl:nocaps
-xset r rate 200 30
-# azerty  colemak  dvorak  fgGIod  include  olpc  qwerty  qwertz
-#setxkbmap -layout colemak
-#setxkbmap -layout us-acentos
 # }}}
 
 
