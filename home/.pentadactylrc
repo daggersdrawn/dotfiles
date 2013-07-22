@@ -11,6 +11,47 @@
 "  * http://creativecommons.org/publicdomain/zero/1.0
 " }}}
 
+" Commands {{{
+"" google translate
+command trans -js <<EOF
+let getParameterByName = function(url, name) {
+    let name = name.replace(/[\[]/, '\\\[').replace(/[\]]/, '\\\]');
+    let regexS = '[\\?&]' + name + '=([^&#]*)';
+    let regex = new RegExp(regexS);
+    let results = regex.exec(url);
+    if (results == null)
+        return '';
+    else
+        return decodeURIComponent(results[1].replace(/\+/g, ' '));
+};
+if (buffer.URL.spec.indexOf('http://translate.google.com/') !== 0) {
+    dactyl.open('http://translate.google.com/translate?hl=en&sl=auto&tl=en&u=' + encodeURIComponent(buffer.URL.spec));
+} else {
+    dactyl.open(getParameterByName(buffer.URL.spec, 'u'));
+}
+EOF
+nmap -builtin ,t :trans<CR>
+
+command! -description 'duck ssl' -nargs=* d tabopen https://duckduckgo.com/?q=<args>&v=
+command! -description 'google ssl' -nargs=* g tabopen https://encrypted.google.com/search?q=<args>
+command! -description 'google maps' -nargs=* gm tabopen https://maps.google.com/maps?q=<args>
+command! -description 'django' -nargs=* dj tabopen https://docs.djangoproject.com/search/?q=<args>&release=1
+command! -description 'stackoverflow' -nargs=* sof tabopen http://stackoverflow.com/search?q=<args>
+command! -description 'python.org' -nargs=1 py tabopen https://startpage.com/do/search?host=www.python.org&sitesearch=www.python.org&q=<args>
+command! -description 'python doc' -nargs=1 pydoc tabopen http://docs.python.org/search.html?q=<args>
+command! -description 'pypi' -nargs=* pypi tabopen https://pypi.python.org/pypi?%3Aaction=search&term=<args>&submit=search
+
+:command! -nargs=* wpde tabopen https://de.wikipedia.org/wiki/Special:Search?search=<args>&go=Go&fulltext=search
+command! -nargs=* wpen tabopen http://en.wikipedia.org/wiki/Special:Search?search=<args>&go=Go&fulltext=search
+
+command! -description 'emacs wiki' -nargs=* emacs tabopen http://www.google.com/cse?cx=004774160799092323420:6-ff2s0o6yi&q=<args>&sa=Search&nojs=1
+command! -description 'trans en2de' -nargs=* wr2de tabopen http://www.wordreference.com/ende/<args>
+command! -description 'trans de2en' -nargs=* wr2en tabopen http://www.wordreference.com/deen/<args>
+command! -description 'trans en2es' -nargs=* wr2es tabopen http://www.wordreference.com/enes/<args>
+command! -description 'trans es2en' -nargs=* wr2en tabopen http://www.wordreference.com/esen/<args>
+
+" }}}
+
 
 " {{{ Options
 "
