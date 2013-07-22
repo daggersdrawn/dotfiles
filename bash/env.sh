@@ -186,14 +186,13 @@ _set_browser() {
 }
 $_isxrunning && _set_browser "$xbrowsers" || _set_browser "$browsers"
 
+# command line completion scripts of common Python packages.
+source `which pycompletion`
+
 if $_islinux; then
   export LS_OPTIONS="--color=auto"
   export PACMAN="pacman"
-  # command line completion scripts of common Python packages.
-  source `which pycompletion`
 else  # assume osx
-  # command line completion scripts of common Python packages.
-  source /usr/local/share/python/pycompletion
   # latex/auctex
   export PATH=/usr/texbin:$PATH
   # homebrew paths
