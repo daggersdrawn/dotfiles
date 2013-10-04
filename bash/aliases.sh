@@ -196,8 +196,9 @@ __git_shortcut () {
 __git_shortcut  ga    add
 __git_shortcut  gbr   branch --set-upstream
 __git_shortcut  gco   checkout
-__git_shortcut  gc    commit '-v -m'
-__git_shortcut  gca   commit '-a -v -m'
+__git_shortcut  gc    commit '-v'
+__git_shortcut  gca   commit '-a -v'
+__git_shortcut  gcm   commit '-v -m'
 __git_shortcut  gd    diff -M
 __git_shortcut  gd.   diff -M --color-words='.'
 __git_shortcut  gdc   diff -M --cached

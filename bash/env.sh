@@ -147,6 +147,7 @@ if _have dmenu; then
   . "$HOME/.dmenurc"
 fi
 
+# dmenu options
 # tmux
 [[ -s $HOME/.tmuxinator/scripts/tmuxinator ]] && source $HOME/.tmuxinator/scripts/tmuxinator
 [[ ${TERM} == "screen" ]] && export TERM="rxvt-unicode-256color"
@@ -187,7 +188,7 @@ _set_browser() {
 $_isxrunning && _set_browser "$xbrowsers" || _set_browser "$browsers"
 
 # command line completion scripts of common Python packages.
-source `which pycompletion`
+source `which pycompletion`  # pip install pycompletion into system python
 
 if $_islinux; then
   export LS_OPTIONS="--color=auto"
