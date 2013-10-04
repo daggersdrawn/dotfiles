@@ -103,6 +103,15 @@ alias ymir='yaourt -Syy'        # Force refresh of all package lists after updat
 alias rmorphans='yaourt -Rns $(yaourt -Qtdq)'
 
 # Python
+alias pwa='pip wheel --pre --wheel-dir=/srv/wheelhouse '
+alias pwi='pip install --use-wheel --no-index --find-links=/srv/wheelhouse/ '
+function pw() {
+  local pkg=$1
+  [[ $pkg =~ ^git.* ]] && pkg=`echo $pkg | nawk -F "egg=" '{print $2}'`
+  pwa "$1"
+  pip freeze | grep "$pkg" && pip uninstall --yes "$pkg"
+  pwi "$1"
+}
 alias py='ipython'
 alias emailserver='python -m smtpd -n -c DebuggingServer localhost:1025'
 alias linecountpy='find . -name "*.py" -exec wc {} +'
