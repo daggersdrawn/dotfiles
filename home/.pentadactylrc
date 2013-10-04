@@ -93,7 +93,7 @@ set newtab=all
 " Internal default search engine is ignored, plugins are used
 "set ds=yubnub
 "set ds=google-ssl
-set ds=startpage-https
+set ds=startpage-ssl
 " }}}
 
 

@@ -1,0 +1,43 @@
+function len($s)
+{
+    $len = strlen($s);
+
+    if ($len < 0x80) {
+        return chr($len);
+    }
+
+    $data = dechex($len);
+    $data = pack('H*', (strlen($data) & 1 ? '0' : '') . $data);
+    return chr(strlen($data) | 0x80) . $data;
+}
+
+function openssh2pem($file)
+{
+    list(,$data) = explode(' ', trim(file_get_contents($file)), 3);
+    $data = base64_decode($data);
+
+    list(,$alg_len) = unpack('N', substr($data, 0, 4));
+    $alg = substr($data, 4, $alg_len);
+
+    if ($alg !== 'ssh-rsa') {
+        return FALSE;
+    }
+
+    list(,$e_len) = unpack('N', substr($data, 4 + strlen($alg), 4));
+    $e = substr($data, 4 + strlen($alg) + 4, $e_len);
+    list(,$n_len) = unpack('N', substr($data, 4 + strlen($alg) + 4 + strlen($e), 4));
+    $n = substr($data, 4 + strlen($alg) + 4 + strlen($e) + 4, $n_len);
+
+    $algid = pack('H*', '06092a864886f70d0101010500');                // algorithm identifier (id, null)
+    $algid = pack('Ca*a*', 0x30, len($algid), $algid);                // wrap it into sequence
+    $data = pack('Ca*a*Ca*a*', 0x02, len($n), $n, 0x02, len($e), $e); // numbers
+    $data = pack('Ca*a*', 0x30, len($data), $data);                   // wrap it into sequence
+    $data = "\x00" . $data;                                           // don't know why, but needed
+    $data = pack('Ca*a*', 0x03, len($data), $data);                   // wrap it into bitstring
+    $data = $algid . $data;                                           // prepend algid
+    $data = pack('Ca*a*', 0x30, len($data), $data);                   // wrap it into sequence
+
+    return "-----BEGIN PUBLIC KEY-----\n" .
+           chunk_split(base64_encode($data), 64, "\n") .
+           "-----END PUBLIC KEY-----\n";
+}
