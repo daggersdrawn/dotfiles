@@ -145,6 +145,7 @@ alias gld='git log --decorate --stat --graph --pretty=format:"%C(yellow)%h%Crese
 alias gle='git log --pretty=oneline --abbrev-commit --max-count=15'
 alias glf='git log -p -2 --pretty=format:"%h - %an, %ar : %s" --shortstat'
 alias gout='git-outgoing'
+alias gprune='git remote prune origin'
 alias grh='git reset HEAD'
 alias grso='git remote show origin'
 alias gt='git-track'
