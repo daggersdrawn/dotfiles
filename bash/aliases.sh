@@ -229,7 +229,7 @@ alias hgp='hg push'
 alias hgv='hg view'
 
 # Django
-alias run='python manage.py runserver 0.0.0.0:8000'
+alias run='python manage.py runserver_plus 0.0.0.0:8000'
 alias syn='python manage.py syncdb --noinput'
 alias sp='python manage.py shell_plus'
 alias edj='subl $HOME/development/python/django'
