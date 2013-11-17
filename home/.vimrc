@@ -1,17 +1,4 @@
-# zedsvim
-
 set nocompatible
-
-syntax on
-set ai
-set ruler
-
-" Folding
-set fdm=marker
-
-" Default font
-" set guifont=Pragmata\ 10
-set guifont=Terminus\ 8
 
 filetype on
 filetype plugin on
@@ -30,8 +17,8 @@ nmap <Leader><Leader>s <ESC>:cs find s <C-R>=expand("<cword>")<CR><CR>
 nmap <Leader><Leader>g <ESC>:cs find g <C-R>=expand("<cword>")<CR><CR>
 nmap <Leader><Leader>d <ESC>:cs find d <C-R>=expand("<cword>")<CR><CR>
 nmap <Leader><Leader>c <ESC>:cs find c <C-R>=expand("<cword>")<CR><CR>
-nmap <Leader><Leader>t <ESC>:cs find t
-nmap <Leader><Leader>e <ESC>:cs find e
+nmap <Leader><Leader>t <ESC>:cs find t 
+nmap <Leader><Leader>e <ESC>:cs find e 
 nmap <Leader><Leader>f <ESC>:cs find f <C-R>=expand("<cword>")<CR><CR>
 nmap <Leader><Leader>i <ESC>:cs find i <C-R>=expand("<cword>")<CR><CR>
 nmap <Leader>P <ESC>:Pydoc <C-R>=expand("<cword>")<CR>
@@ -62,7 +49,7 @@ set statusline=%<%f%=\ [%1*%M%*%n%R]\ y\ %-19(%3l,%02c%03V%)
 nmap <Leader>S <ESC>:setlocal spell spelllang=en_us<CR>
 set mousemodel=popup
 
-set tags=tags;/home/rizumu
+set tags=tags;/Users/zedshaw
 
 " fix up the backspace
 set backspace=2 " make backspace work normal (non-vi style)
@@ -109,5 +96,7 @@ set noerrorbells
 set visualbell
 set t_vb=
 
-let g:pydiction_location = '~/.vim/ftplugin/complete-dict'
+let g:pydiction_location = '/Users/zedshaw/.vim/ftplugin/complete-dict'
 set noic
+
+call pathogen#infect()

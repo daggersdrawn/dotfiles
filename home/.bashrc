@@ -12,8 +12,8 @@ if [ -f "$HOME/dotfiles/bash/main.sh" ]; then
   . "$HOME/dotfiles/bash/main.sh"
 fi
 
-if type "fortune" &> /dev/null && type "unisay" &> /dev/null; then
-  fortune -a | unisay
+if type "fortune" &> /dev/null && type "cowsay" &> /dev/null; then
+    command fortune -a | fmt -80 -s | $(shuf -n 1 -e cowsay cowthink) -$(shuf -n 1 -e b d g p s t w y) -f $(shuf -n 1 -e $(cowsay -l | tail -n +2)) -n
 fi
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting

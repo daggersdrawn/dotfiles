@@ -29,7 +29,7 @@
     mnemonicprefix = true
 
 [difftool "ediff"]
-    cmd = /home/rizumu/bin/ediff \"$LOCAL\" \"$REMOTE\"
+    cmd = ~/bin/ediff \"$LOCAL\" \"$REMOTE\"
 
 [merge]
     tool = p4merge
@@ -72,9 +72,3 @@
     added = yellow
     changed = green bold
     untracked = blue bold
-
-[hub]
-    protocol = https
-
-[credential]
-	helper = cache
