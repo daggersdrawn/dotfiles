@@ -188,7 +188,8 @@ _set_browser() {
 $_isxrunning && _set_browser "$xbrowsers" || _set_browser "$browsers"
 
 # command line completion scripts of common Python packages.
-source `which pycompletion`  # pip install pycompletion into system python
+# pip install pycompletion into system python
+[[ `which pycompletion` ]] && source `which pycompletion`
 
 if $_islinux; then
   export LS_OPTIONS="--color=auto"
