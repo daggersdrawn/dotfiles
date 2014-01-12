@@ -13,6 +13,7 @@ alias hibernate='dbus-send --system --print-reply --dest="org.freedesktop.UPower
 alias dsleep='xset dpms force off'
 alias nocaps='setxkbmap -option ctrl:nocaps'
 alias restart_pg='rm /usr/local/var/postgres/postmaster.pid pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start'
+alias mempurge='sync && sudo /sbin/sysctl vm.drop_caches=3 && sudo swapoff -a && sudo swapon -a'
 
 # Global
 alias ..='cd ..'         # Go up one directory
