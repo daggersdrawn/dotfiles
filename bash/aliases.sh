@@ -46,6 +46,7 @@ man_utf8() {
 } # All UTF-8. req. bash4
 alias skype='xhost +local: && sudo -u skype /usr/bin/skype'
 alias bat='acpi -b'
+alias shred='shred --iterations=200 --zero --remove'
 
 # standard
 alias l='ls -AF'
