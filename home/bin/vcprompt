@@ -1,0 +1,635 @@
+#!/usr/bin/env python
+"""
+Usage: vcprompt [options]
+
+Version control information in your prompt.
+
+Options:
+  -f, --format FORMAT        The format string to use.
+  -p, --path PATH            The path to run vcprompt on.
+  -s, --systems              Print all known VCSs and exit
+  -t, --timeout              The max execution time in milliseconds
+  -n, --no-newline           Do not print a trailing newline character
+  -v, --version              Show program's version number and exit
+  -h, --help                 Show this help message and exit
+
+Formatting options:
+  -u, --unknown UNKNOWN      The "unknown" value. Default is "(unknown)"
+  -A, --staged UNKNOWN       The "staged" symbol. Default is '*'
+  -M, --modified UNKNOWN     The "modified" symbol. Default is '+'
+  -U, --untracked UNKNOWN    The "untracked" symbol. Default is '?'
+
+VCS-specific formatting:
+  These options can be used for VCS-specific prompt formatting.
+
+  --format-bzr FORMAT        Bazaar
+  --format-cvs FORMAT        CVS
+  --format-darcs FORMAT      Darcs
+  --format-fossil FORMAT     Fossil
+  --format-git FORMAT        Git
+  --format-hg FORMAT         Mercurial
+  --format-svn FORMAT        Subversion
+
+Format tokens:
+  %s, %n                     The VCS "short name" (e.g. git, hg)
+  %h                         The hash (or revision number)
+  %r                         The revision number (or hash)
+  %b                         The currently checked out branch
+  %a                         Prints an asterisk if the repo has staged changes
+  %m                         Prints plus symbol if the repo is modified
+  %u                         Prints question mark if repo has new files
+  %P                         The name of the repository root directory
+  %p                         The relative path to the repository from cwd
+"""
+
+__version__ = '1.0.1'
+
+from subprocess import Popen, PIPE
+from xml.dom.minidom import parseString
+import errno
+import optparse
+import os
+import re
+import shlex
+import sys
+import threading
+
+try:
+    import sqlite3
+    has_sqlite3 = True
+except ImportError:
+    try:
+        from pysqlite2 import dbapi2 as sqlite3
+    except ImportError:
+        has_sqlite3 = False
+
+
+# user editable options
+FORMAT = os.environ.get('VCPROMPT_FORMAT', '%s:%b')
+UNKNOWN = os.environ.get('VCPROMPT_UNKNOWN', '(unknown)')
+TIMEOUT = os.environ.get('VCPROMPT_TIMEOUT', 0)
+SYSTEMS = []
+
+# status indicators
+STAGED = os.environ.get('VCPROMPT_STAGED', '*')
+MODIFIED = os.environ.get('VCPROMPT_MODIFIED', '+')
+UNTRACKED = os.environ.get('VCPROMPT_UNTRACKED', '?')
+
+
+def popen(command, stdout=PIPE, stderr=PIPE):
+    try:
+        commands = shlex.split(command)
+        process = Popen(commands, stdout=stdout, stderr=stderr)
+        output = process.communicate()[0]
+        returncode = process.returncode
+    except OSError:
+        output = ''
+        returncode = 1
+    return (output, returncode)
+
+
+# Taken almost wholesale from Python 2.7's posixpath module
+def relpath(path, start=os.path.curdir):
+    """Return a relative version of a path"""
+
+    if not path:
+        raise ValueError("no path specified")
+
+    start_list = [x for x in os.path.abspath(start).split(os.path.sep) if x]
+    path_list = [x for x in os.path.abspath(path).split(os.path.sep) if x]
+
+    # Work out how much of the filepath is shared by start and path.
+    i = len(os.path.commonprefix([start_list, path_list]))
+
+    rel_list = [os.path.pardir] * (len(start_list) - i) + path_list[i:]
+    if not rel_list:
+        return os.path.curdir
+    return os.path.join(*rel_list)
+
+
+def helper(*args, **kwargs):
+    """
+    Prints the help message to stderr.
+    """
+    sys.stderr.write(__doc__.lstrip())
+    sys.exit(0)
+
+
+def systems(*args, **kwargs):
+    """Prints all available systems to stdout."""
+    for system in SYSTEMS:
+        sys.stdout.write(system.__name__ + '\n')
+    sys.exit(0)
+
+
+def vcs(files):
+    """
+    Wraps a VCS function, appending it to ``SYSTEMS`` and sets the
+    ``file`` attribute.
+    """
+    def wrapper(function):
+        SYSTEMS.append(function)
+        function.files = files
+        return function
+    return wrapper
+
+
+def version(*args):
+    """
+    Convenience function for printing a version number.
+    """
+    sys.stdout.write('vcprompt %s\n' % __version__)
+    sys.exit(0)
+
+
+def vcprompt(options):
+    """
+    Returns a formatted version control string for use in a shell
+    prompt or elsewhere.
+    """
+    options.path = os.path.abspath(os.path.expanduser(options.path))
+    original_path = options.path
+    unknown = options.unknown
+    prompt = None
+
+    while options.path:
+        # bail out on non-existant paths
+        if not os.path.exists(options.path):
+            break
+
+        # We need to change the current working directory or the '--path'
+        # flag might not work correctly with some formatting args.
+        # It's easier to do this here, rather than in every VCS function
+        if options.path != os.getcwd():
+            os.chdir(options.path)
+
+        for vcs in SYSTEMS:
+            for vfile in vcs.files:
+                if not os.path.exists(vfile):
+                    continue
+
+                # set up custom formatting
+                vcs_format = getattr(options, 'format-' + vcs.__name__, None)
+                if vcs_format:
+                    options.format = vcs_format
+
+                # the "vcs" file
+                options.file = vfile
+
+                conf = vcs(options)
+                prompt = options.format
+
+                # Get hash and revision, with fallback to each other
+                hash = conf.get('hash', conf.get('revision', unknown))
+                revision = conf.get('revision', conf.get('hash', unknown))
+
+                # Substitute stuff
+                prompt = prompt.replace("%b", conf.get('branch', unknown))
+                prompt = prompt.replace("%r", revision)
+                prompt = prompt.replace("%h", hash)
+                prompt = prompt.replace("%m", conf.get('modified', ''))
+                prompt = prompt.replace("%u", conf.get('untracked', ''))
+                prompt = prompt.replace("%a", conf.get('staged', ''))
+                prompt = prompt.replace("%s", vcs.__name__)
+                prompt = prompt.replace("%n", vcs.__name__)
+                prompt = prompt.replace("%P", os.path.basename(options.path))
+                prompt = prompt.replace("%p", relpath(original_path,
+                                                      options.path))
+                return prompt
+
+        options.path = options.path.rsplit('/', 1)[0]
+    return ''
+
+
+def main():
+    parser = optparse.OptionParser()
+    parser.remove_option('--help')
+    parser.add_option('-h', '--help', action='callback', callback=helper)
+    parser.add_option('-f', '--format', dest='format', default=FORMAT)
+    parser.add_option('-p', '--path', dest='path', default='.')
+    parser.add_option('-n', '--no-newline', action='store_false', dest='newline', default=True)
+    parser.add_option('-s', '--systems', action='callback', callback=systems)
+    parser.add_option('-t', '--timeout', dest='timeout', default=TIMEOUT, type='int')
+    parser.add_option('-A', '--staged', dest='staged', default=STAGED)
+    parser.add_option('-M', '--modified', dest='modified', default=MODIFIED)
+    parser.add_option('-U', '--untracked', dest='untracked', default=UNTRACKED)
+    parser.add_option('-u', '--unknown', dest='unknown', default=UNKNOWN)
+    parser.add_option('-v', '--version', action='callback', callback=version)
+
+    # vcs-specific formatting
+    for system in SYSTEMS:
+        default = 'VCPROMPT_FORMAT_%s' % system.__name__.upper()
+        default = os.environ.get(default, None)
+        dest = 'format-%s' % system.__name__
+        flag = '--%s' % dest
+        parser.add_option(flag, dest=dest, default=default)
+
+    options, args = parser.parse_args()
+
+    # set max execution time
+    # exit with status errno.ETIME if timeout is reached
+    timeout = float(options.timeout) / 1000
+    timer = threading.Timer(timeout, lambda: sys.exit(errno.ETIME))
+    timer.start()
+
+    output = vcprompt(options)
+    if options.newline:
+        output += '\n'
+    timer.cancel()
+    return output
+
+
+@vcs([".bzr/branch/last-revision"])
+def bzr(options):
+    """
+    Bazaar
+
+    The Bazaar version control system
+    """
+    branch = revision = modified = untracked = options.unknown
+
+    # local revision or global sha
+    if re.search('%(r|h)', options.format):
+        try:
+            revision = open(options.file, 'r').readline().split()[0]
+        except IOError:
+            pass
+
+    # status (modified/untracked)
+    if re.search('%[mu]', options.format):
+        output, returncode = popen('bzr status --short')
+
+        modified = ''
+        untracked = ''
+
+        if returncode == 0:
+            if output:
+                for line in output.splitlines():
+                    line = line.strip()
+                    if line.startswith('M'):
+                        modified = options.modified
+                    elif line.startswith('?'):
+                        untracked = options.untracked
+
+    # formatting
+    return {
+        'branch': os.path.basename(options.path),
+        'revision': revision,
+        'modified': modified,
+        'untracked': untracked,
+    }
+
+
+@vcs(["CVS"])
+def cvs(options):
+    """
+    CVS
+
+    Concurrent Versions System.
+    """
+    return {}
+
+
+@vcs(["_darcs/hashed_inventory"])
+def darcs(options):
+    """
+    Darcs
+
+    Distributed. Interactive. Smart.
+    """
+    branch = sha = modified = untracked = options.unknown
+
+    # sha
+    if re.search('%(h|r)', options.format):
+        output, returncode = popen('darcs changes --last 1 --xml')
+
+        if returncode == 0:
+            dom = parseString(output)
+            patch = dom.getElementsByTagName("patch")[0].getAttribute("hash")
+            sha = patch.rsplit('-', 1)[-1].split('.')[0][:7]
+
+    # modified
+    if re.search('%[mu]', options.format):
+        output, returncode = popen('darcs whatsnew -l -s')
+
+        if returncode == 1:
+            modified = ''
+            untracked = ''
+        elif returncode == 0:
+            for line in output:
+                line = line.strip()
+                if line.startswith('M'):
+                    modified = options.modified
+                elif line.startswith('a'):
+                    untracked = options.untracked
+
+    # formatting
+    return {
+        'branch': os.path.basename(options.path),
+        'hash': sha,
+        'modified': modified,
+        'untracked': untracked,
+    }
+
+
+@vcs([".fslckout", "_FOSSIL_"])
+def fossil(options):
+    """
+    Fossil
+
+    The Fossil version control system.
+    """
+    branch = sha = modified = untracked = options.unknown
+
+    # all this just to get the repository file :(
+    repository = None
+    if has_sqlite3:
+        try:
+            conn = None
+            try:
+                query = "SELECT value FROM vvar where name = 'repository'"
+                conn = sqlite3.connect(options.file)
+                c = conn.cursor()
+                c.execute(query)
+                repository = c.fetchone()[0]
+            except sqlite3.OperationalError:
+                pass
+        finally:
+            if conn:
+                conn.close()
+
+    # grab the sha from the repo
+    if repository is not None and has_sqlite3:
+        try:
+            conn = None
+            try:
+                query = "SELECT uuid from blob ORDER BY rid DESC LIMIT 1"
+                conn = sqlite3.connect(repository)
+                c = conn.cursor()
+                c.execute(query)
+                sha = c.fetchone()[0][:7]
+            except sqlite3.OperationalError:
+                pass
+        finally:
+            if conn:
+                conn.close()
+
+    # branch
+    if sha != options.unknown and has_sqlite3:
+        try:
+            conn = None
+            try:
+                query = """SELECT value FROM tagxref WHERE rid =
+                           (SELECT rid FROM blob WHERE uuid LIKE '%s%%')
+                           AND value is not NULL LIMIT 1 """ % sha
+                conn = sqlite3.connect(repository)
+                c = conn.cursor()
+                c.execute(query)
+                branch = c.fetchone()[0]
+            except (sqlite3.OperationalError, TypeError):
+                pass
+        finally:
+            if conn:
+                conn.close()
+
+    # modified
+    if '%m' in options.format:
+        output, returncode = popen('fossil changes')
+
+        if returncode == 0:
+            if output:
+                modified = options.modified
+            else:
+                modified = ''
+
+    # untracked files
+    if '%u' in options.format:
+        output, returncode = popen('fossil extras')
+
+        if returncode == 0:
+            if output:
+                untracked = options.untracked
+            else:
+                untracked = ''
+
+    # parse out formatting string
+    return {
+        'branch': branch,
+        'hash': sha,
+        'modified': modified,
+        'untracked': untracked,
+    }
+
+
+@vcs([".git"])
+def git(options):
+    """
+    Git
+
+    The fast version control system.
+    """
+    staged = branch = sha = modified = untracked = options.unknown
+
+    if os.path.isfile(options.file):
+        fn = open(options.file, 'r').read().rstrip('\n').split(' ', 1)[1]
+        options.file = fn
+
+    def revstring(ref, chars=7):
+        if not os.path.exists(ref):
+            # look for packed-refs file in case garbage collection just run
+            try:
+                pr = os.path.join(options.file, 'packed-refs')
+                ref = ref.split('/', 1)[1]
+                fh = open(pr, 'r')
+                for line in fh:
+                    line = line.strip()
+                    if line.endswith(ref):
+                        return line.split(" ")[0][0:chars]
+                return ''
+            except IOError:
+                return ''
+        try:
+            return open(ref, 'r').readline()[0:chars]
+        except IOError:
+            pass
+        return ''
+
+    # the current branch is required to get the sha
+    if re.search('%(b|r|h)', options.format):
+        branch_file = os.path.join(options.file, 'HEAD')
+        try:
+            fh = open(branch_file, 'r')
+            for line in fh:
+                line = line.strip()
+                if line.startswith('ref: refs/heads/'):
+                    branch = (line.split('/', 2)[-1] or options.unknown)
+                    break
+            if branch == options.unknown:
+                output, returncode = popen('git describe --always')
+                if returncode == 0:
+                    branch = "(%s)" % (output.strip())
+                else:
+                    branch = options.unknown
+        except IOError:
+            pass
+
+        # sha/revision
+        if re.search('%(r|h)', options.format) and branch != options.unknown:
+            sha_file = os.path.join(options.file, 'refs/heads/%s' % branch)
+            sha = revstring(sha_file)
+
+    # modified
+    if '%m' in options.format:
+        output, returncode = popen('git diff --quiet --exit-code')
+
+        if returncode == 1:
+            modified = options.modified
+        else:
+            modified = ''
+
+    # untracked files
+    if '%u' in options.format:
+        output, returncode = popen('git ls-files --other --exclude-standard')
+
+        if returncode == 0:
+            if output:
+                untracked = options.untracked
+            else:
+                untracked = ''
+
+    # staged files
+    if '%a' in options.format:
+        output, returncode = popen('git diff --quiet --cached --exit-code')
+
+        if returncode == 1:
+            staged = options.staged
+        else:
+            staged = ''
+
+    # formatting
+    return {
+        'branch': branch,
+        'hash': sha,
+        'modified': modified,
+        'untracked': untracked,
+        'staged': staged,
+    }
+
+
+@vcs([".hg"])
+def hg(options):
+    """
+    Mercurial
+
+    The Mercurial version control system.
+    """
+    branch = revision = sha = modified = untracked = options.unknown
+
+    # changeset ID or global sha
+    if re.search('%(r|h)', options.format):
+        fns = ['cache/branchheads', 'cache/branchheads-served']
+        for fn in fns:
+            try:
+                fh = open(os.path.join(options.file, fn), 'r')
+                line = fh.readline()
+                sha, revision = line.strip().split()
+                sha = sha[:7]
+            except IOError:
+                continue
+
+    # branch
+    if '%b' in options.format:
+        try:
+            fn = os.path.join(options.file, 'branch')
+            branch = open(fn, 'r').readline().strip()
+        except IOError:
+            branch = "default"
+
+    # modified
+    if '%m' in options.format:
+        output, returncode = popen('hg status --modified')
+
+        if returncode == 0:
+            if output:
+                modified = options.modified
+            else:
+                modified = ''
+
+    # untracked
+    if '%u' in options.format:
+        output, returncode = popen('hg status --unknown')
+        if output:
+            untracked = options.untracked
+        else:
+            untracked = ''
+
+    return {
+        'branch': branch,
+        'hash': sha,
+        'revision': revision,
+        'modified': modified,
+        'untracked': untracked,
+    }
+
+
+@vcs([".svn/entries"])
+def svn(options):
+    """
+    Subversion
+
+    The Subversion version control system.
+    """
+    branch = revision = modified = untracked = staged = options.unknown
+
+    # branch
+    output, returncode = popen('svn info --xml %s' % options.path)
+
+    if returncode == 0:
+        dom = parseString(output)
+
+        # branch
+        if '%b' in options.format:
+            regex = re.compile('((tags|branches)/([^/]*)|trunk)')
+            tag = dom.getElementsByTagName('url')[0]
+            matches = re.search(regex, tag.childNodes[0].data)
+            if matches:
+                branch = matches.groups(0)[0]
+
+        # revision/sha
+        if re.search('%(r|h)', options.format):
+            tag = dom.getElementsByTagName('commit')[0]
+            revision = tag.getAttribute('revision')
+
+    # modified/staged/untracked
+    if re.search('%[amu]', options.format):
+        output, returncode = popen('svn status %s' % options.path)
+
+        if returncode == 0:
+            modified = ''
+            untracked = ''
+            staged = ''
+            if output:
+                codes = [line.strip()[0:1] for line in output.split('\n')]
+                if re.search('[CDMR!]', ''.join(codes)):
+                    modified = options.modified
+                if '?' in codes:
+                    untracked = options.untracked
+                if 'A' in codes:
+                    staged = options.staged
+
+    # formatting
+    return {
+        'revision': revision,
+        'branch': branch,
+        'modified': modified,
+        'untracked': untracked,
+        'staged': staged,
+    }
+
+
+if __name__ == '__main__':
+    prompt = main()
+    if prompt:
+        sys.stdout.write(prompt)
+    else:
+        sys.exit(1)
