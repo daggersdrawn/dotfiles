@@ -128,7 +128,7 @@ function fbwhitelist() {
 
 # Git
 function gr() {
-  git grep --full-name --files-with-matches "$1" | xargs sed --in-place -e "s/$1/$2/"
+  git grep --full-name --files-with-matches "$1" | xargs sed -i -e "s/$1/$2/g"
 } # git replace: find and replace in current directory of a git repo
 function git_current_branch() {
   git symbolic-ref HEAD 2> /dev/null | cut -b 12-
