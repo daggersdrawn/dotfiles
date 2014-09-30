@@ -41,16 +41,11 @@ fi
 _have() { which "$1" &>/dev/null; }
 
 # python virtual env
-if [ -f /usr/bin/virtualenvwrapper.sh ]; then
-  . /usr/bin/virtualenvwrapper.sh
-fi # arch
-if [ -f /usr/local/bin/virtualenvwrapper.sh ]; then
-  . /usr/local/bin/virtualenvwrapper.sh
-fi # homebrew
 export VIRTUALENVWRAPPER_PYTHON=`which python`
 export VIRTUALENVWRAPPER_VIRTUALENV=`which virtualenv`
-# history
+source `which virtualenvwrapper.sh`
 
+# history
 # Save and reload the history after each command finishes
 unset HISTFILESIZE
 unset PROMPT_COMMAND
