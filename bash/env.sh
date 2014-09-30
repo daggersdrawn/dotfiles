@@ -47,7 +47,8 @@ fi # arch
 if [ -f /usr/local/bin/virtualenvwrapper.sh ]; then
   . /usr/local/bin/virtualenvwrapper.sh
 fi # homebrew
-
+export VIRTUALENVWRAPPER_PYTHON=`which python`
+export VIRTUALENVWRAPPER_VIRTUALENV=`which virtualenv`
 # history
 
 # Save and reload the history after each command finishes
