@@ -143,13 +143,6 @@ if _have dmenu; then
   . "$HOME/.dmenurc"
 fi
 
-# dmenu options
-# tmux
-[[ -s $HOME/.tmuxinator/scripts/tmuxinator ]] && source $HOME/.tmuxinator/scripts/tmuxinator
-[[ ${TERM} == "screen" ]] && export TERM="rxvt-unicode-256color"
-
-# }}}
-
 
 ### System conditionals {{{
 # For OSX gcc issues see:
@@ -255,5 +248,10 @@ _set_editor() {
   done
 }
 _set_editor
+
+
+# tmux
+[[ -s $HOME/.tmuxinator/scripts/tmuxinator ]] && source $HOME/.tmuxinator/scripts/tmuxinator
+# }}}
 
 # }}}
