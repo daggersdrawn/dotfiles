@@ -12,6 +12,7 @@ alias suspend='dbus-send --system --print-reply --dest="org.freedesktop.UPower" 
 alias hibernate='dbus-send --system --print-reply --dest="org.freedesktop.UPower" /org/freedesktop/UPower org.freedesktop.UPower.Hibernate'
 alias dsleep='xset dpms force off'
 alias nocaps='setxkbmap -option ctrl:nocaps'
+alias restart_pg='rm /usr/local/var/postgres/postmaster.pid pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start'
 
 # Global
 alias ..='cd ..'         # Go up one directory
