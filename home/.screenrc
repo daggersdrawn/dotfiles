@@ -8,7 +8,7 @@ bufferfile $HOME/.screenex        # the file to use for "readbuf" ('<') and  "wr
 shell -$SHELL                     # make the shell in every window a login shell
 deflogin on                       # log new screen windows in utmp
 term screen-256color-bce          # set $TERM https://bbs.archlinux.org/viewtopic.php?id=99094
-termcapinfo rxvt* ti@:te@:XT      # improve mouse scrolling,
+#termcapinfo rxvt* ti@:te@:XT      # improve mouse scrolling,
 altscreen on                      # clear screen after fullscreen apps - top, vim.
 verbose on                        # show the commnad for windows when they're resurrected
 escape ^Qq                        # Escape key is C-q.  (I use C-a too much in Emacs.)

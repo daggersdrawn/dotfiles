@@ -301,3 +301,6 @@ set showtabline=never
 
 " Flashblock whitelist
 autocmd Enter * set fbwhitelist=gmail.com,youtube.com,vimeo.com,soundcloud.com,maps.google.com,github.com,thisismyjam.com,discogs.com,intergalactic.fm,archlinux.ca,clone.nl,kompakt.fm,dopejams.net,soundonsound.com,soundonsound.co.uk
+
+" default search
+set defsearch=startpage-https

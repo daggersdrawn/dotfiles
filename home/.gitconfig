@@ -1,12 +1,12 @@
 [user]
     name = Thomas Schreiber
-    email = rizumu@users.noreply.github.com
+    email = rizumu@users.noreply.github.com 
 
 [github]
     user = rizumu
 
 [core]
-    editor = emacs --no-window-system --quick
+    editor = vim #emacs --no-window-system --quick
     excludesfile = ~/.gitignore
     filemode = true
     logallrefupdates = true
@@ -72,3 +72,5 @@
     added = yellow
     changed = green bold
     untracked = blue bold
+[heroku]
+	account = me
