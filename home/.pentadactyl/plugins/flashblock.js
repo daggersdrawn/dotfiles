@@ -1,7 +1,7 @@
 "use strict";
 var INFO =
 ["plugin", { name: "flashblock",
-             version: "1.1",
+             version: "1.2",
              href: "http://dactyl.sf.net/pentadactyl/plugins#flashblock-plugin",
              summary: "Flash Blocker",
              xmlns: "dactyl" },

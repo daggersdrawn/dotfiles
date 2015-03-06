@@ -1,13 +1,16 @@
 /*
- * Copyright ©2010 Kris Maglione <maglione.k at Gmail>
+ * Copyright ©2010-2014 Kris Maglione <maglione.k at Gmail>
  * Distributable under the terms of the MIT license.
  *
  * Documentation is at the tail of this file.
  */
 "use strict";
 
-dactyl.assert("noscriptOverlay" in window,
-              "This plugin requires the NoScript add-on.");
+if (!("noscriptOverlay" in window)) {
+    if (!userContext.noscriptIgnoreMissing)
+        dactyl.echoerr("This plugin requires the NoScript add-on.");
+    throw Finished();
+}
 
 /*
  *  this.globalJS ? !this.alwaysBlockUntrustedContent || !this.untrustedSites.matches(s)
@@ -19,13 +22,13 @@ function getSites() {
     const ns     = services.noscript;
     const global = options["script"];
     const groups = { allowed: ns.jsPolicySites, temp: ns.tempSites, untrusted: ns.untrustedSites };
-    const show   = Set(options["noscript-list"]);
+    const show   = RealSet(options["noscript-list"]);
     const sites  = window.noscriptOverlay.getSites();
 
     const blockUntrusted = global && ns.alwaysBlockUntrustedContent;
 
     let res = [];
-    for (let site in array.iterValues(Array.concat(sites.topSite, sites))) {
+    for (let site of array.iterValues(Array.concat(sites.topSite, sites))) {
         let ary = [];
 
         let untrusted    = groups.untrusted.matches(site);
@@ -49,18 +52,18 @@ function getSites() {
             ary.push(matchingSite);
         }
         else {
-            if ((!hasPort || ns.ignorePorts) && (show.full || show.base)) {
+            if ((!hasPort || ns.ignorePorts) && (show.has("full") || show.has("base"))) {
                 let domain = !ns.isForbiddenByHttpsStatus(site) && ns.getDomain(site);
                 if (domain && ns.isJSEnabled(domain) == enabled) {
                     ary = util.subdomains(domain);
-                    if (!show.base && ary.length > 1)
+                    if (!show.has("base") && ary.length > 1)
                         ary = ary.slice(1);
-                    if (!show.full)
+                    if (!show.has("full"))
                         ary = ary.slice(0, 1);
                 }
             }
 
-            if (show.address || ary.length == 0) {
+            if (show.has("address") || ary.length == 0) {
                 ary.push(site);
 
                 if (hasPort && ns.ignorePorts) {
@@ -73,28 +76,36 @@ function getSites() {
         res = res.concat(ary);
     }
 
-    let seen = {};
-    return res.filter(function (h) !Set.add(seen, h));
+    let seen = RealSet();
+    return res.filter(function (h) {
+        let res = !seen.has(h);
+        seen.add(h);
+        return res;
+    });
 }
 function getObjects() {
     let sites = noscriptOverlay.getSites();
     let general = [], specific = [];
-    for (let group in values(sites.pluginExtras))
-        for (let obj in array.iterValues(group)) {
+    for (let group of values(sites.pluginExtras))
+        for (let obj of array.iterValues(group)) {
             if (!obj.placeholder && (ns.isAllowedObject(obj.url, obj.mime) || obj.tag))
                 continue;
             specific.push(obj.mime + "@" + obj.url);
             general.push("*@" + obj.url);
             general.push("*@" + obj.site);
         }
-    let sites = buffer.allFrames().map(function (f) f.location.host);
-    for (let filter in values(options["noscript-objects"])) {
+    sites = buffer.allFrames().map(function (f) f.location.host);
+    for (let filter of values(options["noscript-objects"])) {
         let host = util.getHost(util.split(filter, /@/, 2)[1]);
         if (sites.some(function (s) s == host))
             specific.push(filter);
     }
-    let seen = {};
-    return specific.concat(general).filter(function (site) !Set.add(seen, site));
+    let seen = RealSet();
+    return specific.concat(general).filter(function (site) {
+        let res = !seen.has(site);
+        seen.add(site);
+        return res;
+    });
 }
 
 var onUnload = overlay.overlayObject(gBrowser, {
@@ -108,7 +119,7 @@ var onUnload = overlay.overlayObject(gBrowser, {
             return load();
 
         try {
-            for (let [cmd, args] in commands.parseCommands(commandline.command))
+            for (let [cmd, args] of commands.parseCommands(commandline.command))
                 var origURL = args.literalArg;
 
             let isJS = function isJS(url) /^(?:data|javascript):/i.test(url);
@@ -148,7 +159,7 @@ let groupDesc = {
 };
 
 function splitContext(context, list) {
-    for (let [name, title, filter] in values(list)) {
+    for (let [name, title, filter] of values(list)) {
         let ctxt = context.split(name);
         ctxt.title = [title];
         ctxt.filters.push(filter);
@@ -162,11 +173,11 @@ completion.noscriptObjects = function (context) {
     context.generate = getObjects;
     context.keys = {
         text: util.identity,
-        description: function (key) Set.has(whitelist, key) ? "Allowed" : "Forbidden"
+        description: function (key) whitelist.has(key) ? "Allowed" : "Forbidden"
     };
     splitContext(context, getObjects, [
-        ["forbidden", "Forbidden objects", function (item) !Set.has(whitelist, item.item)],
-        ["allowed",   "Allowed objects",   function (item) Set.has(whitelist, item.item)]]);
+        ["forbidden", "Forbidden objects", function (item) !whitelist.has(item.item)],
+        ["allowed",   "Allowed objects",   function (item) whitelist.has(item.item)]]);
 };
 completion.noscriptSites = function (context) {
     context.compare = CompletionContext.Sort.unsorted;
@@ -216,7 +227,7 @@ let prefs = {
         ["full",    "showDomain",     "Show the full domain (www.google.com)"]
     ]
 };
-for (let [k, v] in Iterator(prefs))
+for (let [k, v] of iter(prefs))
     prefs[k] = array(v).map(function (v) [v[0], Pref.fromArray(v.map(UTF8))]).toObject();
 
 function getPref(pref)      modules.prefs.get(PrefBase + pref);
@@ -226,9 +237,9 @@ prefs.complete = function prefsComplete(group) function (context) {
     context.keys = { text: "text", description: "description" };
     context.completions = values(prefs[group]);
 }
-prefs.get = function prefsGet(group) [p.text for (p in values(this[group])) if (getPref(p.pref))];
+prefs.get = function prefsGet(group) [p.text for (p of values(this[group])) if (getPref(p.pref))];
 prefs.set = function prefsSet(group, val) {
-    for (let p in values(this[group]))
+    for (let p of values(this[group]))
         setPref(p.pref, val.indexOf(p.text) >= 0);
     return val;
 }
@@ -268,31 +279,30 @@ group.options.add(["script"],
         description: "The list of sites allowed to execute scripts",
         action: function (add, sites) sites.length && noscriptOverlay.safeAllow(sites, add, false, -1),
         completer: function (context) completion.noscriptSites(context),
-        has: function (val) Set.has(services.noscript.jsPolicySites.sitesMap, val) &&
-            !Set.has(services.noscript.tempSites.sitesMap, val),
-        get set() Set.subtract(
-            services.noscript.jsPolicySites.sitesMap,
-            services.noscript.tempSites.sitesMap)
+        has: function (val) hasOwnProperty(services.noscript.jsPolicySites.sitesMap, val) &&
+            !hasOwnProperty(services.noscript.tempSites.sitesMap, val),
+        get set() RealSet(k for (k in services.noscript.jsPolicySites.sitesMap))
+            .difference(RealSet(k for (k in services.noscript.tempSites.sitesMap)))
     }, {
         names: ["noscript-tempsites", "nst"],
         description: "The list of sites temporarily allowed to execute scripts",
         action: function (add, sites) sites.length && noscriptOverlay.safeAllow(sites, add, true, -1),
         completer: function (context) completion.noscriptSites(context),
-        get set() services.noscript.tempSites.sitesMap
+        get set() RealSet(k for (k in services.noscript.tempSites.sitesMap))
     }, {
         names: ["noscript-untrusted", "nsu"],
         description: "The list of untrusted sites",
         action: function (add, sites) sites.length && services.noscript.setUntrusted(sites, add),
         completer: function (context) completion.noscriptSites(context),
-        get set() services.noscript.untrustedSites.sitesMap
+        get set() RealSet(k for (k in services.noscript.untrustedSites.sitesMap))
     }, {
         names: ["noscript-objects", "nso"],
         description: "The list of allowed objects",
-        get set() Set(array.flatten(
+        get set() RealSet(array.flatten(
             [Array.concat(v).map(function (v) v + "@" + this, k)
-             for ([k, v] in Iterator(services.noscript.objectWhitelist))])),
+             for ([k, v] of iter(services.noscript.objectWhitelist))])),
         action: function (add, patterns) {
-            for (let pattern in values(patterns)) {
+            for (let pattern of values(patterns)) {
                 let [mime, site] = util.split(pattern, /@/, 2);
                 if (add)
                     services.noscript.allowObject(site, mime);
@@ -328,15 +338,15 @@ group.options.add(["script"],
                     params.completer(context)
             },
             domains: params.domains || function (values) values,
-            has: params.has || function (val) Set.has(params.set, val),
+            has: params.has || bind("has", params.set),
             initialValue: true,
-            getter: params.getter || function () Object.keys(params.set),
+            getter: params.getter || function () [k for (k of params.set)],
             setter: function (values) {
-                let newset  = Set(values);
+                let newset  = RealSet(values);
                 let current = params.set;
                 let value   = this.value;
-                params.action(true,  values.filter(function (site) !Set.has(current, site)))
-                params.action(false, value.filter(function (site) !Set.has(newset, site)));
+                params.action(true,  values.filter(site => !current.has(site)))
+                params.action(false, value.filter(site => !newset.has(site)));
                 return this.value;
             },
             persist: false,
@@ -344,9 +354,16 @@ group.options.add(["script"],
             validator: params.validator || function () true
         }));
 
+group.styles.add("noscript-menu-order", ["chrome://browser/content/browser.xul"],
+                 literal(/*
+        #noscript-tbb-popup .scrollbox-innerbox {
+            -moz-box-direction: reverse;
+        }
+    */));
+
 var INFO =
 ["plugin", { name: "noscript",
-             version: "0.8",
+             version: "0.9",
              href: "http://dactyl.sf.net/pentadactyl/plugins#noscript-plugin",
              summary: "NoScript integration",
              xmlns: "dactyl" },
