@@ -220,6 +220,14 @@ else  # assume osx
     kill -9 $SSH_AGENT_PID
   }
   trap cleanup EXIT
+  export SSH_AUTH_SOCK=$HOME/.ssh/ssh-agent.pipe
+  # gpg-agent
+  [ -f ~/.gpg-agent-info ] && source ~/.gpg-agent-info
+  if [ -S ${GPG_AGENT_INFO%%:*} ]; then
+      export GPG_AGENT_INFO
+  else
+      eval $( gpg-agent --daemon --write-env-file ~/.gpg-agent-info )
+  fi
 fi
 
 # perl
