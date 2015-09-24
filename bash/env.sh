@@ -40,10 +40,23 @@ fi
 # is $1 installed?
 _have() { which "$1" &>/dev/null; }
 
-# python virtual env
+# python pyenv
+if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
+
+# python virtualenv
 export VIRTUALENVWRAPPER_PYTHON=`which python`
 export VIRTUALENVWRAPPER_VIRTUALENV=`which virtualenv`
-source `which virtualenvwrapper.sh`
+source /usr/local/bin/virtualenvwrapper.sh
+
+# # PATH for python
+# PATH=/usr/local/share/python:${PATH}
+# # for homebrewed bottles
+# PATH=/usr/local/bin:/usr/local/sbin:${PATH}
+# # for custom scripts
+# PATH=$HOME/bin:${PATH}
+# for pyenv
+# PYENV_ROOT=$HOME/.pyenv
+# PATH=$PYENV_ROOT/bin:${PATH}
 
 # history
 # Save and reload the history after each command finishes
