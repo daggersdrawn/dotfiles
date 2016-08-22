@@ -25,6 +25,7 @@ alias delds='find . -name .DS_Store -exec rm -v {} \;'
 alias delorig='find . -name \*.orig  -exec rm -v {} \;'
 alias delpyc='find . \( -name "*.pyc" -o -name "*.pyo" \) -exec rm -v {} \;'
 alias delemacs='find . \( -name "\#*\#" -o -name ".\#*" \) -exec rm -v {} \;'
+alias delinit='find . -name \__init__.py  -exec rm -v {} \;'
 alias df='df -h'         # Disk free, in gigabytes, not bytes
 alias du='du -h -c'      # Calculate total disk usage for a folder
 alias grep='grep --color=auto' # Always highlight grep search term
@@ -419,3 +420,5 @@ define() {
 
   rm -f '$tmp'
 } # go to google for a definition
+
+alias scheme="rlwrap -r -c -f ~/dotfiles/mit_scheme_bindings.txt scheme"

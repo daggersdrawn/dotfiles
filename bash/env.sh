@@ -75,6 +75,7 @@ export LANG=en_US.UTF-8
 export LC_CTYPE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 
+export WERKZEUG_DEBUG_PIN="off"
 
 if [ -d "$HOME/.ec2/" ]; then
   export EC2_HOME=$HOME/.ec2
@@ -202,7 +203,7 @@ else  # assume osx
   # homebrew paths
   export PATH=/usr/local/bin:$PATH
   export PATH=/usr/local/sbin:$PATH
-  export PATH=/usr/local/share/npm/bin:$PATH
+  export PATH="$HOME/.npm-packages/bin:$PATH"
   # coreutils fix
   export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
   alias rquicksilver="sudo umount -Af && killall Quicksilver && open /Applications/Quicksilver.app"
