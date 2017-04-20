@@ -23,7 +23,19 @@ if [ -f "$HOME/.private" ]; then
   . "$HOME/.private"
 fi
 
-source /usr/local/etc/bash_completion.d/password-store
+source /usr/local/etc/bash_completion.d/pass
+
+export PATH=$PATH:/usr/local/m-cli
+
+# Pipsi
+export PATH="$HOME/.local/bin:$PATH"
+
+# Go: You may wish to add the GOROOT-based install location to your PATH:
+export PATH=$PATH:/usr/local/opt/go/libexec/bin
+
+# nvm
+export NVM_DIR="$HOME/.nvm"
+. "/usr/local/opt/nvm/nvm.sh"
 
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"

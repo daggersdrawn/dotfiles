@@ -193,9 +193,8 @@ eval "
 }
 
 __git_shortcut () {
-    type _git_$2_shortcut &>/dev/null || __define_git_completion $1 $2
     alias $1="git $2 $3"
-    complete -o default -o nospace -F _git_$2_shortcut $1
+    __git_complete $1 _git_$2 &>/dev/null
 }
 
 __git_shortcut  ga    add
@@ -277,6 +276,9 @@ function en {
     emacsclient --no-wait --create-frame $1
   fi
 } # open, in a new frame, using the emacs dameon.
+
+# htop
+alias htop='sudo htop'
 
 #ed
 # http://blog.sanctum.geek.nz/actually-using-ed/

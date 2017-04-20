@@ -66,7 +66,7 @@ export HISTSIZE=100000
 export HISTFILESIZE=100000
 export HISTTIMEFORMAT="%Y/%m/%d %H:%M "
 export HISTIGNORE="&:ls:ll:la:cd:exit:clear:history"
-export HISTCONTROL=ignoredups:erasedups
+export HISTCONTROL=ignoredups:erasedups:ignorespace
 export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 shopt -s histappend
 
@@ -206,6 +206,7 @@ else  # assume osx
   export PATH="$HOME/.npm-packages/bin:$PATH"
   # coreutils fix
   export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+  export PATH="/usr/local/opt/findutils/libexec/gnubin:$PATH"
   alias rquicksilver="sudo umount -Af && killall Quicksilver && open /Applications/Quicksilver.app"
   alias killdash="defaults write com.apple.dashboard mcx-disabled -boolean YES; killall Dock;"
   alias startdash="defaults write com.apple.dashboard mcx-disabled -boolean NO; killall Dock;"
@@ -223,11 +224,10 @@ else  # assume osx
   trap cleanup EXIT
   export SSH_AUTH_SOCK=$HOME/.ssh/ssh-agent.pipe
   # gpg-agent
-  [ -f ~/.gpg-agent-info ] && source ~/.gpg-agent-info
   if [ -S ${GPG_AGENT_INFO%%:*} ]; then
       export GPG_AGENT_INFO
   else
-      eval $( gpg-agent --daemon --write-env-file ~/.gpg-agent-info )
+      eval $( gpg-agent --daemon )
   fi
 fi
 

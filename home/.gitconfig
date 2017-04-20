@@ -1,6 +1,6 @@
 [user]
     name = Thomas Schreiber
-    email = rizumu@users.noreply.github.com 
+    email = rizumu@users.noreply.github.com
 
 [github]
     user = rizumu
@@ -11,6 +11,7 @@
     filemode = true
     logallrefupdates = true
     whitespace = space-before-tab, trailing-space
+	autocrlf = input
 
 [alias]
     ediff = difftool -t ediff
@@ -72,5 +73,9 @@
     added = yellow
     changed = green bold
     untracked = blue bold
+
 [heroku]
 	account = me
+
+# [commit]
+# 	gpgsign = true
