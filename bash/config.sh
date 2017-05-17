@@ -78,5 +78,14 @@ On_IPurple='\[\e[10;95m\]'  # Purple
 On_ICyan='\[\e[0;106m\]'    # Cyan
 On_IWhite='\[\e[0;107m\]'   # White
 
+__pyenv_version_ps1 ()
+{
+    local ret=$?;
+    if [ -n "${PYENV_VIRTUAL_ENV}" ]; then
+        echo -n "(${PYENV_VIRTUAL_ENV##*/}) "
+    fi
+    return $?
+}
+
 # Prompt definition ✈ ☭ ☠
-PS1="${BIYellow}\u${BIBlue}@${Yellow}\h${BIBlue}(${BIYellow}\w${BIBlue})${Green}\$(vcprompt)${BRed}\n${BIPurple}☭${BIGreen} "
+PS1="${BIBlue}\$(__pyenv_version_ps1)${BIYellow}\u${BIBlue}@${Yellow}\h${BIBlue}(${BIYellow}\w${BIBlue})${Green} \$(vcprompt)${BRed}\n${BIPurple}☭${BIGreen} "
