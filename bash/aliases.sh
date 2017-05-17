@@ -119,6 +119,8 @@ function pw() {
 alias py='ipython'
 alias emailserver='python -m smtpd -n -c DebuggingServer localhost:1025'
 alias linecountpy='find . -name "*.py" -exec wc {} +'
+alias lssitepackages='ls -Nhal `python -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())"`'
+alias cdsitepackages='cd `python -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())"`'
 
 # Screen
 alias s='screen'
