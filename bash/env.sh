@@ -61,21 +61,11 @@ shopt -s histappend
 # less paging
 export LESS="-QR"
 export PAGER=less
+export LS_OPTIONS="--color=auto"
 
-# no flow control outside of the dumb tty
-if [[ "$TERM" != 'linux' ]]; then stty -ixon -ixoff; fi
-
-if $_islinux; then
-  export LS_OPTIONS="--color=auto"
-  export PACMAN="pacman"
-else
-  # For OSX gcc issues see:
-  #     http://stackoverflow.com/questions/8473066/gcc-4-2-failed-with-exit-status-1
-  #     https://github.com/kennethreitz/osx-gcc-installer/downloads
-
-  if [ -f `brew --prefix`/etc/bash_completion ]; then
-    . `brew --prefix`/etc/bash_completion
-  fi
+if ! $_islinux; then
+  # no flow control outside of the dumb tty
+  stty -ixon -ixoff
   # openssh fix
   eval $(ssh-agent)
   function cleanup {
@@ -86,35 +76,22 @@ else
   export SSH_AUTH_SOCK=$HOME/.ssh/ssh-agent.pipe
   # gpg-agent
   if [ -S ${GPG_AGENT_INFO%%:*} ]; then
-      export GPG_AGENT_INFO
+    export GPG_AGENT_INFO
   else
-      eval $( gpg-agent --daemon )
+    eval $( gpg-agent --daemon )
   fi
 fi
 
-# perl
-if $_islinux; then
-  export PERL_LOCAL_LIB_ROOT="$HOME/perl5";
-  export PERL_MB_OPT="--install_base $HOME/perl5";
-  export PERL_MM_OPT="INSTALL_BASE=$HOME/perl5";
-  export PERL5LIB="$HOME/perl5/lib/perl5/x86_64-linux-thread-multi:$HOME/perl5/lib/perl5";
-  export PATH="$HOME/perl5/bin:$PATH";
-fi
-
-# }}}
-
-
-### Set dir colors {{{
-
+# set dir colors
 if [[ -f "$HOME/dotfiles/bash/dircolors" ]] && [[ $(tput colors) == "256" ]]; then
   # https://github.com/trapd00r/LS_COLORS
   eval $( dircolors -b $HOME/dotfiles/bash/dircolors )
 fi
 
 # set $EDITOR
+editors="emacsclient --nw:emacs --nw:zile:vim:vi"
 _set_editor() {
   local IFS=':' editor
-
   for editor in $editors; do
     editor_binary=`echo $editor | cut -f 1 -d ' '`
     if [ "$editor" == "${editor//[\' ]/}" ]; then
@@ -132,9 +109,48 @@ _set_editor() {
 }
 _set_editor
 
+# set $BROWSER
+xbrowsers="browser:uzbl-browser:chromium:firefox"
+browsers="elinks:lynx:links"
+_set_browser() {
+  local IFS=':' _browsers="$*" browser
+  for browser in $_browsers; do
+    browser="$(which $browser 2>/dev/null)"
+    if [[ -x "$browser" ]]; then
+      export BROWSER="$browser"
+      break
+    fi
+  done
+}
+$_isxrunning && _set_browser "$xbrowsers" || _set_browser "$browsers"
+
+# homebrew
+if [ -f `brew --prefix`/etc/bash_completion ]; then . `brew --prefix`/etc/bash_completion; fi
+
+# dmenu
+if _have dmenu; then . "$HOME/.dmenurc"; fi
 
 # tmux
 [[ -s $HOME/.tmuxinator/scripts/tmuxinator ]] && source $HOME/.tmuxinator/scripts/tmuxinator
-# }}}
 
-# }}}
+# git
+if [ -f $HOME/.git-completion.bash ]; then . $HOME/.git-completion.bash; fi
+
+# ruby rvm
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+
+# nvm
+export NVM_DIR="$HOME/.nvm"
+source "/usr/local/opt/nvm/nvm.sh"
+
+# pyenv-virtualenvwrapper
+if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
+if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
+export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+[[ `which pycompletion` ]] && source `which pycompletion`  # pipsi install pycompletion
+
+# werkzeug debugger
+export WERKZEUG_DEBUG_PIN="off"
+
+# set ip address
+[[ -f "$HOME/.myip" ]] && export MYIP=$(cat "$HOME/.myip")
