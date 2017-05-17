@@ -52,10 +52,10 @@ alias bat='acpi -b'
 alias shred='shred --iterations=200 --zero --remove'
 
 # standard
-alias l='ls -AF'
-alias la='ls -aliF'
-alias ls='ls -h --group-directories-first --color=auto'
-alias ll='ls -lFh'
+alias l='ls -NAF'
+alias la='ls -NaliF'
+alias ls='ls -Nh --group-directories-first --color=auto'
+alias ll='ls -NlFh'
 alias myip='curl --silent http://tnx.nl/ip'
 alias path='echo -e "${PATH//:/\n}"'
 
