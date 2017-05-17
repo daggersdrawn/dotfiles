@@ -19,6 +19,7 @@ _isroot=false; [[ $UID -eq 0 ]] && _isroot=true
 . "$HOME/dotfiles/bash/env.sh"
 . "$HOME/dotfiles/bash/config.sh"
 . "$HOME/dotfiles/bash/aliases.sh"
+. "$HOME/dotfiles/bash/git.sh"
 
 # private env vars
 if [ -f "$HOME/.private" ]; then . "$HOME/.private"; fi
