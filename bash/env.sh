@@ -1,3 +1,8 @@
+# locales
+export LANG=en_US.UTF-8
+export LC_CTYPE=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+
 # add local bin
 if [ -d "/usr/local/bin" ]; then PATH="/usr/local/bin:$PATH"; fi
 
@@ -110,7 +115,7 @@ _set_editor() {
 _set_editor
 
 # set $BROWSER
-xbrowsers="browser:uzbl-browser:chromium:firefox"
+xbrowsers="firefox:chromium"
 browsers="elinks:lynx:links"
 _set_browser() {
   local IFS=':' _browsers="$*" browser
@@ -147,7 +152,6 @@ source "/usr/local/opt/nvm/nvm.sh"
 if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
 if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
 export PYENV_VIRTUALENV_DISABLE_PROMPT=1
-[[ `which pycompletion` ]] && source `which pycompletion`  # pipsi install pycompletion
 
 # werkzeug debugger
 export WERKZEUG_DEBUG_PIN="off"
