@@ -18,7 +18,5 @@ if [ -f "$HOME/.private" ]; then
   . "$HOME/.private"
 fi
 
-source /usr/local/etc/bash_completion.d/pass
-
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"

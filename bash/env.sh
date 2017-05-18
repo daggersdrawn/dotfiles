@@ -129,6 +129,11 @@ _set_browser() {
 }
 $_isxrunning && _set_browser "$xbrowsers" || _set_browser "$browsers"
 
+# pass
+if ! $_islinux; then
+  source /usr/local/etc/bash_completion.d/pass
+fi
+
 # homebrew
 if ! $_islinux; then
   if [ -f `brew --prefix`/etc/bash_completion ]; then . `brew --prefix`/etc/bash_completion; fi
