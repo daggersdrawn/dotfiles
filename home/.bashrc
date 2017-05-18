@@ -17,6 +17,3 @@ fi
 if [ -f "$HOME/.private" ]; then
   . "$HOME/.private"
 fi
-
-### Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
