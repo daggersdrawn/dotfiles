@@ -130,10 +130,14 @@ _set_browser() {
 $_isxrunning && _set_browser "$xbrowsers" || _set_browser "$browsers"
 
 # homebrew
-if [ -f `brew --prefix`/etc/bash_completion ]; then . `brew --prefix`/etc/bash_completion; fi
+if ! $_islinux; then
+  if [ -f `brew --prefix`/etc/bash_completion ]; then . `brew --prefix`/etc/bash_completion; fi
+fi
 
 # dmenu
-if _have dmenu; then . "$HOME/.dmenurc"; fi
+if $_islinux; then
+  if _have dmenu; then . "$HOME/.dmenurc"; fi
+fi
 
 # tmux
 [[ -s $HOME/.tmuxinator/scripts/tmuxinator ]] && source $HOME/.tmuxinator/scripts/tmuxinator
