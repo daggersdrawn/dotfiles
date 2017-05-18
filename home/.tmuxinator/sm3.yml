@@ -1,0 +1,32 @@
+# ~/.tmuxinator/sm3.yml
+
+name: sm3
+root: /srv/webapps/sm3/
+
+# Optional. tmux socket
+# socket_name: foo
+
+# Runs before everything. Use it to start daemons etc.
+# pre: sudo /etc/rc.d/mysqld start
+
+# Runs in each window and pane before window/pane specific commands. Useful for setting up interpreter versions.
+pre_window:  pyenv activate sm3
+
+# Pass command line options to tmux. Useful for specifying a different tmux.conf.
+# tmux_options: -f ~/.tmux.mac.conf
+
+# Change the command to call tmux.  This can be used by derivatives/wrappers like byobu.
+# tmux_command: byobu
+
+# Specifies (by name or index) which window will be selected on project startup. If not set, the first window is used.
+# startup_window: logs
+
+windows:
+  - shell: git status
+  - django:
+      layout: main-vertical
+      panes:
+        -  python manage.py shell_plus
+        -  python manage.py runserver_plus
+  - npm:  npm run watch
+  - server:  ssh hotmix5
