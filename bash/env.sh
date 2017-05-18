@@ -146,7 +146,7 @@ if [ -f $HOME/.git-completion.bash ]; then . $HOME/.git-completion.bash; fi
 
 # nvm
 export NVM_DIR="$HOME/.nvm"
-source "/usr/local/opt/nvm/nvm.sh"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
 
 # pyenv-virtualenvwrapper
 if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
