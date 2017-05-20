@@ -28,6 +28,7 @@ alias gsti='git ls-files --others -i --exclude-standard'
 alias unstage='reset HEAD'
 alias staged='diff --cached'
 alias unstaged='diff'
+#alias changes='git log --name-status HEAD..
 function gcpfalr {
   git --git-dir=$1/.git format-patch -k -1 --stdout $2| git am -3 -k
 }  # git cherry pick from another local repo. $ gcpfalr ../path/to/repo SHA

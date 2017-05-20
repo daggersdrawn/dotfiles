@@ -71,19 +71,21 @@ export LS_OPTIONS="--color=auto"
 if ! $_islinux; then
   # no flow control outside of the dumb tty
   stty -ixon -ixoff
-  # openssh fix
+  # replace apple openssh with homebrew openssh
   eval $(ssh-agent)
   function cleanup {
     echo "Killing SSH-Agent"
     kill -9 $SSH_AGENT_PID
   }
   trap cleanup EXIT
-  export SSH_AUTH_SOCK=$HOME/.ssh/ssh-agent.pipe
-  # gpg-agent
-  if [ -S ${GPG_AGENT_INFO%%:*} ]; then
-    export GPG_AGENT_INFO
-  else
-    eval $( gpg-agent --daemon )
+  # gpgtools gpg-agent
+  AGENT_PID=$(ps axc | awk "{if (\$5==\"gpg-agent\") print \$1}")
+  export GPG_AGENT_INFO="$HOME/.gnupg/S.gpg-agent:$AGENT_PID:1"
+  export GPG_TTY=$(tty)
+  export SSH_AUTH_SOCK=~/.ssh/auth_sock
+  if ! fuser "$SSH_AUTH_SOCK" >/dev/null 2>/dev/null; then
+      # Nothing has the socket open, it means the agent isn't running
+      ssh-agent -a "$SSH_AUTH_SOCK" -s >~/.ssh/agent-info
   fi
 fi
 
