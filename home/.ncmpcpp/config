@@ -125,7 +125,7 @@ header_visibility = "no"
 #
 display_bitrate = "yes"
 #
-ask_before_clearing_main_playlist = "yes"
+#ask_before_clearing_main_playlist = "yes"
 #
 #follow_now_playing_lyrics = "no"
 #
