@@ -40,23 +40,20 @@ fi
 
 
 # {{{ Display settings
-# configure lcd displays, set color profiles, and set a background image
+# configure lcd displays, set color profiles and set a background image
 if disper -l | egrep 'DFP-1|VGA1'; then
   $HOME/bin/lcd on
 else
   $HOME/bin/lcd off
 fi
-gtk-redshift -l 40.4167:-3.7003 -t 6000:4500 -m vidmode &                   # start redshift
-# }}}
-
-
-# {{{ Resource and keymap settings
+redshift-gtk -l 39.9522222:-75.1641667 -t 6000:4500 -m vidmode &  # start redshift
 # }}}
 
 
 # {{{ Keyboard settings
-# the keymap is altred in .Xmodmap
+# the keymap is altered in ~/.Xmodmap and fn keys for audio in ~/..xbindkeysrc
 # The kbd script detects specific keyboards, unifies layouts and sets key options.
+xbindkeys
 if [ -f "$HOME/bin/kbd" ]; then
     $HOME/bin/kbd
 fi
@@ -74,17 +71,14 @@ xset fp rehash                    # Use custom fonts on dzen toolbar
 
 # {{{ Autostart settings
 #
-$HOME/bin/esd &                                                               # start emacs dameon
 /usr/bin/xscreensaver -no-splash &                                            # start xscreensaver
-/usr/lib/systemd/systemd --user &                                             # run systemd as user instance (mpd)
-dropboxd &                                                                    # start dropbx daemon
 urxvtcd -title term -q -f -o &                                                # start urxvt daemon
-# urxvt -e screen -l -UDRS term &                                             # resume last screen session or start new
+urxvt -e screen -l -UDRS term &                                               # resume last screen session or start new
 [ -f ~/.pomodoro_session ] && rm ~/.pomodoro_session                          # clear pomodoro timer
 # Use keychain with x11-ssh-askpass, because GnuPG agent does not support ecdsa.
-keychain $HOME/.ssh/id_ecdsa $HOME/.ssh/id_rsa
-[ -f $HOME/.keychain/$HOSTNAME-sh ] && . $HOME/.keychain/$HOSTNAME-sh 2>/dev/null
-[ -f $HOME/.keychain/$HOSTNAME-sh-gpg ] && . $HOME/.keychain/$HOSTNAME-sh-gpg 2>/dev/null
+#keychain $HOME/.ssh/id_ecdsa $HOME/.ssh/id_rsa
+#[ -f $HOME/.keychain/$HOSTNAME-sh ] && . $HOME/.keychain/$HOSTNAME-sh 2>/dev/null
+#[ -f $HOME/.keychain/$HOSTNAME-sh-gpg ] && . $HOME/.keychain/$HOSTNAME-sh-gpg 2>/dev/null
 ogg123 -q "${tone}" &                                                         # play a startup sound
 # }}}
 
@@ -92,5 +86,5 @@ ogg123 -q "${tone}" &                                                         # 
 # {{{ Start xmonad
 #
 cd $HOME  # make X always open new terms in ~/
-xmonad
+xmonad &> ~/.xerrors
 # }}}
