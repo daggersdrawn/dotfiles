@@ -88,4 +88,4 @@ __pyenv_version_ps1 ()
 }
 
 # Prompt definition ✈ ☭ ☠
-PS1="${BIBlue}\$(__pyenv_version_ps1)${BIYellow}\u${BIBlue}@${Yellow}\h${BIBlue}(${BIYellow}\w${BIBlue})${Green} \$(vcprompt)${BRed}\n${BIPurple}☭${BIGreen} "
+PS1="${BIBlue}\$(__pyenv_version_ps1)${BIYellow}\u${BIBlue}@${Yellow}\h${BIBlue}(${BIYellow}\w${BIBlue})${Green} \$(vcprompt)${BRed}\n${BIPurple}Ø${BIGreen} "
