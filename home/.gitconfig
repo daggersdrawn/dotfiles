@@ -6,7 +6,7 @@
     user = rizumu
 
 [core]
-    editor = vim #emacs --no-window-system --quick
+    editor = emacs --no-window-system --quick
     excludesfile = ~/.gitignore
     filemode = true
     logallrefupdates = true
