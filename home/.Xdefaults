@@ -49,10 +49,10 @@ URxvt.cutchars:        '"'()*<>[]{|}
 !
 ! Fonts
 ! run "fc-list" for a list of available fonts
-URxvt.font:xft:Inconsolata:medium:pixelsize=13
-URxvt.boldFont:xft:Inconsolata:bold:pixelsize=13
-URxvt.italicfont:xft:Inconsolata:italic:pixelsize=13
-URxvt.bolditalicFont:xft:Inconsolata:bold:italic:pixelsize=13
+URxvt.font:xft:Inconsolata:medium:pixelsize=17
+URxvt.boldFont:xft:Inconsolata:bold:pixelsize=17
+URxvt.italicfont:xft:Inconsolata:italic:pixelsize=17
+URxvt.bolditalicFont:xft:Inconsolata:bold:italic:pixelsize=17
 
 !URxvt.inheritPixmap: true
 URxvt.xftAntialias: true
