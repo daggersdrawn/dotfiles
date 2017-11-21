@@ -1,3 +1,6 @@
+# Logitech MX TODO
+# www.jonrogers.co.uk/2010/03/logitech-mx-revolution-on-ubuntu-lucid-10-04/
+
 # Volume up
 "amixer set 'Master' 2+"
     m:0x0 + c:123
@@ -12,3 +15,8 @@
 "amixer set Master toggle"
     m:0x0 + c:121
     XF86AudioMute
+
+# Middle click to right-alt, requires xautomation
+"xte 'mouseclick 2'"
+    m:0x0 + c:108
+    Multi_key
