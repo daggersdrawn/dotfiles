@@ -79,6 +79,7 @@ urxvt -e screen -l -UDRS term &                                               # 
 #keychain $HOME/.ssh/id_ecdsa $HOME/.ssh/id_rsa
 #[ -f $HOME/.keychain/$HOSTNAME-sh ] && . $HOME/.keychain/$HOSTNAME-sh 2>/dev/null
 #[ -f $HOME/.keychain/$HOSTNAME-sh-gpg ] && . $HOME/.keychain/$HOSTNAME-sh-gpg 2>/dev/null
+blueman-applet &                                                              # start bluetooth
 ogg123 -q "${tone}" &                                                         # play a startup sound
 # }}}
 
