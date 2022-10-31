@@ -20,14 +20,13 @@ if [ "$1" == "--help" ]; then
 fi
 
 if [ "$1" == "on" ]; then
-  #disper -d LVDS1,VGA1-t "left" -e
-  #disper -S -r 1600x1200
-  xrandr --output VGA1 --mode 1600x1200 --pos 0x0 --output LVDS1 --mode 1280x800 --pos 1600x0
-  xcalib ~/.color/lacie_photon-20-vision.icc
+  disper --displays=eDP-1,DP-2 --resolution=1920x1080,3840x2160 --extend
+  #xrandr --output eDP-1 --mode 1920x1080 --pos 0x0
+  #xrandr --output HDMI-1 --mode 3840x2160 --pos 0x0
 elif [ "$1" == "off" ]; then
   # find one for thinkpad!
   #xcalib ~/.color/macbookpro_3-1.icc
-  xrandr --output LVDS1 --mode 1280x800 --pos 0x0 --output VGA1 --off
+  xrandr --output eDP-1 --mode 1920x1080 --pos 0x0 --output VGA1 --off
 fi
 
 if [ "$1" == "on" ] || [ "$1" == "off" ]; then
