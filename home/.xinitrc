@@ -41,7 +41,7 @@ fi
 
 # {{{ Display settings
 # configure lcd displays, set color profiles and set a background image
-if disper -l | egrep 'DFP-1|VGA1'; then
+if disper -l | egrep 'eDP-1:'; then
   $HOME/bin/lcd on
 else
   $HOME/bin/lcd off
@@ -51,16 +51,18 @@ redshift-gtk -l 39.9522222:-75.1641667 -t 6000:4500 -m vidmode &  # start redshi
 
 
 # {{{ Keyboard settings
-# the keymap is altered in ~/.Xmodmap and fn keys for audio in ~/..xbindkeysrc
+# the keymap is altered in ~/.Xmodmap and fn keys for audio in ~/.xbindkeysrc
 # The kbd script detects specific keyboards, unifies layouts and sets key options.
-xbindkeys
 if [ -f "$HOME/bin/kbd" ]; then
     $HOME/bin/kbd
 fi
+[[ -f ~/.Xmodmap ]] && xmodmap ~/.Xmodmap
+xset b 0                                                                      # turn terminal bell off
 # }}}
 
 
 # {{{ Pointer settings
+# investigate dotfiles/home/.xbindkeys for logitech mx mouse
 xsetroot -cursor_name left_ptr    # Pointer apperance: xcb does not support Xcursor yet
 xset m 30/10 4                    # Pointer control, acceleration and threshold
 unclutter &                       # Hide cursor when not in use
@@ -72,7 +74,7 @@ xset fp rehash                    # Use custom fonts on dzen toolbar
 # {{{ Autostart settings
 #
 /usr/bin/xscreensaver -no-splash &                                            # start xscreensaver
-urxvtcd -title term -q -f -o &                                                # start urxvt daemon
+#urxvtcd -title term -q -f -o &                                                # start urxvt daemon
 urxvt -e screen -l -UDRS term &                                               # resume last screen session or start new
 [ -f ~/.pomodoro_session ] && rm ~/.pomodoro_session                          # clear pomodoro timer
 # Use keychain with x11-ssh-askpass, because GnuPG agent does not support ecdsa.
@@ -80,12 +82,14 @@ urxvt -e screen -l -UDRS term &                                               # 
 #[ -f $HOME/.keychain/$HOSTNAME-sh ] && . $HOME/.keychain/$HOSTNAME-sh 2>/dev/null
 #[ -f $HOME/.keychain/$HOSTNAME-sh-gpg ] && . $HOME/.keychain/$HOSTNAME-sh-gpg 2>/dev/null
 blueman-applet &                                                              # start bluetooth
-ogg123 -q "${tone}" &                                                         # play a startup sound
+gst123 -q "${tone}" &                                                         # play a startup sound
+udiskie &                                                                     # usb auto-mount
 # }}}
 
 
-# {{{ Start xmonad
+# {{{ Start xmonad or leftwm
 #
 cd $HOME  # make X always open new terms in ~/
-xmonad &> ~/.xerrors
+exec leftwm
+#xmonad &> ~/.xerrors
 # }}}
