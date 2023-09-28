@@ -2,7 +2,7 @@
 
 [default]
 ao=oss
-ass-force-style="FontName=Inconsolata"
+ass-force-style="FontName=InconsolataGo Nerd Font"
 ass=yes
 fs=yes
 heartbeat-cmd="xscreensaver-command -deactivate >/dev/null &"
