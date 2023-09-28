@@ -21,5 +21,11 @@ _isroot=false; [[ $UID -eq 0 ]] && _isroot=true
 . "$HOME/dotfiles/bash/aliases.sh"
 . "$HOME/dotfiles/bash/git.sh"
 
+# setup starship
+eval "$(starship init bash)"
+
+# setup direnv
+#eval "$(direnv hook bash)"
+
 # private env vars
 if [ -f "$HOME/.private" ]; then . "$HOME/.private"; fi
