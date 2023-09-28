@@ -15,21 +15,21 @@ sleep 1
 DISPLAY=":0.0"
 XAUTHORITY=$HOME/.Xauthority
 export DISPLAY XAUTHORITY HOME
-daskb_id=`xinput -list | grep -o -P 'daskeyboard' | grep -o -P '\d+'`
-hhkb_id=`xinput -list | xinput -list | grep -o -P 'HHKB Professional\s+id=\d+' | grep -o -P '\d+'`
+daskb_id=`xinput -list | grep -o -P 'daskeyboard' | head -1`
+hhkb_id=`xinput -list | xinput -list | grep -o -P 'HHKB Professional\s+id=\d+' | head -1`
 macbook_id=`xinput -list | xinput list | grep -o -P 'Apple Internal Keyboard / Trackpad\s+id=\d+' | grep -o -P '\d+' | head -1`
 
 if [ "${daskb_id}" ]; then
-    setxkbmap -device "${daskb_id}" -option altwin:swap_lalt_lwin
-    # numlockx &
+  setxkbmap -device "${daskb_id}" -option altwin:swap_lalt_lwin
+  numlockx &
 fi
 
 #if [ "${HHKB_ID}" ]; then
-#    setxkbmap -device "${hhkb_id}" -option altwin:swap_lalt_lwin
+#  setxkbmap -device "${hhkb_id}" -option altwin:swap_lalt_lwin
 #fi
 
 if [ "${macbook_id}" ]; then
-    setxkbmap -device "${macbook_id}" -option altwin:swap_lalt_lwin
+  setxkbmap -device "${macbook_id}" -option altwin:swap_lalt_lwin
 fi
 
 setxkbmap -option compose:ralt  # https://wiki.archlinux.org/index.php/Accents_on_US_keyboards
