@@ -1,0 +1,10 @@
+! Font for regular texts.
+! Font names are case-insensitive.
+! You can use a comma-separated list of fonts to set a fallback font.
+xscreensaver-auth.default.Dialog.bodyFont: InconsolataGo Nerd Font 20, times new roman 20, dejavu serif 20
+
+! Window background color. You can use color names.
+xscreensaver-auth.default.Dialog.background: #3F3F3F
+
+! Main text color. You can also use HEX color codes.
+xscreensaver-auth.default.Dialog.foreground: #6D9C7E
