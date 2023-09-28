@@ -111,6 +111,9 @@ alias s.='subl .'
 # tmuxinator
 alias mux='tmuxinator'
 
+# docker
+alias docker='podman'
+
 # python
 alias emailserver='python -m smtpd -n -c DebuggingServer localhost:1025'
 alias linecountpy='find . -name "*.py" -exec wc {} +'
