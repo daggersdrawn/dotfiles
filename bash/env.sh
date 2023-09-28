@@ -132,8 +132,10 @@ _set_browser() {
 $_isxrunning && _set_browser "$xbrowsers" || _set_browser "$browsers"
 
 # pass
-if ! $_islinux; then
-  source /usr/local/etc/bash_completion.d/pass
+if $_islinux; then
+  . /usr/share/bash-completion/bash_completion
+else
+  . /usr/local/etc/bash_completion.d/pass
 fi
 
 # homebrew
@@ -147,7 +149,7 @@ if $_islinux; then
 fi
 
 # tmux
-[[ -s $HOME/.tmuxinator/scripts/tmuxinator ]] && source $HOME/.tmuxinator/scripts/tmuxinator
+[[ -s $HOME/.tmuxinator/scripts/tmuxinator ]] && . $HOME/.tmuxinator/scripts/tmuxinator
 
 # git
 if [ -f $HOME/.git-completion.bash ]; then . $HOME/.git-completion.bash; fi
@@ -155,12 +157,15 @@ if [ -f $HOME/.git-completion.bash ]; then . $HOME/.git-completion.bash; fi
 # ruby rvm
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 
+# Haskell GHCup
+export PATH="$HOME/.cabal/bin:$HOME/.ghcup/bin:$PATH"
+
 # nvm
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
 
 # pyenv-virtualenvwrapper
-if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
+if which pyenv > /dev/null; then eval "$(pyenv init -)" && eval "$(pyenv init --path)"; fi
 if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
 export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 
