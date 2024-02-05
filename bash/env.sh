@@ -164,10 +164,8 @@ export PATH="$HOME/.cabal/bin:$HOME/.ghcup/bin:$PATH"
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
 
-# pyenv-virtualenvwrapper
-if which pyenv > /dev/null; then eval "$(pyenv init -)" && eval "$(pyenv init --path)"; fi
-if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
-export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+# rye
+export PATH="$HOME/.rye/shims:$PATH"
 
 # werkzeug debugger
 export WERKZEUG_DEBUG_PIN="off"
