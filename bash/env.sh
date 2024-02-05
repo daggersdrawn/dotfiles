@@ -117,7 +117,7 @@ _set_editor() {
 _set_editor
 
 # set $BROWSER
-xbrowsers="firefox:chromium"
+xbrowsers="librewolf:firefox"
 browsers="elinks:lynx:links"
 _set_browser() {
   local IFS=':' _browsers="$*" browser
