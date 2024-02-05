@@ -123,8 +123,8 @@ alias scheme="rlwrap -r -c -f ~/dotfiles/mit_scheme_bindings.txt scheme"
 
 # django
 alias rr='reset; python manage.py runserver_plus 0.0.0.0:8000'
-alias lssitepackages='ls -Nhal `python -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())"`'
-alias cdsitepackages='cd `python -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())"`'
+alias lssitepackages="ls -Nhal `python -c 'import sysconfig; print(sysconfig.get_path("platlib"))'`"
+alias cdsitepackages="cd `python -c 'import sysconfig; print(sysconfig.get_path("platlib"))'`"
 
 # postgres
 alias restart_pg='rm /usr/local/var/postgres/postmaster.pid pg_ctl -D /usr/local/var/postgres -l /usr/local/var/postgres/server.log start'
