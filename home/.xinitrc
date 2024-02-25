@@ -3,8 +3,16 @@
 # ~/.xinitrc
 #
 # Executed by startx (run your window manager from here)
-# thanks to anrxc: http://git.sysphere.org/dotfiles/tree/xinitrc
 
+# {{{ Source scripts in /etc/X11/xinit/xinitrc.d/
+#
+if [ -d /etc/X11/xinit/xinitrc.d ]; then
+  for f in /etc/X11/xinit/xinitrc.d/?*.sh; do
+    [ -x "$f" ] && . "$f"
+  done
+  unset f
+fi
+# }}}
 
 # {{{ Environment settings
 #
@@ -14,20 +22,12 @@ eserver="/tmp/emacs${UID}/server"
 tone="$HOME/dotfiles/tones/gudrun_gut-thelandKRZ.ogg"
 fonts_dir=/usr/share/fonts/local
 BACKGROUND="$HOME/dotfiles/backgrounds/taos_mesa-gorge_storm.jpg"
-export BACKGROUND
 # }}}
 
-
-# {{{ Source scripts in /etc/X11/xinit/xinitrc.d/
-#
-if [ -d /etc/X11/xinit/xinitrc.d ]; then
-  for f in /etc/X11/xinit/xinitrc.d/*; do
-    [ -x "$f" ] && . "$f"
-  done
-  unset f
-fi
-# }}}
-
+userresources=$HOME/.Xresources
+usermodmap=$HOME/.Xmodmap
+sysresources=/etc/X11/xinit/.Xresources
+sysmodmap=/etc/X11/xinit/.Xmodmap
 
 # {{{ Log settings
 #
@@ -38,58 +38,38 @@ if (cp /dev/null "${errorlog}"); then
 fi
 # }}}
 
-
-# {{{ Display settings
-# configure lcd displays, set color profiles and set a background image
-if disper -l | egrep 'eDP-1:'; then
-  $HOME/bin/lcd on
-else
-  $HOME/bin/lcd off
-fi
-redshift-gtk -l 39.9522222:-75.1641667 -t 6000:4500 -m vidmode &  # start redshift
-# }}}
-
-
 # {{{ Keyboard settings
-# the keymap is altered in ~/.Xmodmap and fn keys for audio in ~/.xbindkeysrc
-# The kbd script detects specific keyboards, unifies layouts and sets key options.
-if [ -f "$HOME/bin/kbd" ]; then
-    $HOME/bin/kbd
-fi
-[[ -f ~/.Xmodmap ]] && xmodmap ~/.Xmodmap
-xset b 0                                                                      # turn terminal bell off
+#
+# Compose combinations are defined in /usr/share/X11/locale/en_US.UTF-8/Compose
+setxkbmap -option compose:ralt    # https://wiki.archlinux.org/index.php/Accents_on_US_keyboards
+xset r rate 200 40                # Set keyboard delay and repeat rate
 # }}}
-
 
 # {{{ Pointer settings
-# investigate dotfiles/home/.xbindkeys for logitech mx mouse
 xsetroot -cursor_name left_ptr    # Pointer apperance: xcb does not support Xcursor yet
 xset m 30/10 4                    # Pointer control, acceleration and threshold
 unclutter &                       # Hide cursor when not in use
-xset +fp "${fonts_dir}"           # Use custom fonts on dzen toolbar
-xset fp rehash                    # Use custom fonts on dzen toolbar
 # }}}
-
 
 # {{{ Autostart settings
 #
-/usr/bin/xscreensaver -no-splash &                                            # start xscreensaver
-#urxvtcd -title term -q -f -o &                                                # start urxvt daemon
-urxvt -e screen -l -UDRS term &                                               # resume last screen session or start new
-[ -f ~/.pomodoro_session ] && rm ~/.pomodoro_session                          # clear pomodoro timer
-# Use keychain with x11-ssh-askpass, because GnuPG agent does not support ecdsa.
-#keychain $HOME/.ssh/id_ecdsa $HOME/.ssh/id_rsa
-#[ -f $HOME/.keychain/$HOSTNAME-sh ] && . $HOME/.keychain/$HOSTNAME-sh 2>/dev/null
-#[ -f $HOME/.keychain/$HOSTNAME-sh-gpg ] && . $HOME/.keychain/$HOSTNAME-sh-gpg 2>/dev/null
-blueman-applet &                                                              # start bluetooth
-gst123 -q "${tone}" &                                                         # play a startup sound
-udiskie &                                                                     # usb auto-mount
+xset b 0                                                        # Turn terminal bell off
+xscreensaver -no-splash &                                       # Start xscreensaver
+redshift-gtk -l 39.952583:-75.165222 -t 6000:4500 -m vidmode &  # Start redshift
+urxvtcd -title term -q -f -o &                                  # Start urxvt daemon
+blueman-applet &                                                # Start bluetooth
+udiskie &                                                       # Start USB auto-mounting
+dunst &                                                         # Start notification manager
+syncthingtray qt-widgets-gui --single-instance --wait &         # Start syncthingtray
+git-dude ~/.git-dude &                                          # Start git-dude
+urxvtc -e screen -l -UDRS term &                                # Resume last screen session or start new
+[ -f ~/.pomodoro_session ] && rm ~/.pomodoro_session            # Clear pomodoro timer
+gst123 -q "${tone}" &                                           # Play a startup sound
 # }}}
 
-
-# {{{ Start xmonad or leftwm
+# {{{ Start leftwm
 #
-cd $HOME  # make X always open new terms in ~/
-exec leftwm
-#xmonad &> ~/.xerrors
+xrdb -merge ~/.Xresources
+cd $HOME                          # Make X always open new terms in ~/
+exec leftwm                       # Start window manager
 # }}}

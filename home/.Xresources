@@ -1,10 +1,127 @@
-! Font for regular texts.
-! Font names are case-insensitive.
-! You can use a comma-separated list of fonts to set a fallback font.
-xscreensaver-auth.default.Dialog.bodyFont: InconsolataGo Nerd Font 20, times new roman 20, dejavu serif 20
+!!! Reload with: xrdb -merge ~/.Xresources
 
-! Window background color. You can use color names.
+!{{{ XFT
+Xft.dpi:        96
+Xft.antialias:  1
+Xft.rgba:       rgb
+Xft.hinting:    1
+Xft.autohint:   0
+Xft.hintstyle:  hintslight
+Xft.lcdfilter:  lcddefault
+!}}}
+
+!{{{ CURSOR THEME
+Xcursor.theme: Bibata-Modern-Classic
+Xcursor.size:  22
+!}}}
+
+!{{{ XSCREENSAVER
+xscreensaver-auth.default.Dialog.bodyFont: Inconsolata Nerd Font Mono 20
 xscreensaver-auth.default.Dialog.background: #3F3F3F
-
-! Main text color. You can also use HEX color codes.
 xscreensaver-auth.default.Dialog.foreground: #6D9C7E
+!}}}
+
+!{{{ URXVT
+!! General
+URxvt.termName: rxvt-unicode-256color
+URxvt.loginShell:            1
+URxvt.geometry:        400x400
+URxvt.scrollBar:             0
+URxvt.secondaryScroll:       1
+URxvt.saveLines:         65535
+URxvt.urgentOnBell:          0
+URxvt.visualBell:            0
+URxvt.bitdepth:             32
+URxvt.depth:                32
+!! Fonts
+!! `fc-list` to list available fonts
+URxvt.font:xft:Inconsolata Nerd Font Mono:pixelsize=20:bold
+URxvt.boldFont:xft:Inconsolata Nerd Font Mono:pixelsize=20:bold
+URxvt.italicfont:xft:Inconsolata Nerd Font Mono:pixelsize=20:italic
+URxvt.bolditalicFont:xft:Inconsolata Nerd Font Mono:pixelsize=20:bold:italic
+URxvt.letterSpace:           0
+URxvt.xftAntialias:          1
+!! Extensions
+URxvt.matcher.button:        1
+URxvt.perl-lib:        /usr/lib/urxvt/perl/
+URxvt.perl-ext-common: default,matcher,searchable-scrollback,clipboard,url-select,keyboard-select
+URxvt.urlLauncher:     librewolf
+URxvt.keysym.M-u:      perl:url-select:select_next
+URxvt.keysym.M-c:      perl:clipboard:copy
+URxvt.keysym.M-v:      perl:clipboard:paste
+URxvt.keysym.M-C-v:    perl:clipboard:paste_escaped
+URxvt.keysym.M-s:      perl:keyboard-select:search
+URxvt.keysym.M-Escape: perl:keyboard-select:activate
+!! Catch ugly URLs
+URxvt.cutchars:        '"'()*<>[]{|}
+!! Cursor
+URxvt.cursorColor:     #60b48a
+URxvt.cursorBlink:           0
+URxvt.cursorUnderline:       0
+!! URLs
+URxvt.colorUL:         #94bff3
+URxvt.underlineURLs:         1
+!! Zenburn color-scheme
+URxvt.background:  [96]#3f3f3f
+URxvt.foreground:      #dcdccc
+! black + red
+URxvt.color0:          #1E2320
+URxvt.color1:          #705050
+! green + yellow
+URxvt.color2:          #60b48a
+URxvt.color3:          #dfaf8f
+! blue + purple
+URxvt.color4:          #506070
+URxvt.color5:          #dc8cc3
+! cyan + white
+URxvt.color6:          #8cd0d3
+URxvt.color7:          #dcdccc
+! bright-black + bright-red
+URxvt.color8:          #709080
+URxvt.color9:          #dca3a3
+! bright-green + bright-yellow
+URxvt.color10:         #c3bf9f
+URxvt.color11:         #f0dfaf
+! bright-blue + bright-purple
+URxvt.color12:         #94bff3
+URxvt.color13:         #ec93d3
+! bright-cyan + bright-white
+URxvt.color14:         #93e0e3
+URxvt.color15:         #ffffff
+!}}}
+
+!{{{ XTERM
+xterm*internalBorder:        0
+xterm*loginShell:            1
+xterm*scrollBar:             0
+xterm*cursorBlink:           0
+xterm*geometry:          80x26
+xterm*saveLines:         65535
+xterm*dynamicColors:         1
+xterm*highlightSelection:    1
+! Appearance
+xterm*utf8:                  2
+xterm*eightBitInput:         1
+xterm*cursorColor:     #DCDCCC
+xterm*font:     xft:Inconsolata Nerd Font Mono:pixelsize=20:antialias=1:hinting=1
+xterm*boldFont: xft:Inconsolata Nerd Font Mono:pixelsize=20:bold:antialias=1:hinting=1
+! Zenburn
+xterm*background:      #3f3f3f
+xterm*foreground:      #dcdccc
+xterm*color0:          #1E2320
+xterm*color1:          #705050
+xterm*color2:          #60b48a
+xterm*color3:          #dfaf8f
+xterm*color4:          #506070
+xterm*color5:          #dc8cc3
+xterm*color6:          #8cd0d3
+xterm*color7:          #dcdccc
+xterm*color8:          #709080
+xterm*color9:          #dca3a3
+xterm*color10:         #c3bf9f
+xterm*color11:         #f0dfaf
+xterm*color12:         #94bff3
+xterm*color13:         #ec93d3
+xterm*color14:         #93e0e3
+xterm*color15:         #ffffff
+!}}}

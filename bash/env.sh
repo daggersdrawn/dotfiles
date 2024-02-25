@@ -12,24 +12,6 @@ if [ -d "/usr/local/sbin" ]; then PATH="/usr/local/sbin:$PATH"; fi
 # add user's private bin
 if [ -d "$HOME/bin" ]; then PATH="$HOME/bin:$PATH"; fi
 
-# add haskell's cabal bin
-if [ -d "$HOME/.cabal/bin" ]; then PATH="$HOME/.cabal/bin:$PATH"; fi
-
-# add pipsi's bin
-if [ -d "$HOME/.local/bin" ]; then PATH="$HOME/.local/bin:$PATH"; fi
-
-# add go's bin
-if [ -d "/usr/local/opt/go/libexec/bin" ]; then PATH="/usr/local/opt/go/libexec/bin:$PATH"; fi
-
-# add ec2's bin
-if [ -d "$HOME/.ec2/" ]; then
-  export EC2_HOME=$HOME/.ec2
-  export PATH=$PATH:$EC2_HOME/bin
-  export EC2_PRIVATE_KEY=`ls $EC2_HOME/pk-*.pem`
-  export EC2_CERT=`ls $EC2_HOME/cert-*.pem`
-  export JAVA_HOME=/usr
-fi
-
 if $_islinux; then
   # add perl's bin
   export PERL_LOCAL_LIB_ROOT="$HOME/perl5"
@@ -37,6 +19,8 @@ if $_islinux; then
   export PERL_MM_OPT="INSTALL_BASE=$HOME/perl5"
   export PERL5LIB="$HOME/perl5/lib/perl5/x86_64-linux-thread-multi:$HOME/perl5/lib/perl5"
   export PATH="$HOME/perl5/bin:$PATH"
+  # add bash completions
+  . /usr/share/bash-completion/bash_completion
 else
   # add tex's bin
   export PATH=/usr/texbin:$PATH
@@ -50,23 +34,16 @@ else
   export PATH="$HOME/.npm-packages/bin:$PATH"
   # add m-cli binary to path
   export PATH=$PATH:/usr/local/m-cli  # https://github.com/rgcr/m-cli
+  # add bash completions
+  . /usr/local/etc/bash_completion.d/pass
+  if [ -f `brew --prefix`/etc/bash_completion ]; then . `brew --prefix`/etc/bash_completion; fi
 fi
-
-# history save and reload after each command finishes
-unset HISTFILESIZE
-unset PROMPT_COMMAND
-export HISTSIZE=100000
-export HISTFILESIZE=100000
-export HISTTIMEFORMAT="%Y/%m/%d %H:%M "
-export HISTIGNORE="&:ls:ll:la:cd:exit:clear:history"
-export HISTCONTROL=ignoredups:erasedups:ignorespace
-export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
-shopt -s histappend
 
 # less paging
 export LESS="-QR"
 export PAGER=less
 export LS_OPTIONS="--color=auto"
+export LESSHISTFILE=-
 
 if ! $_islinux; then
   # no flow control outside of the dumb tty
@@ -82,18 +59,20 @@ if ! $_islinux; then
   AGENT_PID=$(ps axc | awk "{if (\$5==\"gpg-agent\") print \$1}")
   export GPG_AGENT_INFO="$HOME/.gnupg/S.gpg-agent:$AGENT_PID:1"
   export GPG_TTY=$(tty)
-  export SSH_AUTH_SOCK=~/.ssh/auth_sock
+  export SSH_AUTH_SOCK=$HOME/.ssh/auth_sock
   if ! fuser "$SSH_AUTH_SOCK" >/dev/null 2>/dev/null; then
       # Nothing has the socket open, it means the agent isn't running
-      ssh-agent -a "$SSH_AUTH_SOCK" -s >~/.ssh/agent-info
+      ssh-agent -a "$SSH_AUTH_SOCK" -s >$HOME/.ssh/agent-info
   fi
 fi
 
-# set dir colors
+# set dircolors: https://github.com/trapd00r/LS_COLORS
 if [[ -f "$HOME/dotfiles/bash/dircolors" ]] && [[ $(tput colors) == "256" ]]; then
-  # https://github.com/trapd00r/LS_COLORS
   eval $( dircolors -b $HOME/dotfiles/bash/dircolors )
 fi
+
+# git completion
+. $HOME/dotfiles/bash/git-completion.bash
 
 # set $EDITOR
 editors="emacsclient --nw:emacs --nw:zile:vim:vi"
@@ -131,44 +110,14 @@ _set_browser() {
 }
 $_isxrunning && _set_browser "$xbrowsers" || _set_browser "$browsers"
 
-# pass
-if $_islinux; then
-  . /usr/share/bash-completion/bash_completion
-else
-  . /usr/local/etc/bash_completion.d/pass
-fi
-
-# homebrew
-if ! $_islinux; then
-  if [ -f `brew --prefix`/etc/bash_completion ]; then . `brew --prefix`/etc/bash_completion; fi
-fi
-
-# dmenu
-if $_islinux; then
-  if _have dmenu; then . "$HOME/.dmenurc"; fi
-fi
-
 # tmux
 [[ -s $HOME/.tmuxinator/scripts/tmuxinator ]] && . $HOME/.tmuxinator/scripts/tmuxinator
 
-# git
-if [ -f $HOME/.git-completion.bash ]; then . $HOME/.git-completion.bash; fi
-
-# ruby rvm
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
-
-# Haskell GHCup
+# haskell+ghcup
 export PATH="$HOME/.cabal/bin:$HOME/.ghcup/bin:$PATH"
-
-# nvm
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
 
 # rye
 export PATH="$HOME/.rye/shims:$PATH"
 
 # werkzeug debugger
 export WERKZEUG_DEBUG_PIN="off"
-
-# set ip address
-[[ -f "$HOME/.myip" ]] && export MYIP=$(cat "$HOME/.myip")

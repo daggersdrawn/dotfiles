@@ -1,2 +1,0 @@
-#!/bin/bash
-echo "cd ~/www/$1/$1/" >> ~/.virtualenvs/$1/bin/postactivate

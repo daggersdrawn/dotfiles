@@ -5,8 +5,7 @@
 ## of merge tracking, pull, and status features. With no <branch>,
 ## write the currently tracked branch to standard output.
 ##
-## If you have git's bash-completion support enabled, add this:
-## complete -o default -o nospace -F _git_checkout git-track
+complete -o default -o nospace -F _git_checkout git-track
 set -e
 
 # bail out with message to stderr and exit status 1

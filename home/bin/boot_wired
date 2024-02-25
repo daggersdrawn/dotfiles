@@ -1,6 +1,0 @@
-#!/bin/bash
-bt_mouse_connect
-mnt_drobo
-#lcd_internal_toggle
-#lcd_internal_toggle
-#lcd_external_toggle

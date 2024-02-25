@@ -8,12 +8,9 @@
 # for ssh logins, install and configure the libpam-umask package.
 #umask 022
 
-# if running bash
+# If running bash, source `~.bashrc` if it exists.
 if [ -n "$BASH_VERSION" ]; then
-    # include .bashrc if it exists
-    if [ -f "$HOME/.bashrc" ]; then
-        . "$HOME/.bashrc"
-    fi
+  if [ -f "$HOME/.bashrc" ]; then
+      . "$HOME/.bashrc"
+  fi
 fi
-
-test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"

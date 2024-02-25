@@ -8,13 +8,13 @@
 
 errorout() { echo "error: $*" >&2; exit 1; }
 
-message() { 
+message() {
   cat << EOF
   usage: archive -x [ -t <target> ] [ -- ] <archive> ...
          archive [ -f ] [ -t <target> ] [ -- ] <directory> ...
 
     options:
-      
+
       -x, --extract     extract <archive>
       -f, --force       compress even if archive exists
       -t, --target      compress to or extract in <target>
@@ -108,7 +108,7 @@ parse_options() {
     esac
     shift
   done
-  
+
   # any args after --
   [[ -n "$*" ]] && args+=( "$@" )
 }

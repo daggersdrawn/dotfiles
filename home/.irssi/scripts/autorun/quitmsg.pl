@@ -1,1 +1,0 @@
-../quitmsg.pl

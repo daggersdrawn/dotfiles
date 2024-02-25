@@ -1,17 +1,22 @@
 [user]
     name = Thomas Schreiber
     email = rizumu@users.noreply.github.com
-
-[credential "https://github.com"]
-        helper =
-        helper = !/usr/bin/gh auth git-credential
-
-[credential "https://gist.github.com"]
-        helper =
-        helper = !/usr/bin/gh auth git-credential
+    signingkey = ~/.ssh/id_ed25519.pub
 
 [github]
     user = rizumu
+
+[gpg]
+    format = ssh
+
+[gpg "ssh"]
+    allowedSignersFile = ~/.ssh/allowed_signers
+
+[credential "https://github.com"]
+    helper = !/usr/bin/gh auth git-credential
+
+[credential "https://gist.github.com"]
+    helper = !/usr/bin/gh auth git-credential
 
 [core]
     editor = emacs --no-window-system --quick
@@ -19,57 +24,46 @@
     filemode = true
     logallrefupdates = true
     whitespace = space-before-tab, trailing-space
-	autocrlf = input
+    autocrlf = input
+    pager = delta
+
+[interactive]
+    diffFilter = delta --color-only
+    side-by-side = true
+    features = unobstrusive-line-numbers decorations
+
+[pager]
+    difftool = true
 
 [alias]
     ediff = difftool -t ediff
     wip = !git add -u && git commit -m ...
     wipc = !date >> WIP && git add WIP && git commit -m ...
-
-[help]
-    browser = open
-    autocorrect = 1
-
-[branch]
-    autosetupmerge = true
-
-[diff]
-    renames = true
-    mnemonicprefix = true
-
-[difftool "ediff"]
-    cmd = ~/bin/ediff \"$LOCAL\" \"$REMOTE\"
-
-[merge]
-    tool = p4merge
-    renamelimit = 10000
-
-[mergetool "p4merge"]
-    cmd = p4merge "$BASE" "$LOCAL" "$REMOTE" "$MERGED"
-    trustExitCode = false
-
-[status]
-    submodule = 1
-
-[push]
-    default = upstream
-
-[sendemail]
-    smtpserver = smtp.gmail.com
-    smtpserverport = 587
-    smtpencryption = tls
-    smtpuser = funkshun@gmail.com
-
-[apply]
-    whitespace = warn
+    stash = stash --all
+    pushfwl = push --force-with-lease
+    dft = difftool
+    dlog = "!f() { GIT_EXTERNAL_DIFF=difft git log -p --ext-diff $@; }; f"
 
 [color]
     ui = auto
 
-[color "diff"]
-    meta = blue bold
-    frag = magenta bold
-    old = red bold
+[column]
+    ui = auto
+
+[init]
+    defaultBranch = main
+
+[log]
+    date = iso
+
+[color "status"]
+    added = yellow
+    changed = green bold
+    untracked = blue bold
+
+[branch]
+    autosetupmerge = true
+    sort = --committerdate
 
 [color "branch"]
     current = yellow reverse
@@ -77,13 +71,67 @@
     remote = green bold
     plain = red bold
 
-[color "status"]
-    added = yellow
-    changed = green bold
-    untracked = blue bold
+[diff]
+    tool = difftastic
+    algorithm = histogram
+    renames = true
+    mnemonicprefix = true
+    colorMoved = default
 
-[heroku]
-	account = me
+[difftool]
+    prompt = false
 
-# [commit]
-# 	gpgsign = true
+[difftool "difftastic"]
+    cmd = difft "$LOCAL" "$REMOTE"
+
+[color "diff"]
+    meta = blue bold
+    frag = magenta bold
+    old = red bold
+
+[commit]
+    verbose = true
+    gpgsign = true
+
+[fetch]
+    writeCommitGraph = true
+    fsckobjects = true
+    prune = true
+    prunetags = true
+
+[pull]
+    rebase = true
+
+[push]
+    default = upstream
+	autosetupremote = true
+    followtags = true
+
+[merge]
+    tool = meld
+    renamelimit = 10000
+    conflictstyle = zdiff3
+
+[mergetool "meld"]
+    cmd = meld "$BASE" "$LOCAL" "$REMOTE" "$MERGED"
+    trustExitCode = false
+
+[rebase]
+    autostash = true
+    autosquash = true
+    updateRefs = true
+
+[transfer]
+    fsckobjects = true
+
+[receive]
+    fsckobjects = true
+
+[apply]
+    whitespace = warn
+
+[rerere]
+    enabled = true
+
+[dude]
+	icon = ~/.git-dude/github_32.png

@@ -1,2 +1,0 @@
-ACTION=="add", ATTRS{idVendor}=="04d9", ATTRS{idProduct}=="2013", RUN+="/home/rizumu/bin/kbd_udev", OWNER="rizumu"
-ACTION=="add", ATTRS{idVendor}=="0853", ATTRS{idProduct}=="0100", RUN+="/home/rizumu/bin/kbd_udev", OWNER="rizumu"

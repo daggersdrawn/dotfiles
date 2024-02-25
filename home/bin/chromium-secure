@@ -1,7 +1,0 @@
-#!/bin/bash
-
-function secure_chromium {
-    port=4711
-    chromium --proxy-server="socks://localhost:$port" &
-    exit
-}

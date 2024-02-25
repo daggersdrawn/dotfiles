@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# antigravtiy syncs configuration for projects, arch dotfiles, emacs, pass and xmonad.
+# antigravtiy syncs repos for projects, dotfiles, emacs, pass and leftwm.
 
 # usage: antigravity ACTION
 #
@@ -29,11 +29,10 @@ fi
 
 echo -e "\033[1mantigravity transmission initiating.\033[0m"
 
-echo -e "\narch " && cd ~/dotfiles/ && git $cmd
+echo -e "\ndotfiles " && cd ~/dotfiles/ && git $cmd
 echo -e "\nemacs " && cd ~/.emacs.d/ && git $cmd
 echo -e "\npass " && cd ~/.password-store/ && git $cmd
-echo -e "\nxmonad " && cd ~/.xmonad/ && git $cmd
-echo -e "\nbootmachine " && cd /srv/bootmachine/ && git $cmd
+echo -e "\nleftwm " && cd ~/.config/leftwm/ && git $cmd
 paths=( "/srv/webapps/" "$HOME/code/" )
 for path in "${paths[@]}"
 do

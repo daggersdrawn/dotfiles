@@ -1,9 +1,0 @@
-#!/bin/bash
-# A script that makes the Opera browser private
-
-export operapdir=opera-`cat /dev/urandom | tr -dc "a-zA-Z0-9" | fold -w 10 | head -n 1`
-umask 0077
-mkdir /tmp/$operapdir
-echo -e "[User prefs]\nTitle=Opera Private mode\nHas Shown KDE Shortcut Message=1\n\n[State]\nAccept License=1" > /tmp/$operapdir/opera6.ini
-opera -pd /tmp/$operapdir
-rm -r /tmp/$operapdir

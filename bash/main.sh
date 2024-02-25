@@ -9,7 +9,6 @@ shopt -s checkwinsize
 shopt -s extglob
 
 # dotfile conditionals
-_have() { which "$1" &>/dev/null; }  # is $1 installed?
 _islinux=false; [[ "$(uname -s)" =~ Linux|GNU|GNU/* ]] && _islinux=true
 _isarch=false; [[ -f /etc/arch-release ]] && _isarch=true
 _isxrunning=false; [[ -n "$DISPLAY" ]] && _isxrunning=true
@@ -17,15 +16,14 @@ _isroot=false; [[ $UID -eq 0 ]] && _isroot=true
 
 # bash configuration
 . "$HOME/dotfiles/bash/env.sh"
-. "$HOME/dotfiles/bash/config.sh"
 . "$HOME/dotfiles/bash/aliases.sh"
 . "$HOME/dotfiles/bash/git.sh"
 
-# setup starship
-eval "$(starship init bash)"
-
-# setup direnv
-#eval "$(direnv hook bash)"
-
 # private env vars
 if [ -f "$HOME/.private" ]; then . "$HOME/.private"; fi
+
+# https://starship.rs
+eval "$(starship init bash)"
+
+# https://atuin.sh
+eval "$(atuin init bash)"

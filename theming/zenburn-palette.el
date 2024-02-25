@@ -1,0 +1,13 @@
+#000d18  #040404  #0f0f0f  #101010  #121212  #161616  #181818  #1b1b1b
+#1f1f1f  #222222  #233323  #242424  #262626  #284f28  #2b2b2b  #2c2e2e
+#2c302d  #2e3330  #2f2f2f  #304a3d  #313633  #313c36  #33332f  #333333
+#343434  #353535  #353a37  #385f38  #3d3535  #3f3f3f  #3f4040  #404040
+#41363c  #424242  #434343  #434443  #444444  #464646  #484848  #4f4f4f
+#545a4f  #5b605e  #5d6262  #664040  #688060  #6c6c9c  #709080  #7cac7c
+#7f9f7f  #80d4aa  #82a282  #88b090  #8c8cbc  #8cd0d3  #8f8f8f  #8faf9f
+#93b3a3  #9ccc9c  #9ece9e  #9f9f9f  #9fafaf  #a0afa0  #bc6c4c  #bc6c9c
+#bc8cbc  #bca3a3  #c0bed1  #c3bf9f  #cbecd0  #cc9393  #ccccbc  #ccd990
+#ccdc90  #cfbfaf  #d0d0a0  #d0d0b8  #d2d39b  #dc8c6c  #dca3a3  #dccdcc
+#dcdccc  #dfaf8f  #dfcfaf  #dfdfbf  #dfdfdf  #dfe4cf  #e37170  #e3ceab
+#e89393  #ecbcbc  #efdcbc  #efef8f  #efefaf  #efefef  #f0dfaf  #f0efd0
+#f0f0b0  #f18c96  #f2f3bb  #f8f893  #ffcfaf  #ffd7a7  #ffffe0  #ffffff
