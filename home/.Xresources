@@ -44,7 +44,7 @@ URxvt.xftAntialias:          1
 !! Extensions
 URxvt.matcher.button:        1
 URxvt.perl-lib:        /usr/lib/urxvt/perl/
-URxvt.perl-ext-common: default,matcher,searchable-scrollback,clipboard,url-select,keyboard-select
+URxvt.perl-ext-common: default,matcher,searchable-scrollback,clipboard,url-select,keyboard-select,resize-font,-confirm-paste
 URxvt.urlLauncher:     librewolf
 URxvt.keysym.M-u:      perl:url-select:select_next
 URxvt.keysym.M-c:      perl:clipboard:copy
