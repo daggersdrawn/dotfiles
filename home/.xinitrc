@@ -16,25 +16,16 @@ fi
 
 # {{{ Environment settings
 #
-errorlog="$HOME/.xerrors"
-gnupglog="~/.gnupg/gpg-agent.info"
-eserver="/tmp/emacs${UID}/server"
-tone="$HOME/dotfiles/tones/gudrun_gut-thelandKRZ.ogg"
-fonts_dir=/usr/share/fonts/local
-BACKGROUND="$HOME/dotfiles/backgrounds/taos_mesa-gorge_storm.jpg"
+ERRORLOG=$HOME/.xerrors
+TONE=$HOME/dotfiles/tones/gudrun_gut-thelandKRZ.ogg
 # }}}
-
-userresources=$HOME/.Xresources
-usermodmap=$HOME/.Xmodmap
-sysresources=/etc/X11/xinit/.Xresources
-sysmodmap=/etc/X11/xinit/.Xmodmap
 
 # {{{ Log settings
 #
 # Always start X11 with a clean log file
-if (cp /dev/null "${errorlog}"); then
-  chmod 600 "${errorlog}"
-  exec >"${errorlog}" 2>&1
+if (cp /dev/null $ERRORLOG); then
+  chmod 600 $ERRORLOG
+  exec > $ERRORLOG 2>&1
 fi
 # }}}
 
@@ -46,6 +37,7 @@ xset r rate 200 40                # Set keyboard delay and repeat rate
 # }}}
 
 # {{{ Pointer settings
+#
 xsetroot -cursor_name left_ptr    # Pointer apperance: xcb does not support Xcursor yet
 xset m 30/10 4                    # Pointer control, acceleration and threshold
 unclutter &                       # Hide cursor when not in use
@@ -56,20 +48,17 @@ unclutter &                       # Hide cursor when not in use
 xset b 0                                                        # Turn terminal bell off
 xscreensaver -no-splash &                                       # Start xscreensaver
 redshift-gtk -l 39.952583:-75.165222 -t 6000:4500 -m vidmode &  # Start redshift
-urxvtcd -title term -q -f -o &                                  # Start urxvt daemon
 blueman-applet &                                                # Start bluetooth
 udiskie &                                                       # Start USB auto-mounting
 dunst &                                                         # Start notification manager
 syncthingtray qt-widgets-gui --single-instance --wait &         # Start syncthingtray
 git-dude ~/.git-dude &                                          # Start git-dude
-urxvtc -e screen -l -UDRS term &                                # Resume last screen session or start new
 [ -f ~/.pomodoro_session ] && rm ~/.pomodoro_session            # Clear pomodoro timer
-gst123 -q "${tone}" &                                           # Play a startup sound
+mpv --really-quiet $TONE &                                      # Play a startup sound
 # }}}
 
 # {{{ Start leftwm
 #
 xrdb -merge ~/.Xresources
-cd $HOME                          # Make X always open new terms in ~/
-exec leftwm                       # Start window manager
+exec leftwm
 # }}}
