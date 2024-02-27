@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # tell the shell to understand emacs editing commands
 set -o emacs
 

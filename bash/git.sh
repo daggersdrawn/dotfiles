@@ -1,3 +1,5 @@
+#!/bin/sh
+
 __define_git_completion () {
     eval "
     _git_$2_shortcut () {
@@ -13,8 +15,9 @@ __define_git_completion () {
 }
 
 __git_shortcut () {
-    alias $1="git $2 $3"
-    __git_complete $1 _git_$2 &>/dev/null
+    # shellcheck disable=SC2139
+    alias "$1"="git $2 $3"
+    __git_complete "$1" _git_"$2" > /dev/null 2>&1
 }
 
 __git_shortcut  ga    add
@@ -62,28 +65,28 @@ alias staged='diff --cached'
 alias unstaged='diff'
 alias changes='git log --name-status HEAD..'
 
-function gr() {
+gr() {
   git grep --full-name --files-with-matches "$1" | xargs sed -i -e "s/$1/$2/g"
 }  # git replace: find and replace in current directory of a git repo
 
-function git_current_branch() {
+git_current_branch() {
   git symbolic-ref HEAD 2> /dev/null | cut -b 12-
 }
 
-function gcpfalr {
-  git --git-dir=$1/.git format-patch -k -1 --stdout $2| git am -3 -k
+gcpfalr() {
+  git --git-dir="$1"/.git format-patch -k -1 --stdout "$2"| git am -3 -k
 }  # git cherry pick from another local repo. $ gcpfalr ../path/to/repo SHA
 
-function gbt() {
-  git branch --track $2 $1/$2
-  git checkout $2
+gbt() {
+  git branch --track "$2" "$1"/"$2"
+  git checkout "$2"
 }  # Setup a tracking branch from [remote] [branch_name]
 
-function grrb() {
-  git checkout $1 &&
-  git branch $2 origin/$1 &&
-  git push origin $2 &&
-  git push origin :$1 &&
+grrb() {
+  git checkout "$1" &&
+  git branch "$2" origin/"$1" &&
+  git push origin "$2" &&
+  git push origin :"$1" &&
   git checkout dev &&
-  git branch -D $1
+  git branch -D "$1"
 }  # git remove remote branch

@@ -1,8 +1,11 @@
-# dotfiles editing
+#!/bin/sh
+
+# dotfiles
 alias edot='ec $HOME/dotfiles/'
 alias reload='. $HOME/.bash_profile'
 
 # system
+# shellcheck disable=SC2154
 if $_islinux; then
   alias x='startx'
   alias sex='startx'
@@ -16,11 +19,11 @@ if $_islinux; then
   alias suspend='systemctl suspend'
   alias hibernate='systemctl hibernate'
 else
-  alias o="open ."
-  alias wolf="open -a librewolf"
+  alias o='open .'
+  alias wolf='open -a librewolf'
 fi
 alias path='echo -e "${PATH//:/\n}"'
-alias c='clear;echo "Currently logged in on $(tty), as $(whoami) in directory $(pwd)."' # shortcut to clear your terminal
+alias c='clear; echo "Currently logged in on $(tty), as $(whoami) in directory $(pwd)."' # shortcut to clear your terminal
 alias myip='curl --silent http://tnx.nl/ip'
 alias ping='ping -c 5'  # Pings with 5 packets, not unlimited.
 alias mtr='sudo mtr --show-ips'  # traceroute + ping
@@ -29,6 +32,7 @@ alias units='units -t'  # terse mode
 alias htop='sudo htop'
 alias df='df -h'  # Disk free, in gigabytes, not bytes
 alias du='du -h -c'  # Calculate total disk usage for a folder
+# shellcheck disable=SC2139
 alias ps?='ps ax | grep'
 
 # files
@@ -51,35 +55,35 @@ alias delemacs='find . \( -name "\#*\#" -o -name ".\#*" \) -exec rm -v {} \;'
 alias delinit='find . -name \__init__.py  -exec rm -v {} \;'
 
 # emacs
-function e {
-  if [ '$1' == '' ]; then
+e() {
+  if [ "$1" = "" ]; then
     emacsclient --tty  .
   else
-    emacsclient --tty $1
+    emacsclient --tty "$1"
   fi
 }  # open, in current shell, using the emacs daemon.
 
-function et {
-  if [ '$1' == '' ]; then
+et() {
+  if [ "$1" = "" ]; then
     emacs --no-window-system --quick .
   else
-    emacs --no-window-system --quick $1
+    emacs --no-window-system --quick "$1"
   fi
 }  # open quickly, in the current shell, using no config or daemon.
 
-function ec {
-  if [ '$1' == '' ]; then
+ec() {
+  if [ "$1" = "" ]; then
     emacsclient --no-wait .
   else
-    emacsclient --no-wait $1
+    emacsclient --no-wait "$1"
   fi
 }  # open, in the current frame, using the emacs daemon. TODO: open a new frame if not already open
 
-function en {
-  if [ '$1' == '' ]; then
+en() {
+  if [ "$1" = "" ]; then
     emacsclient --no-wait --create-frame .
   else
-    emacsclient --no-wait --create-frame $1
+    emacsclient --no-wait --create-frame "$1"
   fi
 }  # open, in a new frame, using the emacs dameon.
 
@@ -94,14 +98,14 @@ alias mux='tmuxinator'
 
 # python
 alias linecountpy='find . -name "*.py" -exec wc {} +'
-alias lssitepackages="ls -Nhal `python -c 'import sysconfig; print(sysconfig.get_path("platlib"))'`"
-alias cdsitepackages="cd `python -c 'import sysconfig; print(sysconfig.get_path("platlib"))'`"
+alias lssitepackages='ls -Nhal $(python -c "import sysconfig; print(sysconfig.get_path(\"platlib\"))")'
+alias cdsitepackages='cd $(python -c "import sysconfig; print(sysconfig.get_path(\"platlib\"))")'
 
 # django
 alias rr='reset; python manage.py runserver_plus 0.0.0.0:8000'
 
 # scheme
-alias scheme="rlwrap -r -c -f ~/dotfiles/mit_scheme_bindings.txt scheme"
+alias scheme='rlwrap -r -c -f ~/dotfiles/mit_scheme_bindings.txt scheme'
 
 # docker
 alias docker='podman'
