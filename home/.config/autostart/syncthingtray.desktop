@@ -1,0 +1,7 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Syncthingtray
+Exec=syncthingtray qt-widgets-gui --single-instance --wait
+Terminal=false
+StartupNotify=false

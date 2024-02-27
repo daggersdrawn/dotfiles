@@ -1,0 +1,12 @@
+"amixer -c 0 set Master 1dB-"
+  XF86AudioLowerVolume
+"amixer -c 0 set Master 1dB+"
+  XF86AudioRaiseVolume
+"amixer -c 0 set Master 1+ toggle"
+  XF86AudioMute
+"amixer -c 0 set Capture toggle"
+  XF86AudioMicMute
+"brillo -U 15"
+  XF86MonBrightnessDown
+"brillo -A 15"
+  XF86MonBrightnessUp

@@ -1,0 +1,7 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Unclutter
+Exec=unclutter
+Terminal=false
+StartupNotify=false

@@ -1,0 +1,7 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=StartxTone
+Exec=mpv --really-quiet "$HOME/dotfiles/tones/startx.ogg"
+Terminal=false
+StartupNotify=false

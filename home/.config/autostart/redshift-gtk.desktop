@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Redshift
+Exec=redshift-gtk -l 39.952583:-75.165222 -t 6000:4500 -m vidmode
+StartupNotify=true
+Icon=redshift
+Terminal=false
+Categories=Utility;

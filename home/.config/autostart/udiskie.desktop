@@ -1,0 +1,7 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Udiskie
+Exec=udiskie
+Terminal=false
+StartupNotify=false

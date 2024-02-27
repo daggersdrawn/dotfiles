@@ -1,0 +1,7 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Librewolf
+Exec=librewolf
+Terminal=false
+StartupNotify=false

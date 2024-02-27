@@ -1,0 +1,7 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Emacs
+Exec=emacs
+Terminal=false
+StartupNotify=true
