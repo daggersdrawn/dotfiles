@@ -21,10 +21,10 @@ ble-face filename_@=none
 bleopt filename_ls_colors="$LS_COLORS"
 
 # Keybindings
-ble-bind -f 'M-C-?' kill-backward-cword
-ble-bind -f 'M-DEL' kill-backward-cword
-ble-bind -f 'M-C-h' kill-backward-cword
-ble-bind -f 'M-BS' kill-backward-cword
+ble-bind -f 'M-C-?' kill-backward-fword
+ble-bind -f 'M-DEL' kill-backward-fword
+ble-bind -f 'M-C-h' kill-backward-fword
+ble-bind -f 'M-BS' kill-backward-fword
 
 function blerc/define-sabbrev-date {
   ble-sabbrev -m '\date'='ble/util/assign COMPREPLY "date +%F"'
