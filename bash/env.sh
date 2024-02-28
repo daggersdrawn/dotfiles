@@ -42,11 +42,12 @@ else
   if [ -f "$(brew --prefix)"/etc/bash_completion ]; then . "$(brew --prefix)"/etc/bash_completion; fi
 fi
 
-# less paging
+# less
 export LESS="-QR"
 export PAGER=less
 export LS_OPTIONS="--color=auto"
 export LESSHISTFILE=-
+export LESSOPEN="| src-hilite-lesspipe.sh %s"
 
 if ! $_islinux; then
   # no flow control outside of the dumb tty
