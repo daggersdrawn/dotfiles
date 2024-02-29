@@ -62,6 +62,9 @@ alias delpyc='find . \( -name "*.pyc" -o -name "*.pyo" \) -exec rm -v {} \;'
 alias delemacs='find . \( -name "\#*\#" -o -name ".\#*" \) -exec rm -v {} \;'
 alias delinit='find . -name \__init__.py  -exec rm -v {} \;'
 
+# colorized cat
+alias dog='/usr/bin/bat -pp'
+
 # emacs
 e() {
   if [ "$1" = "" ]; then
