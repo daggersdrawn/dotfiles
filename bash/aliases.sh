@@ -5,7 +5,6 @@ alias edot='ec $HOME/dotfiles/'
 alias reload='. $HOME/.bash_profile'
 
 # system
-# shellcheck disable=SC2154
 if $_islinux; then
   alias x='startx'
   alias sex='startx'

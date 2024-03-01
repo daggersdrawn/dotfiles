@@ -14,7 +14,41 @@ if [ -d "/usr/local/sbin" ]; then PATH="/usr/local/sbin:$PATH"; fi
 # add user's private bin
 if [ -d "$HOME/bin" ]; then PATH="$HOME/bin:$PATH"; fi
 
-# shellcheck disable=SC2154
+# key based authentication
+if $_islinux; then
+  # dmenu askpass
+  export SUDO_ASKPASS="$HOME/bin/dpass"
+  # SSH Agent
+  ssh_env="$HOME/.ssh/agent-env"
+  askpass="$HOME/bin/ssh-askpass"
+  if pgrep ssh-agent >/dev/null; then
+    if [[ -f $ssh_env ]]; then
+      . "$ssh_env"
+    else
+      echo "ssh-agent running but $ssh_env not found" >&2
+    fi
+  else
+    ssh-agent | grep -Fv echo > "$ssh_env"
+    . "$ssh_env"
+    # Use pass(1), via wrapper script, to unlock SSH key
+    DISPLAY=99 SSH_ASKPASS="$askpass" ssh-add </dev/null
+  fi
+  GPG_TTY=$(tty)
+  export GPG_TTY
+  gpg-connect-agent updatestartuptty /bye >/dev/null
+else
+  # no flow control outside of the dumb tty
+  stty -ixon -ixoff
+  # replace apple openssh with homebrew openssh
+  eval "$(ssh-agent)"
+  function cleanup {
+    echo "Killing SSH-Agent"
+    kill -9 "$SSH_AGENT_PID"
+  }
+  trap cleanup EXIT
+fi
+
+# os specific config
 if $_islinux; then
   # add perl's bin
   export PERL_LOCAL_LIB_ROOT="$HOME/perl5"
@@ -48,28 +82,6 @@ export PAGER=less
 export LS_OPTIONS="--color=auto"
 export LESSHISTFILE=-
 export LESSOPEN="| src-hilite-lesspipe.sh %s"
-
-if ! $_islinux; then
-  # no flow control outside of the dumb tty
-  stty -ixon -ixoff
-  # replace apple openssh with homebrew openssh
-  eval "$(ssh-agent)"
-  function cleanup {
-    echo "Killing SSH-Agent"
-    kill -9 "$SSH_AGENT_PID"
-  }
-  trap cleanup EXIT
-  # gpgtools gpg-agent
-  AGENT_PID=$(ps axc | awk "{if (\$5==\"gpg-agent\") print \$1}")
-  export GPG_AGENT_INFO="$HOME/.gnupg/S.gpg-agent:$AGENT_PID:1"
-  GPG_TTY=$(tty)
-  export GPG_TTY
-  export SSH_AUTH_SOCK=$HOME/.ssh/auth_sock
-  if ! fuser "$SSH_AUTH_SOCK" >/dev/null 2>/dev/null; then
-      # Nothing has the socket open, it means the agent isn't running
-      ssh-agent -a "$SSH_AUTH_SOCK" -s > "$HOME/.ssh/agent-info"
-  fi
-fi
 
 # set dircolors: https://github.com/trapd00r/LS_COLORS
 if [[ -f "$HOME/dotfiles/bash/dircolors" ]] && [[ $(tput colors) == "256" ]]; then
@@ -113,7 +125,6 @@ _set_browser() {
     fi
   done
 }
-# shellcheck disable=SC2154
 if $_isxrunning; then _set_browser "$xbrowsers"; else _set_browser "$browsers"; fi
 
 # tmux
