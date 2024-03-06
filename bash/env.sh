@@ -91,6 +91,9 @@ fi
 # git completion
 . "$HOME/dotfiles/bash/git-completion.bash"
 
+# direnv
+eval "$(direnv hook bash)"
+
 # set $EDITOR
 editors="emacsclient --nw:emacs --nw:zile:vim:vi"
 _set_editor() {
@@ -138,3 +141,6 @@ export PATH="$HOME/.rye/shims:$PATH"
 
 # werkzeug debugger
 export WERKZEUG_DEBUG_PIN="off"
+
+# cargo
+export PATH="$HOME/.cargo/bin:$PATH"
