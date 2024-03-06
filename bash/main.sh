@@ -16,6 +16,12 @@ _isarch=false; [[ -f /etc/arch-release ]] && _isarch=true
 _isxrunning=false; [[ -n "$DISPLAY" ]] && _isxrunning=true
 _isroot=false; [[ $UID -eq 0 ]] && _isroot=true
 
+# https://starship.rs
+eval "$(starship init bash)"
+
+# https://atuin.sh
+eval "$(atuin init bash)"
+
 # bash configuration
 . "$HOME/dotfiles/bash/env.sh"
 . "$HOME/dotfiles/bash/aliases.sh"
@@ -23,9 +29,3 @@ _isroot=false; [[ $UID -eq 0 ]] && _isroot=true
 
 # private env vars
 if [ -f "$HOME/.private" ]; then . "$HOME/.private"; fi
-
-# https://starship.rs
-eval "$(starship init bash)"
-
-# https://atuin.sh
-eval "$(atuin init bash)"
