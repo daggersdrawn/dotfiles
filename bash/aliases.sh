@@ -18,7 +18,6 @@ if $_islinux; then
   alias suspend='systemctl suspend'
   alias hibernate='systemctl hibernate'
   alias yu='yay -Syyu --noconfirm && xset r rate 200 40'
-  alias yo='yay -Qu'
   alias ys='yay -Ss'
   alias yd='yay -G'
   alias yp='yay -Gp'
