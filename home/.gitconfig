@@ -63,7 +63,7 @@
 
 [branch]
     autosetupmerge = true
-    sort = --committerdate
+    sort = committerdate
 
 [color "branch"]
     current = yellow reverse
