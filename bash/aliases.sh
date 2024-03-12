@@ -112,6 +112,9 @@ alias linecountpy='find . -name "*.py" -exec wc {} +'
 alias lssitepackages='ls -Nhal $(python -c "import sysconfig; print(sysconfig.get_path(\"platlib\"))")'
 alias cdsitepackages='cd $(python -c "import sysconfig; print(sysconfig.get_path(\"platlib\"))")'
 
+# ansible
+alias ap='ansible-playbook main.yml'
+
 # django
 alias rr='reset; python manage.py runserver_plus 0.0.0.0:8000'
 
