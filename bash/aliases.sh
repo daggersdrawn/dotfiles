@@ -24,6 +24,7 @@ if $_islinux; then
   alias yc='aur-talk -lbi -w 80'
   alias yi='yay -S --noconfirm'
   alias yr='yay -Rns --noconfirm'
+  alias system='fastfetch'
 else
   alias o='open .'
   alias wolf='open -a librewolf'
