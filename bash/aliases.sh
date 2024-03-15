@@ -134,3 +134,10 @@ alias lynx='lynx -force_html -width=$COLUMNS'
 kagi() {
   librewolf "https://kagi.com/search?q=$1"
 }  # kagi "warrior pup, descendent of wolf 'finnegan'"
+
+# ncmpcpp
+alias n='ncmpcpp'
+
+# mpc
+alias c='mpc clear'
+alias t='mpc toggle'
