@@ -46,6 +46,9 @@ else
     kill -9 "$SSH_AGENT_PID"
   }
   trap cleanup EXIT
+  if ! pgrep gpg-agent >/dev/null; then
+    gpg-agent --pinentry-program=/usr/local/bin/pinentry-curses --daemon
+  fi
 fi
 
 # os specific config
