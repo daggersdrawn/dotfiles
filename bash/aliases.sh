@@ -22,7 +22,8 @@ if $_islinux; then
   alias yd='yay -G'
   alias yp='yay -Gp'
   alias yc='aur-talk -lbi -w 80'
-  alias yi='yay -S --noconfirm'
+  alias ycc='yay -Scc'
+  alias yi='yay -Sy --noconfirm'
   alias yr='yay -Rns --noconfirm'
   alias system='fastfetch'
 else
