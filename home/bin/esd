@@ -2,7 +2,7 @@
 
 # If not running, start the GNU Emacs daemon and open a new client.
 if [ ! $(pgrep --full emacs.*daemon) ]; then
-  emacs -u $USER --daemon --eval '(server-start)'
+  emacs -u "$USER" --daemon --eval '(server-start)'
   notify-send 'like the noonday sun does the stars, emacs makes everything else vanish'
-  emacsclient --no-wait --create-frame $HOME
+  emacsclient --no-wait --create-frame "$HOME"
 fi
