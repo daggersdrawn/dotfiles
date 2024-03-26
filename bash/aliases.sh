@@ -74,7 +74,7 @@ e() {
   fi
 }  # open, in current shell, using the emacs daemon.
 
-et() {
+es() {
   if [ "$1" = "" ]; then
     emacs --no-window-system --quick .
   else
@@ -128,7 +128,12 @@ alias docker='podman'
 alias addall='mpc --no-status clear && mpc listall | mpc --no-status add && mpc play'
 alias n='mpc next'
 alias p='mpc prev'
+alias c='mpc clear'
+alias t='mpc toggle'
 alias tog='mpc toggle'
+
+# ncmpcpp
+alias n='ncmpcpp'
 
 # lynx
 alias lynx='lynx -force_html -width=$COLUMNS'
@@ -138,9 +143,11 @@ kagi() {
   librewolf "https://kagi.com/search?q=$1"
 }  # kagi "warrior pup, descendent of wolf 'finnegan'"
 
-# ncmpcpp
-alias n='ncmpcpp'
+# exif
+alias mog='magick mogrify -strip'
+alias et='exiftool'
 
-# mpc
-alias c='mpc clear'
-alias t='mpc toggle'
+# yt-dlp
+alias ytf='yt-dlp -x --audio-format flac'
+alias ytm='yt-dlp -f "best[ext=mp4]"'
+>>>>>>> 7ed0980 (Exif cleaning.)
