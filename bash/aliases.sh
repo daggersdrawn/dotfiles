@@ -42,6 +42,8 @@ alias df='df -h'  # Disk free, in gigabytes, not bytes
 alias du='du -h -c'  # Calculate total disk usage for a folder
 # shellcheck disable=SC2139
 alias ps?='ps ax | grep'
+alias scanports='nmap -sT -p-'
+alias scanudpports='sudo nmap -sU -p-'
 
 # files
 alias ..='cd ..'
