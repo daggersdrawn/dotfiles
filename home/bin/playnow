@@ -12,7 +12,7 @@
 temp='tmp'
 
 # assumes well-formed value in /etc/mpd.conf
-read mdir < <(awk -F '"' -v home="$HOME" '/^music_directory/ { gsub(/~/, home); print $2 }' $HOME/.mpd/mpd.conf)
+read mdir < <(awk -F '"' -v home="$HOME" '/^music_directory/ { gsub(/~/, home); print $2 }' $HOME/.config/mpd/mpd.conf)
 read -r n < <(mpc playlist | wc -l)
 
 # don't clear temp if files are in playlist now
