@@ -150,4 +150,3 @@ alias et='exiftool'
 # yt-dlp
 alias ytf='yt-dlp -x --audio-format flac'
 alias ytm='yt-dlp -f "best[ext=mp4]"'
->>>>>>> 7ed0980 (Exif cleaning.)
