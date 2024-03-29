@@ -147,9 +147,12 @@ kagi() {
 }  # kagi "warrior pup, descendent of wolf 'finnegan'"
 
 # exif
-alias mog='magick mogrify -strip'
-alias et='exiftool'
+alias et='exiftool'  # view metadata
+alias mog='magick mogrify -strip'  # strip img metadata
 
 # yt-dlp
-alias ytf='yt-dlp -x --audio-format flac'
-alias ytm='yt-dlp -f "best[ext=mp4]"'
+alias yts='yt-dlp -x --audio-format flac'
+ytdl() {
+    yt-dlp -f best "$1"
+    ffmpeg -i "$1" -c:v libvpx-vp9 -map_metadata -1 -crf 30 -b:v 0 -b:a 128k -c:a libopus "${1%.*}".webm
+}  # yt-dlp + strip exif + convert to webm
