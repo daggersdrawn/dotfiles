@@ -1,0 +1,11 @@
+[[device]]
+device = "/dev/input/by-path/pci-0000:00:1f.4-event-mouse"
+gestures = [
+
+    # Navigate next
+    { type = "swipe", direction = "right", fingers = 2, execute = "xdotool key alt+Right" },
+
+    # Navigate previous
+    { type = "swipe", direction = "left", fingers = 2, execute = "xdotool key alt+Left" },
+
+]
