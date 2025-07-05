@@ -54,7 +54,8 @@ alias l='ls -NAF'
 alias la='ls -NaliF'
 alias ls='ls -Nh --group-directories-first --color=auto'
 alias ll='ls -NlFh'
-alias agh='ag --hidden'
+alias rg='rg --smart-case'
+alias rgh='rg --smart-case --hidden'
 alias grep='GREP_COLORS="mt=1;33;40" LANG=C grep --color=auto'
 alias egrep='egrep --color=auto'  # Always highlight egrep search term
 alias diff='LC_ALL=C TZ=GMT0 colordiff -Naur'  # normalise diffs for distribution and use color
