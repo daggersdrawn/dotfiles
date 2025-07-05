@@ -86,10 +86,8 @@ export LS_OPTIONS="--color=auto"
 export LESSHISTFILE=-
 export LESSOPEN="| src-hilite-lesspipe.sh %s"
 
-# set dircolors: https://github.com/trapd00r/LS_COLORS
-if [[ -f "$HOME/dotfiles/bash/dircolors" ]] && [[ $(tput colors) == "256" ]]; then
-  eval "$(dircolors -b "$HOME/dotfiles/bash/dircolors")"
-fi
+# LS_COLORS https://github.com/trapd00r/LS_COLORS
+. "$HOME/dotfiles/bash/lscolors.sh"
 
 # git completion
 . "$HOME/dotfiles/bash/git-completion.bash"
